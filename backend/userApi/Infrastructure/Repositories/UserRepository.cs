@@ -14,4 +14,13 @@ public class UserRepository : IUserRepository
     }
 
     public User? GetById(int id) => _context.Users.Find(id);
+
+    // Criando método como array function
+    public List<User>? ListAll() => _context.Users?.ToList() ?? new List<User>();
+    
+    // Criando método de forma tradicional
+    // public List<User>? ListAll()
+    // {
+    //     return _context.Users?.ToList() ?? new List<User>();
+    // }
 }

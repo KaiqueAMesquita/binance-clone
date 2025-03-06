@@ -24,4 +24,11 @@ public class UserController : ControllerBase
         var user = _userService.GetUserDetails(id);
         return user != null ? Ok(user) : NotFound();
     }
+
+    [HttpGet]
+    public IActionResult GetAllUsers()
+    {
+        var users = _userService.GetAllUsers();
+        return Ok(users);
+    }
 }
