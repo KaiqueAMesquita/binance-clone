@@ -32,4 +32,13 @@ public class UserService : IUserService
 
         return userDTOs.ToArray();
     }
+    //update
+    public UserDTO UpdateUser(UserDTO userDto)
+    {
+        var user = new User { Name = userDto.Name, Email = userDto.Email };
+        _userRepository.Update(user);
+        return userDto;
+    }
+
+    
 }

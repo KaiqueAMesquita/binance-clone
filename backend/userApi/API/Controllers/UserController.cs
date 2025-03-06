@@ -31,4 +31,17 @@ public class UserController : ControllerBase
         var users = _userService.GetAllUsers();
         return Ok(users);
     }
+
+    [HttpPut("update/{id}")]
+    public IActionResult UpdateUser(int id, UserDTO userDTO){
+        if(id != userDTO.Id){
+            return BadRequest();
+        }
+        var user = _userService.UpdateUser(userDTO);
+        return Ok(user);
+    
+    }
+
+
+
 }
