@@ -32,12 +32,16 @@ public class UserController : ControllerBase
         return Ok(users);
     }
 
-    [HttpPut("update/{id}")]
+    [HttpPut("{id}")]
     public IActionResult UpdateUser(int id, UserDTO userDTO){
-        if(id != userDTO.Id){
+        if(id != userDTO.Id ){
             return BadRequest();
         }
-        var user = _userService.UpdateUser(userDTO);
+        
+        var user = _userService.UpdateUser(id, userDTO);
+        if(user == null){
+            return NotFound();
+        }
         return Ok(user);
     }
 
