@@ -17,6 +17,13 @@ public class UserRepository : IUserRepository
 
     // Criando método como array function
     public List<User>? ListAll() => _context.Users?.ToList() ?? new List<User>();
+
+
+     public void Update(User user)
+    {
+        _context.Users.Update(user);
+        _context.SaveChanges();
+    }
     
     // Criando método de forma tradicional
     // public List<User>? ListAll()

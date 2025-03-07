@@ -32,6 +32,15 @@ public class UserController : ControllerBase
         return Ok(users);
     }
 
+    [HttpPut("update/{id}")]
+    public IActionResult UpdateUser(int id, UserDTO userDTO){
+        if(id != userDTO.Id){
+            return BadRequest();
+        }
+        var user = _userService.UpdateUser(userDTO);
+        return Ok(user);
+    }
+
     [HttpDelete("{id}")]
     public IActionResult DeleteUser(int id)
     {
