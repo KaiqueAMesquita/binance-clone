@@ -8,13 +8,13 @@ builder.Services.AddEndpointsApiExplorer();builder.Services.AddSwaggerGen(option
 {
     options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
     {
-        Title = "User API",
+        Title = "API do grupo DKLLM",
         Version = "v1",
         Description = "API para gerenciamento de usuários",
         Contact = new Microsoft.OpenApi.Models.OpenApiContact
         {
-            Name = "Andre Souza",
-            Email = "andre.souza99@fatec.sp.gov.br"
+            Name = "DKLLM",
+            Email = "emailfalso@gmail.com.br"
         }
     });
 });

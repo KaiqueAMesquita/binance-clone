@@ -31,4 +31,15 @@ public class UserController : ControllerBase
         var users = _userService.GetAllUsers();
         return Ok(users);
     }
+
+    [HttpDelete("{id}")]
+    public IActionResult DeleteUser(int id)
+    {
+        try{
+            _userService.DeleteUser(id);
+            return Ok();
+        }catch(Exception){
+            return BadRequest();
+        }
+    }
 }

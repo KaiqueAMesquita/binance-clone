@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http.HttpResults;
+
 public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
@@ -31,5 +33,11 @@ public class UserService : IUserService
         }
 
         return userDTOs.ToArray();
+    }
+
+    public void DeleteUser(int id)
+    {
+        var user = _userRepository.GetById(id);
+        _userRepository.Delete(user);
     }
 }
