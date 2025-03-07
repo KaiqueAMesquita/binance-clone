@@ -23,4 +23,10 @@ public class UserRepository : IUserRepository
     // {
     //     return _context.Users?.ToList() ?? new List<User>();
     // }
+
+    public void Delete(User user)
+    {
+        _context.Users.Remove(user);
+        _context.SaveChanges();
+    }
 }
