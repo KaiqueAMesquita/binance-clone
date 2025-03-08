@@ -35,16 +35,23 @@ public class UserService : IUserService
         return userDTOs.ToArray();
     }
     //update
-    public UserDTO UpdateUser(int id, UserDTO userDto)
+     public UserDTO UpdateUser(int id, UserDTO userDto)
     {
 
         var user = _userRepository.GetById(id);
         if(user == null){
             return null;
         }
-        user = new User { Name = userDto.Name, Email = userDto.Email };
+       user.Name = userDto.Name;
+       user.Email = userDto.Email;
         _userRepository.Update(user);
-        return userDto;
+
+        return new UserDTO
+     {
+        Id = user.Id,
+        Name = user.Name,
+        Email = user.Email
+    };
     }
 
     public void DeleteUser(int id)
