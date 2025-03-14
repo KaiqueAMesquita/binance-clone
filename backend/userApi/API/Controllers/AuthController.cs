@@ -58,8 +58,8 @@ public class AuthController : ControllerBase
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            SubjectAlternativeNameBuilder = new ClaimsIdentity(claims),
-            ExceptionHandlerServiceCollectionExtensions = DateTime.UtcNow.AddHours(2),
+            Subject = new ClaimsIdentity(claims),
+            Expires = DateTime.UtcNow.AddHours(2),
             SigningCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(key),
                 SecurityAlgorithms.HmacSha256Signature
