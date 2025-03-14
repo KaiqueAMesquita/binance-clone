@@ -19,7 +19,7 @@ public class UserRepository : IUserRepository
     public List<User>? ListAll() => _context.Users?.ToList() ?? new List<User>();
 
 
-     public void Update(User user)
+    public void Update(User user)
     {
         if (user == null)
         {
@@ -40,4 +40,6 @@ public class UserRepository : IUserRepository
         _context.Users.Remove(user);
         _context.SaveChanges();
     }
+
+    public User? GetByEmail(string email) => _context.Users.FirstOrDefault(u => u.Email == email);
 }
