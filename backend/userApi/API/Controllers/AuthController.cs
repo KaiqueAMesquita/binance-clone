@@ -37,6 +37,7 @@ public class AuthController : ControllerBase
     public IActionResult GetProfile()
     {
         var email = User.Identity.Name;
+        Console.Write(email);
         return Ok(new { message = "Rota protegida acessada!", user = email });
     }
 
