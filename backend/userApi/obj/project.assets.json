@@ -3892,19 +3892,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kaiqu\\.nuget\\packages\\": {}
+    "C:\\Users\\DaviKonuma\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\projects\\binance-clone\\backend\\userApi\\userApi.csproj",
+      "projectUniqueName": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\userApi\\userApi.csproj",
       "projectName": "userApi",
-      "projectPath": "C:\\projects\\binance-clone\\backend\\userApi\\userApi.csproj",
-      "packagesPath": "C:\\Users\\kaiqu\\.nuget\\packages\\",
-      "outputPath": "C:\\projects\\binance-clone\\backend\\userApi\\obj\\",
+      "projectPath": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\userApi\\userApi.csproj",
+      "packagesPath": "C:\\Users\\DaviKonuma\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\userApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\kaiqu\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\DaviKonuma\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
@@ -3984,7 +3984,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
