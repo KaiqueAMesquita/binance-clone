@@ -1,6 +1,6 @@
 import { create } from "domain";
 
-const BASE_URL = "http://localhost:3002/api";
+const BASE_URL = "http://localhost:5294/api";
 
 const crudAPI = (basePath: string) => ({
   create: () => `${basePath}`,
