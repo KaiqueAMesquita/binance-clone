@@ -30,7 +30,7 @@ export default function LoginPage() {
       const nameFromEmail = email.split('@')[0];
       localStorage.setItem('user', JSON.stringify({ name: nameFromEmail }));
       toast.success('Login realizado com sucesso!');
-      router.push('/');
+      router.push('/users');
     } catch {
       toast.error('Erro ao efetuar login.');
     } finally {
