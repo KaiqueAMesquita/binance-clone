@@ -1,4 +1,7 @@
-import InputMask from "react-input-mask";
+'use client';
+
+import InputMask from 'react-input-mask';
+import styles from './FormInput.module.css';
 
 interface FormInputProps {
   label: string;
@@ -16,12 +19,12 @@ export default function FormInput({
   value,
   onChange,
   placeholder,
-  type = "text",
+  type = 'text',
   mask,
 }: FormInputProps) {
   return (
     <div>
-      <label className="block text-sm font-medium text-yellow-400 mb-1">{label}</label>
+      <label className={styles.label}>{label}</label>
       {mask ? (
         <InputMask
           mask={mask}
@@ -29,7 +32,7 @@ export default function FormInput({
           value={value}
           onChange={onChange}
           placeholder={placeholder}
-          className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500"
+          className={styles.input}
         />
       ) : (
         <input
@@ -38,7 +41,7 @@ export default function FormInput({
           value={value}
           onChange={onChange}
           placeholder={placeholder}
-          className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500"
+          className={styles.input}
         />
       )}
     </div>

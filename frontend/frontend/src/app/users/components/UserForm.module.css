@@ -1,0 +1,9 @@
+.form {
+    @apply space-y-6 text-white;
+  }
+  .maskLabel {
+    @apply block text-sm text-white mb-1;
+  }
+  .maskInput {
+    @apply w-full p-2 rounded bg-gray-800 text-white;
+  }
