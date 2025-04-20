@@ -7,7 +7,7 @@ export default function UserCreatePage() {
   return (
     <div className={styles.container}>
       <div className={styles.inner}>
-        <h1 className={styles.title}>Cadastrar Usuário</h1>
+        <h1 className={styles.title}>Seja Bem Vindo a Binance Clone!</h1>
         <UserForm />
       </div>
     </div>
