@@ -1,34 +1,36 @@
-"use client";
-import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
-import { userAPI } from "@/services/API"
-import { toast } from "react-toastify";
-import FormInput from "@/app/users/components/FormInput";
-import SubmitButton from "@/app/users/components/SubmitButton";
-import InputMask from "react-input-mask";
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import InputMask from 'react-input-mask';
+import { toast } from 'react-toastify';
+import FormInput from '@/app/users/components/FormInput';
+import SubmitButton from '@/app/users/components/SubmitButton';
+import { userAPI } from '@/services/API';
+import styles from './page.module.css';
 
 export default function EditUserPage() {
   const { id } = useParams();
   const router = useRouter();
   const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    address: "",
-    password: "",
-    photo: "",
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    password: '',
+    photo: '',
   });
 
   useEffect(() => {
-    const fetchUser = async () => {
+    async function fetchUser() {
       try {
-        const response = await fetch(userAPI.getById(id as string));
-        const data = await response.json();
+        const res = await fetch(userAPI.getById(id!));
+        const data = await res.json();
         setForm(data);
-      } catch (error) {
-        toast.error("Erro ao carregar dados do usuário");
+      } catch {
+        toast.error('Erro ao carregar dados do usuário');
       }
-    };
+    }
     fetchUser();
   }, [id]);
 
@@ -38,36 +40,26 @@ export default function EditUserPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const payload = {
-      ...form,
-      id: Number(id),        // ← garante que user.Id baterá com o route‑param
-    };
+    const payload = { ...form, id: Number(id) };
     try {
-      const response = await fetch(userAPI.edit(id as string), {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const res = await fetch(userAPI.edit(id!), {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-
-      if (!response.ok) throw new Error("Erro ao editar");
-
-      toast.success("Usuário atualizado com sucesso! 🎉");
-      router.push("/users");
-    } catch (error) {
-      toast.error("Erro ao editar o usuário.");
+      if (!res.ok) throw new Error();
+      toast.success('Usuário atualizado com sucesso! 🎉');
+      router.push('/users');
+    } catch {
+      toast.error('Erro ao editar o usuário.');
     }
   };
 
   return (
-    <div className="bg-gray-900 min-h-screen text-white p-8">
-      <div className="max-w-xl mx-auto">
-        <h1 className="text-yellow-400 text-3xl font-semibold mb-6 text-center">
-          Editar Usuário
-        </h1>
-        <form onSubmit={handleSubmit} className="space-y-6">
+    <div className={styles.container}>
+      <div className={styles.inner}>
+        <h1 className={styles.title}>Editar Usuário</h1>
+        <form onSubmit={handleSubmit} className={styles.form}>
           <FormInput
             label="Nome"
             name="name"
@@ -84,15 +76,22 @@ export default function EditUserPage() {
             placeholder="Digite o email"
           />
           <div>
-            <label className="block text-sm text-white mb-1">Telefone</label>
+            <label className={styles.maskLabel}>Telefone</label>
             <InputMask
               mask="(99)99999-9999"
               value={form.phone}
               onChange={handleChange}
               name="phone"
-              className="w-full p-2 rounded bg-gray-800 text-white"
-              placeholder="(11)91234-5678"
-            />
+            >
+              {(inputProps: any) => (
+                <input
+                  {...inputProps}
+                  type="text"
+                  className={styles.maskInput}
+                  placeholder="(11)91234-5678"
+                />
+              )}
+            </InputMask>
           </div>
           <FormInput
             label="Endereço"

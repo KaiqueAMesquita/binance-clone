@@ -1,19 +1,21 @@
-"use client";
-import { useState } from "react";
-import FormInput from "./FormInput";
-import SubmitButton from "./SubmitButton";
-import { toast } from "react-toastify";
-import { userAPI } from "@/services/API";
-import InputMask from "react-input-mask";
+'use client';
+
+import { useState } from 'react';
+import InputMask from 'react-input-mask';
+import { toast } from 'react-toastify';
+import { userAPI } from '@/services/API';
+import FormInput from './FormInput';
+import SubmitButton from './SubmitButton';
+import styles from './UserForm.module.css';
 
 export default function UserForm() {
   const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    address: "",
-    password: "",
-    photo: "",
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    password: '',
+    photo: '',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,31 +27,22 @@ export default function UserForm() {
 
     try {
       const response = await fetch(userAPI.create(), {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
 
-      if (!response.ok) throw new Error("Erro ao cadastrar.");
+      if (!response.ok) throw new Error('Erro ao cadastrar.');
 
-      toast.success("Usuário cadastrado com sucesso! ✨");
-      setForm({
-        name: "",
-        email: "",
-        phone: "",
-        address: "",
-        password: "",
-        photo: "",
-      });
-    } catch (error) {
-      toast.error("Erro ao cadastrar o usuário!");
+      toast.success('Usuário cadastrado com sucesso! ✨');
+      setForm({ name: '', email: '', phone: '', address: '', password: '', photo: '' });
+    } catch {
+      toast.error('Erro ao cadastrar o usuário!');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 text-white">
+    <form onSubmit={handleSubmit} className={styles.form}>
       <FormInput
         label="Nome"
         name="name"
@@ -57,6 +50,7 @@ export default function UserForm() {
         onChange={handleChange}
         placeholder="Digite o nome"
       />
+
       <FormInput
         label="Email"
         name="email"
@@ -65,8 +59,9 @@ export default function UserForm() {
         onChange={handleChange}
         placeholder="Digite o email"
       />
+
       <div>
-        <label className="block text-sm text-white mb-1">Telefone</label>
+        <label className={styles.maskLabel}>Telefone</label>
         <InputMask
           mask="(99)99999-9999"
           value={form.phone}
@@ -77,12 +72,13 @@ export default function UserForm() {
             <input
               {...inputProps}
               type="text"
-              className="w-full p-2 rounded bg-gray-800 text-white"
+              className={styles.maskInput}
               placeholder="(11)91234-5678"
             />
           )}
         </InputMask>
       </div>
+
       <FormInput
         label="Endereço"
         name="address"
@@ -90,6 +86,7 @@ export default function UserForm() {
         onChange={handleChange}
         placeholder="Digite o endereço"
       />
+
       <FormInput
         label="Senha"
         name="password"
@@ -98,6 +95,7 @@ export default function UserForm() {
         onChange={handleChange}
         placeholder="Digite a senha"
       />
+
       <FormInput
         label="URL da Foto"
         name="photo"
@@ -105,6 +103,7 @@ export default function UserForm() {
         onChange={handleChange}
         placeholder="https://..."
       />
+
       <SubmitButton label="Cadastrar" />
     </form>
   );
