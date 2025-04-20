@@ -1,13 +1,19 @@
 'use client';
 
-import Link from 'next/link';
-import { authAPI } from '@/services/API';
 import { useState, useEffect } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { authAPI } from '@/services/API';
+import { toast } from 'react-toastify';
+import Link from 'next/link';
 import styles from './Navbar.module.css';
 
 export default function Navbar() {
   const [user, setUser] = useState<{ name: string } | null>(null);
+  const pathname = usePathname();
+  const router = useRouter();
 
+  // Sempre que a rota mudar (ou na montagem inicial),
+  // buscamos o "user" no localStorage e atualizamos o estado
   useEffect(() => {
     const stored = localStorage.getItem('user');
     if (stored) {
@@ -15,9 +21,12 @@ export default function Navbar() {
         setUser(JSON.parse(stored));
       } catch {
         localStorage.removeItem('user');
+        setUser(null);
       }
+    } else {
+      setUser(null);
     }
-  }, []);
+  }, [pathname]);
 
   const handleLogout = async () => {
     const token = localStorage.getItem('token');
@@ -29,12 +38,15 @@ export default function Navbar() {
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
       });
+      toast.success('Logout realizado com sucesso!');
     } catch {
-      // ignore errors
+      toast.error('Falha ao realizar logout.');
     } finally {
+      // removemos os dados e navegamos sem recarregar
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      window.location.href = '/';
+      setUser(null);
+      router.push('/users'); 
     }
   };
 
@@ -46,7 +58,7 @@ export default function Navbar() {
       <div className={styles.links}>
         {user ? (
           <>
-            <span>Bem vindo {user.name}</span>
+            <span>Bem‑vindo, {user.name}</span>
             <button onClick={handleLogout} className={styles.linkButton}>
               Sair
             </button>
@@ -54,7 +66,7 @@ export default function Navbar() {
         ) : (
           <>
             <Link href="/users/create" className={styles.linkButton}>
-              Cadastre-se
+              Cadastre‑se
             </Link>
             <Link href="/users/login" className={styles.linkButton}>
               Login
