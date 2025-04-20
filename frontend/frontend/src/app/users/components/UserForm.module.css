@@ -4,6 +4,7 @@
   .maskLabel {
     @apply block text-sm text-white mb-1;
   }
+ 
   .maskInput {
-    @apply w-full p-2 rounded bg-gray-800 text-white;
+    @apply w-full p-2 rounded bg-gray-800 border border-gray-700 text-white;
   }
