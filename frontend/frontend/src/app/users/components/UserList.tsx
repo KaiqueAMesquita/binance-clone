@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { userAPI } from "@/services/API";
 import { toast } from "react-toastify";
 import { FaTrash, FaEdit } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 type User = {
   id: string;
@@ -14,6 +15,7 @@ type User = {
 };
 
 export default function UserList() {
+  const router = useRouter();
   const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
@@ -45,8 +47,7 @@ export default function UserList() {
   };
 
   const handleEdit = (id: string) => {
-    toast.info("Função de edição ainda não implementada!");
-    // Ex: router.push(`/users/edit/${id}`);
+    router.push(`/users/edit/${id}`); 
   };
 
   return (
