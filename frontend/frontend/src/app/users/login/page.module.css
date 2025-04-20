@@ -1,0 +1,21 @@
+.container {
+    @apply bg-gray-900 min-h-screen flex items-center justify-center;
+  }
+  .formWrapper {
+    @apply bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md;
+  }
+  .title {
+    @apply text-yellow-400 text-3xl font-semibold text-center mb-6;
+  }
+  .form {
+    @apply space-y-6;
+  }
+  .inputLabel {
+    @apply block text-sm font-medium text-yellow-400 mb-1;
+  }
+  .inputField {
+    @apply w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500;
+  }
+  .submitButton {
+    @apply w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-300;
+  }
