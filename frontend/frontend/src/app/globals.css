@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* Background Colors */
+  .bg-primary { background-color: #27374D; }
+  .bg-secondary { background-color: #526D82; }
+  .bg-accent { background-color: #9DB28F; }
+
+  /* Text Colors */
+  .text-primary { color: #27374D; }
+  .text-light { color: #F1F1F1; }
+  .text-accent { color: #9DB28F; }
+}
+
+/* css reset */
+body {
+  margin: 0;
+  padding: 0%;
+  box-sizing: border-box;
+}
