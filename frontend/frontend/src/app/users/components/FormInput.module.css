@@ -1,0 +1,7 @@
+.label {
+    @apply block text-sm font-medium text-yellow-400 mb-1;
+  }
+  .input {
+    @apply w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500;
+  }
+  

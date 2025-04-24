@@ -1,0 +1,19 @@
+.container {
+    @apply bg-gray-900 min-h-screen text-white p-8;
+  }
+  .inner {
+    @apply max-w-xl mx-auto;
+  }
+  .title {
+    @apply text-yellow-400 text-3xl font-semibold mb-6 text-center;
+  }
+  .form {
+    @apply space-y-6;
+  }
+  .maskLabel {
+    @apply block text-sm text-white mb-1;
+  }
+  .maskInput {
+    @apply w-full p-2 rounded bg-gray-800 text-white;
+  }
+  

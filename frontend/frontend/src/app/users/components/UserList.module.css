@@ -1,0 +1,24 @@
+.container {
+    @apply bg-gray-900 min-h-screen text-white p-8;
+  }
+  .inner {
+    @apply max-w-3xl mx-auto p-8 rounded-lg shadow-lg;
+  }
+  .title {
+    @apply text-yellow-400 text-3xl font-semibold text-center mb-6;
+  }
+  .list {
+    @apply space-y-4;
+  }
+  .item {
+    @apply bg-gray-800 p-4 rounded-lg flex justify-between items-center;
+  }
+  .actions {
+    @apply flex space-x-2;
+  }
+  .editBtn {
+    @apply bg-yellow-500 text-gray-900 p-2 rounded-lg hover:bg-yellow-400 transition duration-300;
+  }
+  .deleteBtn {
+    @apply bg-red-600 text-white p-2 rounded-lg hover:bg-red-500 transition duration-300;
+  }

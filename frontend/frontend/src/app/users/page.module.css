@@ -1,0 +1,6 @@
+.container {
+    @apply bg-gray-900 min-h-screen text-white p-8;
+  }
+  .inner {
+    @apply max-w-3xl mx-auto p-8 rounded-lg shadow-lg;
+  }
