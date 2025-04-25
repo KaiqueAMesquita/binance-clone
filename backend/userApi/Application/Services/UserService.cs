@@ -115,6 +115,7 @@ public class UserService : IUserService
 
         return new UserDTO
         {
+            Id = user.Id,
             Name = user.Name,
             Email = user.Email,
             Phone = user.Phone,

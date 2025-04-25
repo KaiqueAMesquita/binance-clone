@@ -1,0 +1,24 @@
+.container {
+    @apply bg-gray-900 min-h-screen flex items-center justify-center;
+  }
+  .inner {
+    @apply bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md text-white;
+  }
+  .title {
+    @apply text-yellow-400 text-3xl font-semibold text-center mb-6;
+  }
+  .photo {
+    @apply w-32 h-32 rounded-full mx-auto mb-4;
+  }
+  .info {
+    @apply space-y-4;
+  }
+  .infoItem {
+    @apply flex justify-between;
+  }
+  .label {
+    @apply font-medium text-gray-300;
+  }
+  .value {
+    @apply text-white;
+  }
