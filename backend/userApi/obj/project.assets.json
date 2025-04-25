@@ -3892,24 +3892,31 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\DaviKonuma\\.nuget\\packages\\": {}
+    "C:\\Users\\lucas\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\userApi\\userApi.csproj",
+      "projectUniqueName": "C:\\Users\\lucas\\OneDrive\\Documentos\\A_Estudos\\A_EtecFatec\\5º ADS Fatec\\ProMultiPlat\\binance-clone\\backend\\userapi\\userApi.csproj",
       "projectName": "userApi",
-      "projectPath": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\userApi\\userApi.csproj",
-      "packagesPath": "C:\\Users\\DaviKonuma\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\userApi\\obj\\",
+      "projectPath": "C:\\Users\\lucas\\OneDrive\\Documentos\\A_Estudos\\A_EtecFatec\\5º ADS Fatec\\ProMultiPlat\\binance-clone\\backend\\userapi\\userApi.csproj",
+      "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\lucas\\OneDrive\\Documentos\\A_Estudos\\A_EtecFatec\\5º ADS Fatec\\ProMultiPlat\\binance-clone\\backend\\userapi\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\DaviKonuma\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\lucas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
