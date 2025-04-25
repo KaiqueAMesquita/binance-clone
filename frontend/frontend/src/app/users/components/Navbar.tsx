@@ -1,3 +1,4 @@
+// src/components/Navbar.tsx
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -8,12 +9,10 @@ import Link from 'next/link';
 import styles from './Navbar.module.css';
 
 export default function Navbar() {
-  const [user, setUser] = useState<{ name: string } | null>(null);
+  const [user, setUser] = useState<{ id: number; name: string } | null>(null);
   const pathname = usePathname();
   const router = useRouter();
 
-  // Sempre que a rota mudar (ou na montagem inicial),
-  // buscamos o "user" no localStorage e atualizamos o estado
   useEffect(() => {
     const stored = localStorage.getItem('user');
     if (stored) {
@@ -38,15 +37,15 @@ export default function Navbar() {
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
       });
-      toast.success('Logout realizado com sucesso!');
+     
     } catch {
       toast.error('Falha ao realizar logout.');
     } finally {
-      // removemos os dados e navegamos sem recarregar
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       setUser(null);
-      router.push('/users'); 
+      window.location.reload();
+      toast.success('Logout realizado com sucesso!');
     }
   };
 
@@ -58,7 +57,9 @@ export default function Navbar() {
       <div className={styles.links}>
         {user ? (
           <>
-            <span>Bem‑vindo, {user.name}</span>
+            <Link href="/users/profile" className={styles.linkButton}>
+              Olá, {user.name}
+            </Link>
             <button onClick={handleLogout} className={styles.linkButton}>
               Sair
             </button>
@@ -66,7 +67,7 @@ export default function Navbar() {
         ) : (
           <>
             <Link href="/users/create" className={styles.linkButton}>
-              Cadastre‑se
+              Cadastre-se
             </Link>
             <Link href="/users/login" className={styles.linkButton}>
               Login
