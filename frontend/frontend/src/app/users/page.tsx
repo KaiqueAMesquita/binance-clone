@@ -1,24 +1,38 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import userService, { User } from '@/services/UserService';
+import { useState, useEffect } from 'react';
 import UserList from './components/UserList';
 import styles from './page.module.css';
 
 export default function UsersPage() {
-  const [users, setUsers] = useState<User[]>([]);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
 
   useEffect(() => {
-    async function fetchUsers() {
-      try {
-        const data = await userService.getUsers();
-        setUsers(data);
-      } catch (error) {
-        console.error('Erro ao buscar os usuários', error);
-      }
-    }
-    fetchUsers();
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
   }, []);
+
+  if (isLoggedIn === null) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.inner}>
+          <p>Carregando...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isLoggedIn) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.inner}>
+          <p className={styles.message}>
+            Faça login para ver a lista de usuários.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.container}>
