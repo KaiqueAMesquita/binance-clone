@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "Tks//uLtg7E=",
+  "success": true,
+  "projectFilePath": "C:\\projects\\binance-clone\\backend\\currencyApi\\currencyApi.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\kaiqu\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.4\\microsoft.aspnetcore.openapi.9.0.4.nupkg.sha512",
+    "C:\\Users\\kaiqu\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
