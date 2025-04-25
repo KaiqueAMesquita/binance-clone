@@ -1,11 +1,20 @@
+// app/login/page.tsx
 'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
-import InputMask from 'react-input-mask';
+import {jwtDecode} from 'jwt-decode';
 import { authAPI } from '@/services/API';
 import styles from './page.module.css';
+
+type JwtPayload = {
+  nameid?: string;
+  sub?: string;
+  name?: string;
+  exp?: number;
+  email?: string;
+};
 
 export default function LoginPage() {
   const router = useRouter();
@@ -16,6 +25,7 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+
     try {
       const res = await fetch(authAPI.login(), {
         method: 'POST',
@@ -23,12 +33,21 @@ export default function LoginPage() {
         body: JSON.stringify({ email, password }),
       });
       if (!res.ok) throw new Error();
-      const data = await res.json();
-      // Armazena token e info do usuário
-      localStorage.setItem('token', data.token);
-      // Provisório: extrai nome do email antes do '@'
-      const nameFromEmail = email.split('@')[0];
-      localStorage.setItem('user', JSON.stringify({ name: nameFromEmail }));
+
+      const { token } = await res.json();
+      // Decodifica o JWT para extrair id e nome
+      const decoded: JwtPayload = jwtDecode(token);
+      const userId = decoded.nameid || decoded.sub;
+      // Se não vier name do token, uso a parte antes do '@' do e-mail
+      const userName = decoded.name || email.split('@')[0];
+
+      // Armazena token e dados do usuário
+      localStorage.setItem('token', token);
+      localStorage.setItem(
+        'user',
+        JSON.stringify({ id: Number(userId), name: userName })
+      );
+
       toast.success('Login realizado com sucesso!');
       router.push('/users');
     } catch {
@@ -63,7 +82,11 @@ export default function LoginPage() {
               className={styles.inputField}
             />
           </div>
-          <button type="submit" disabled={loading} className={styles.submitButton}>
+          <button
+            type="submit"
+            disabled={loading}
+            className={styles.submitButton}
+          >
             {loading ? 'Carregando...' : 'Entrar'}
           </button>
         </form>
