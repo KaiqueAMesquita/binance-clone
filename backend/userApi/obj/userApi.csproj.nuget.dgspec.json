@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\UserApi\\userApi.csproj": {}
+    "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\userApi\\userApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\UserApi\\userApi.csproj": {
+    "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\userApi\\userApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\UserApi\\userApi.csproj",
+        "projectUniqueName": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\userApi\\userApi.csproj",
         "projectName": "userApi",
-        "projectPath": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\UserApi\\userApi.csproj",
+        "projectPath": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\userApi\\userApi.csproj",
         "packagesPath": "C:\\Users\\DaviKonuma\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\UserApi\\obj\\",
+        "outputPath": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\userApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\DaviKonuma\\AppData\\Roaming\\NuGet\\NuGet.Config"
