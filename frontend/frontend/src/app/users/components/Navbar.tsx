@@ -37,14 +37,15 @@ export default function Navbar() {
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
       });
-      toast.success('Logout realizado com sucesso!');
+     
     } catch {
       toast.error('Falha ao realizar logout.');
     } finally {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       setUser(null);
-      router.push('/users');
+      window.location.reload();
+      toast.success('Logout realizado com sucesso!');
     }
   };
 
