@@ -1,0 +1,8 @@
+.pageWrapper {
+    @apply bg-gray-900 min-h-screen flex flex-col;
+  }
+  
+
+  .pageWrapper {
+    @apply flex flex-col;
+  }
