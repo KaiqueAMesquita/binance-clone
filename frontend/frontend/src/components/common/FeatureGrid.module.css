@@ -1,0 +1,18 @@
+.featureSection {
+    @apply bg-gray-50 py-16;
+  }
+  .featureGrid {
+    @apply max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-4;
+  }
+  .featureCard {
+    @apply bg-white p-6 rounded-lg shadow hover:shadow-lg transition;
+  }
+  .featureIcon {
+    @apply text-yellow-500 text-4xl mb-4;
+  }
+  .featureTitle {
+    @apply font-semibold text-lg mb-2;
+  }
+  .featureDesc {
+    @apply text-gray-600 text-sm;
+  }

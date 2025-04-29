@@ -1,0 +1,30 @@
+.hero {
+    @apply bg-blue-900 text-white;
+  }
+  .heroInner {
+    @apply max-w-5xl mx-auto py-20 px-4 text-center;
+  }
+  .bannerTitle {
+    @apply text-5xl font-bold mb-4;
+  }
+  .bannerStats {
+    @apply text-4xl font-semibold mb-2 text-yellow-400;
+  }
+  .bannerSubtext {
+    @apply text-xl;
+  }
+  .hero {
+    @apply bg-gray-900 text-white;
+  }
+  .heroInner {
+    @apply max-w-5xl mx-auto py-20 px-4 text-center;
+  }
+  .bannerTitle {
+    @apply text-5xl font-bold mb-4;
+  }
+  .bannerStats {
+    @apply text-4xl font-semibold mb-2;
+  }
+  .bannerSubtext {
+    @apply text-xl;
+  }
