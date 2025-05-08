@@ -30,4 +30,35 @@ public class CurrencyService : ICurrencyService
         };
     }
 
+    public CurrencyDTO? GetCurrencyDetails(int id)
+    {
+        var currency = _currencyRepository.GetById(id);
+        return currency != null ? new CurrencyDTO 
+        { 
+            Name = currency.Name, 
+            Description = currency.Description,
+            Backing = currency.Backing,          
+        } : null;
+    }
+
+    public CurrencyDTO[] GetAllCurrencies()
+    {
+        var currencys = _currencyRepository.ListAll();
+        var currencyDTOs = new List<CurrencyDTO>();
+
+        foreach(var currency in currencys)
+        {
+            currencyDTOs.Add(new CurrencyDTO 
+            { 
+                Id = currency.Id, 
+                Name = currency.Name, 
+                Description = currency.Description,
+                Backing = currency.Backing,
+                
+            });
+        }
+
+        return currencyDTOs.ToArray();
+    }
+
 }
