@@ -41,5 +41,4 @@ public class CurrencyRepository : ICurrencyRepository
         _context.SaveChanges();
     }
 
-    public Currency? GetByEmail(string email) => _context.Currency.FirstOrDefault(u => u.Email == email);
 }

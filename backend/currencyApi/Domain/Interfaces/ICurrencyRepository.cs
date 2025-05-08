@@ -1,9 +1,8 @@
 public interface ICurrencyRepository
 {
-    void Add(User user);
-    User? GetById(int id);
+    void Add(Currency currency);
+    Currency? GetById(int id);
     List<Currency>? ListAll();
-    void Update(User user);
-    void Delete(User user);
-    Currency? GetByEmail(string email);
+    void Update(Currency currency);
+    void Delete(Currency currency);
 }

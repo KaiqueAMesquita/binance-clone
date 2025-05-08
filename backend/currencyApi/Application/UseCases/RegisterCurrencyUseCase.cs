@@ -1,11 +1,11 @@
-public class RegisterUserUseCase
+public class RegisterCurrencyUseCase
 {
-    private readonly IUserService _userService;
+    private readonly ICurrencyService _currencyService;
 
-    public RegisterUserUseCase(IUserService userService)
+    public RegisterCurrencyUseCase(ICurrencyService currencyService)
     {
-        _userService = userService;
+        _currencyService = currencyService;
     }
 
-    public UserDTO Execute(UserDTO userDto) => _userService.RegisterUser(userDto);
+    public CurrencyDTO Execute(CurrencyDTO currencyDto) => _currencyService.RegisterCurrency(currencyDto);
 }
