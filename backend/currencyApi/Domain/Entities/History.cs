@@ -1,3 +1,4 @@
+namespace CurrencyApi.Domain.Entities{
 public class History
 {
     public int Id { get; set; }
@@ -6,4 +7,5 @@ public class History
 
     public int CurrencyId { get; set; }
     public Currency Currency { get; set; }
+}
 }
