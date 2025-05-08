@@ -18,5 +18,19 @@ public class CurrencyController : ControllerBase
         return Ok(result);
     }
 
+     [HttpGet("{id}")]
+    public IActionResult GetCurrencyDetails(int id)
+    {
+        var currency = _currencyService.GetCurrencyDetails(id);
+        return currency != null ? Ok(currency) : NotFound();
+    }
+
+    [HttpGet]
+    public IActionResult GetAllCurrencies()
+    {
+        var currencys = _currencyService.GetAllCurrencies();
+        return Ok(currencys);
+    }
+
   
 }
