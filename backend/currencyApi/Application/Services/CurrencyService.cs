@@ -11,13 +11,11 @@ public class CurrencyService : ICurrencyService
 
     public CurrencyDTO RegisterCurrency(CurrencyDTO currencyDto)
     {
-
         var currency = new Currency 
         { 
             Name = currencyDto.Name, 
             Description = currencyDto.Description,
             Backing = currencyDto.Backing,
-     
         };
         _currencyRepository.Add(currency);
 
@@ -26,7 +24,6 @@ public class CurrencyService : ICurrencyService
             Name = currency.Name,
             Description = currency.Description,
             Backing = currency.Backing,
-
         };
     }
 
