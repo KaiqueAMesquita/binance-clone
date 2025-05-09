@@ -7,4 +7,3 @@ public class Currency
     
     public ICollection<History> Histories { get; set; }
 }
-
