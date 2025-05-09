@@ -32,5 +32,18 @@ public class CurrencyController : ControllerBase
         return Ok(currencys);
     }
 
+      [HttpPut("{id}")]
+    public IActionResult UpdateCurrency(int id, CurrencyDTO currencyDTO){
+        if(id != currencyDTO.Id ){
+            return BadRequest();
+        }
+        
+        var currency = _currencyService.UpdateCurrency(id, currencyDTO);
+        if(currency == null){
+            return NotFound();
+        }
+        return Ok(currency);
+    }
+
   
 }
