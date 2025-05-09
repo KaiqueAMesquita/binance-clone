@@ -61,4 +61,28 @@ public class CurrencyService : ICurrencyService
         return currencyDTOs.ToArray();
     }
 
+      public CurrencyDTO? UpdateCurrency(int id, CurrencyDTO currencyDto)
+    {
+
+        var currency = _currencyRepository.GetById(id);
+        if(currency == null){
+            return null;
+        }
+
+        currency.Name = currencyDto.Name;
+        currency.Description = currencyDto.Description;
+        currency.Backing = currencyDto.Backing;
+        _currencyRepository.Update(currency);
+
+
+        return new CurrencyDTO
+        {
+            Name = currency.Name,
+            Description = currency.Description,
+            Backing = currency.Backing,
+        
+        };
+    }
+
+
 }
