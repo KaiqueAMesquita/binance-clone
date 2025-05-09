@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import {jwtDecode} from 'jwt-decode';
 import { authAPI } from '@/services/API';
-import styles from './page.module.css';
+import styles from './page.module.css'
 
 type JwtPayload = {
   nameid?: string;
