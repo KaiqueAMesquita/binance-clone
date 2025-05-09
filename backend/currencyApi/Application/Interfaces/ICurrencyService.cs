@@ -1,6 +1,6 @@
 public interface ICurrencyService
 {
-    CurrencyDTO RegisterCurrency(CurrencyDTO currencyDTOto);
+    CurrencyDTO RegisterCurrency(CurrencyDTO currencyDto);
 
     CurrencyDTO? GetCurrencyDetails(int id);
     CurrencyDTO[] GetAllCurrencies();
