@@ -5,6 +5,5 @@ public enum Backing{
     JPY,
     CHF, 
     CNY,
-    BRL  
-
+    BRL
 }
