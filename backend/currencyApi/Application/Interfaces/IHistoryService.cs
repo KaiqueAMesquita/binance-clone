@@ -2,7 +2,7 @@ using CurrencyApi.API.DTOs;
 
 public interface IHistoryService
 {
-    HistoryResponseDTO RegisterHistory(HistoryRequestDTO historyDto);
+    HistoryDTO RegisterHistory(HistoryDTO historyDto, int currencyId);
 
     // HistoryDTO? GetHistoryDetails(int id);
     // HistoryDTO[] GetAllCurrencies();

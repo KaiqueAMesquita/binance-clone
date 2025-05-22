@@ -12,9 +12,9 @@ public class HistoryController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult RegisterHistory(HistoryRequestDTO historyDto)
+    public IActionResult RegisterHistory(HistoryDTO historyDto, int currencyId)
     {
-        var result = _historyService.RegisterHistory(historyDto);
+        var result = _historyService.RegisterHistory(historyDto, currencyId);
         return Ok(result);
     }
 

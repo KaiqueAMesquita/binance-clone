@@ -10,36 +10,33 @@ public class HistoryService : IHistoryService
     public HistoryService(IHistoryRepository historyRepository, ICurrencyService currencyService)
     {
         _historyRepository = historyRepository;
-         _currencyService = currencyService;
+        _currencyService = currencyService;
     }
 
-    public HistoryResponseDTO RegisterHistory(HistoryRequestDTO historyDto)
+    public HistoryDTO RegisterHistory(HistoryDTO historyDto, int currencyId)
     {
-        
-        var currency = _currencyService.GetCurrencyById(historyDto.CurrencyId);
+        var currency = _currencyService.GetCurrencyById(currencyId);
         if (currency == null)
         {
             throw new ArgumentException("Currency não encontrada");
         }
 
-
         var history = new History
         {
             Datetime = DateTime.Now,
             Price = historyDto.Price,
+            CurrencyId = currency.Id,
             Currency = currency
         };
         _historyRepository.Add(history);
 
-        return new HistoryResponseDTO
+        return new HistoryDTO
         {
             Id = history.Id,
             Datetime = history.Datetime,
             Price = history.Price,
-            CurrencyName = currency.Name
-        };
-        
-    
+            CurrencyId = history.CurrencyId
+        };    
     }
 
     // public HistoryResponseDTO? GetHistoryDetails(int id)

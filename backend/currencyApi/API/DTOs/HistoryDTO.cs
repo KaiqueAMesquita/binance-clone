@@ -1,6 +1,6 @@
 namespace CurrencyApi.API.DTOs
 {
-    public class HistoryRequestDTO
+    public class HistoryDTO
     {
         public int Id { get; set; }
         public DateTime Datetime { get; set; }
