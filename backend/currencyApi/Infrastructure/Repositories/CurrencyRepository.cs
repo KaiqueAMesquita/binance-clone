@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 public class CurrencyRepository : ICurrencyRepository
 {
     private readonly CurrencyDbContext _context;
@@ -13,11 +14,15 @@ public class CurrencyRepository : ICurrencyRepository
         _context.SaveChanges();
     }
 
-    public Currency? GetById(int id) => _context.Currency.Find(id);
+    public Currency? GetById(int id) =>
+        _context.Currency
+            .Include(c => c.Histories)
+            .FirstOrDefault(c => c.Id == id);
 
-    // Criando método como array function
-    public List<Currency>? ListAll() => _context.Currency?.ToList() ?? new List<Currency>();
-
+    public List<Currency>? ListAll() =>
+        _context.Currency?
+            .Include(c => c.Histories)
+            .ToList() ?? new List<Currency>();
 
     public void Update(Currency Currency)
     {
@@ -28,7 +33,7 @@ public class CurrencyRepository : ICurrencyRepository
         _context.Currency.Update(Currency);
         _context.SaveChanges();
     }
-    
+
     // Criando método de forma tradicional
     // public List<Currency>? ListAll()
     // {
