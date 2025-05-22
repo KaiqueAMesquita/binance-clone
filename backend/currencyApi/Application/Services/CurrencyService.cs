@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Http.HttpResults;
-
+using CurrencyApi.API.DTOs;
 public class CurrencyService : ICurrencyService
 {
     private readonly ICurrencyRepository _currencyRepository;
@@ -36,6 +36,14 @@ public class CurrencyService : ICurrencyService
             Name = currency.Name,
             Description = currency.Description,
             Backing = currency.Backing,
+            Histories = (currency.Histories ?? new List<History>()).
+            Select(h => new HistoryResponseDTO
+            {
+                Id = h.Id,
+                Datetime = h.Datetime,
+                Price = h.Price,
+                CurrencyName = h.Currency.Name
+            }).ToList()
         } : null;
     }
 
@@ -52,7 +60,14 @@ public class CurrencyService : ICurrencyService
                 Name = currency.Name,
                 Description = currency.Description,
                 Backing = currency.Backing,
-
+                Histories = (currency.Histories ?? new List<History>()).
+                    Select(h => new HistoryResponseDTO
+                    {
+                        Id = h.Id,
+                        Datetime = h.Datetime,
+                        Price = h.Price,
+                        CurrencyName = h.Currency.Name
+                    }).ToList()
             });
         }
 
