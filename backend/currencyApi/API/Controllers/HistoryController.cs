@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-
+using CurrencyApi.API.DTOs;
 [ApiController]
 [Route("api/[controller]")]
 public class HistoryController : ControllerBase
@@ -12,23 +12,23 @@ public class HistoryController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult RegisterHistory(HistoryDTO historyDto)
+    public IActionResult RegisterHistory(HistoryRequestDTO historyDto)
     {
         var result = _historyService.RegisterHistory(historyDto);
         return Ok(result);
     }
 
-     [HttpGet("{id}")]
-    public IActionResult GetHistoryDetails(int id)
-    {
-        var history = _historyService.GetHistoryDetails(id);
-        return history != null ? Ok(history) : NotFound();
-    }
+    //  [HttpGet("{id}")]
+    // public IActionResult GetHistoryDetails(int id)
+    // {
+    //     var history = _historyService.GetHistoryDetails(id);
+    //     return history != null ? Ok(history) : NotFound();
+    // }
 
-    [HttpGet]
-    public IActionResult GetAllCurrencies()
-    {
-        var histories = _historyService.GetAllCurrencies();
-        return Ok(histories);
-    }
+    // [HttpGet]
+    // public IActionResult GetAllCurrencies()
+    // {
+    //     var histories = _historyService.GetAllCurrencies();
+    //     return Ok(histories);
+    // }
 }

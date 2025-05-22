@@ -11,9 +11,9 @@ public class CurrencyService : ICurrencyService
 
     public CurrencyDTO RegisterCurrency(CurrencyDTO currencyDto)
     {
-        var currency = new Currency 
-        { 
-            Name = currencyDto.Name, 
+        var currency = new Currency
+        {
+            Name = currencyDto.Name,
             Description = currencyDto.Description,
             Backing = currencyDto.Backing,
         };
@@ -30,11 +30,12 @@ public class CurrencyService : ICurrencyService
     public CurrencyDTO? GetCurrencyDetails(int id)
     {
         var currency = _currencyRepository.GetById(id);
-        return currency != null ? new CurrencyDTO 
-        { 
-            Name = currency.Name, 
+        return currency != null ? new CurrencyDTO
+        {
+            Id = currency.Id,
+            Name = currency.Name,
             Description = currency.Description,
-            Backing = currency.Backing,          
+            Backing = currency.Backing,
         } : null;
     }
 
@@ -43,26 +44,27 @@ public class CurrencyService : ICurrencyService
         var currencys = _currencyRepository.ListAll();
         var currencyDTOs = new List<CurrencyDTO>();
 
-        foreach(var currency in currencys)
+        foreach (var currency in currencys)
         {
-            currencyDTOs.Add(new CurrencyDTO 
-            { 
-                Id = currency.Id, 
-                Name = currency.Name, 
+            currencyDTOs.Add(new CurrencyDTO
+            {
+                Id = currency.Id,
+                Name = currency.Name,
                 Description = currency.Description,
                 Backing = currency.Backing,
-                
+
             });
         }
 
         return currencyDTOs.ToArray();
     }
 
-      public CurrencyDTO? UpdateCurrency(int id, CurrencyDTO currencyDto)
+    public CurrencyDTO? UpdateCurrency(int id, CurrencyDTO currencyDto)
     {
 
         var currency = _currencyRepository.GetById(id);
-        if(currency == null){
+        if (currency == null)
+        {
             return null;
         }
 
@@ -77,9 +79,18 @@ public class CurrencyService : ICurrencyService
             Name = currency.Name,
             Description = currency.Description,
             Backing = currency.Backing,
-        
+
         };
     }
 
+    public Currency? GetCurrencyById(int id)
+    {
+        var currency = _currencyRepository.GetById(id);
+        if (currency == null)
+        {
+            return null;
+        }
+        return currency;
 
+} 
 }

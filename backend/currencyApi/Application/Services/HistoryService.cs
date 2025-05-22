@@ -1,60 +1,76 @@
 using Microsoft.AspNetCore.Http.HttpResults;
+using CurrencyApi.API.DTOs;
+
 
 public class HistoryService : IHistoryService
 {
     private readonly IHistoryRepository _historyRepository;
+    private readonly ICurrencyService _currencyService;
 
-    public HistoryService(IHistoryRepository historyRepository)
+    public HistoryService(IHistoryRepository historyRepository, ICurrencyService currencyService)
     {
         _historyRepository = historyRepository;
+         _currencyService = currencyService;
     }
 
-    public HistoryDTO RegisterHistory(HistoryDTO historyDto)
+    public HistoryResponseDTO RegisterHistory(HistoryRequestDTO historyDto)
     {
-        var history = new History 
-        { 
-            Datetime = DateTime.Now, 
+        
+        var currency = _currencyService.GetCurrencyById(historyDto.CurrencyId);
+        if (currency == null)
+        {
+            throw new ArgumentException("Currency não encontrada");
+        }
+
+
+        var history = new History
+        {
+            Datetime = DateTime.Now,
             Price = historyDto.Price,
-            Currency = history.Currency
+            Currency = currency
         };
         _historyRepository.Add(history);
 
-        return new HistoryDTO
+        return new HistoryResponseDTO
         {
-            Datetime = historyDto.Datetime, 
-            Price = historyDto.Price,
-            Currency = history.Currency
+            Id = history.Id,
+            Datetime = history.Datetime,
+            Price = history.Price,
+            CurrencyName = currency.Name
         };
+        
+    
     }
 
-    public HistoryDTO? GetHistoryDetails(int id)
-    {
-        var history = _historyRepository.GetById(id);
-        return history != null ? new HistoryDTO 
-        { 
-            Datetime = historyDto.Datetime, 
-            Price = historyDto.Price,
-            Currency = history.Currency      
-        } : null;
-    }
+    // public HistoryResponseDTO? GetHistoryDetails(int id)
+    // {
+    //     var history = _historyRepository.GetById(id);
+    //     return history != null ? new HistoryDTO 
+    //     { 
+    //         Id = history.Id,
+    //         Datetime = history.Datetime,
+    //         Price = history.Price,
+    //         Currency = history.Currency      
+    //     } : null;
+    // }
 
-    public HistoryDTO[] GetAllCurrencies()
-    {
-        var histories = _historyRepository.ListAll();
-        var historyDTOs = new List<HistoryDTO>();
+    // public HistoryResponseDTO[] GetAllCurrencies()
+    // {
+    //     var histories = _historyRepository.ListAll();
+    //     var historyDTOs = new List<HistoryResponseDTO>();
 
-        foreach(var history in histories)
-        {
-            historyDTOs.Add(new HistoryDTO 
-            { 
-                Id = history.Id, 
-                Datetime = historyDto.Datetime, 
-                Price = historyDto.Price,
-                Currency = history.Currency
-            });
-        }
+    //     foreach(var history in histories)
+    //     {
+    //         historyDTOs.Add(new HistoryResponseDTO 
+    //         { 
+    //             Id = history.Id, 
+    //             Datetime = history.Datetime, 
+    //             Price = history.Price,
+    //             Currency = history.Currency
+    //         });
+    //     }
 
-        return historyDTOs.ToArray();
-    }
+    //     return historyDTOs.ToArray();
+    // }
 
 }

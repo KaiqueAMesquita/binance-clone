@@ -6,4 +6,6 @@ public interface ICurrencyService
     CurrencyDTO[] GetAllCurrencies();
 
     CurrencyDTO? UpdateCurrency(int id, CurrencyDTO currencytDTO);
+
+    Currency? GetCurrencyById(int id);
 }
