@@ -7,31 +7,31 @@ public class HistoryRepository : IHistoryRepository
         _context = context;
     }
 
-    public void Add(History History)
+    public void Add(History history)
     {
-        _context.History.Add(History);
+        _context.Histories.Add(history);
         _context.SaveChanges();
     }
 
-    public History? GetById(int id) => _context.History.Find(id);
+    public History? GetById(int id) => _context.Histories.Find(id);
 
     // Criando método como array function
-    public List<History>? ListAll() => _context.History?.ToList() ?? new List<History>();
+    public List<History>? ListAll() => _context.Histories?.ToList() ?? new List<History>();
 
 
-    public void Update(History History)
+    public void Update(History history)
     {
-        if (History == null)
+        if (history == null)
         {
-            throw new ArgumentNullException(nameof(History));
+            throw new ArgumentNullException(nameof(history));
         }
-        _context.History.Update(History);
+        _context.Histories.Update(history);
         _context.SaveChanges();
     }
 
-    public void Delete(History History)
+    public void Delete(History history)
     {
-        _context.History.Remove(History);
+        _context.Histories.Remove(history);
         _context.SaveChanges();
     }
 

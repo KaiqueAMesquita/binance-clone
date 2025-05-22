@@ -37,22 +37,22 @@ public class CurrencyService : ICurrencyService
             Description = currency.Description,
             Backing = currency.Backing,
             Histories = (currency.Histories ?? new List<History>()).
-            Select(h => new HistoryResponseDTO
+            Select(h => new HistoryDTO
             {
                 Id = h.Id,
                 Datetime = h.Datetime,
                 Price = h.Price,
-                CurrencyName = h.Currency.Name
+                CurrencyId = h.CurrencyId
             }).ToList()
         } : null;
     }
 
     public CurrencyDTO[] GetAllCurrencies()
     {
-        var currencys = _currencyRepository.ListAll();
+        var currencies = _currencyRepository.ListAll();
         var currencyDTOs = new List<CurrencyDTO>();
 
-        foreach (var currency in currencys)
+        foreach (var currency in currencies)
         {
             currencyDTOs.Add(new CurrencyDTO
             {
@@ -61,12 +61,12 @@ public class CurrencyService : ICurrencyService
                 Description = currency.Description,
                 Backing = currency.Backing,
                 Histories = (currency.Histories ?? new List<History>()).
-                    Select(h => new HistoryResponseDTO
+                    Select(h => new HistoryDTO
                     {
                         Id = h.Id,
                         Datetime = h.Datetime,
                         Price = h.Price,
-                        CurrencyName = h.Currency.Name
+                        CurrencyId = h.CurrencyId
                     }).ToList()
             });
         }
@@ -107,5 +107,5 @@ public class CurrencyService : ICurrencyService
         }
         return currency;
 
-} 
+    } 
 }

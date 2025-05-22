@@ -6,5 +6,5 @@ public class CurrencyDTO
     public string Description { get; set; }
     public Backing Backing { get; set; }
 
-    public ICollection<HistoryResponseDTO> Histories { get; set; }
+    public ICollection<HistoryDTO> Histories { get; set; }
 }

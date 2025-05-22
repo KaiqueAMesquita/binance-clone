@@ -8,41 +8,41 @@ public class CurrencyRepository : ICurrencyRepository
         _context = context;
     }
 
-    public void Add(Currency Currency)
+    public void Add(Currency currency)
     {
-        _context.Currency.Add(Currency);
+        _context.Currencies.Add(currency);
         _context.SaveChanges();
     }
 
     public Currency? GetById(int id) =>
-        _context.Currency
+        _context.Currencies
             .Include(c => c.Histories)
             .FirstOrDefault(c => c.Id == id);
 
     public List<Currency>? ListAll() =>
-        _context.Currency?
+        _context.Currencies?
             .Include(c => c.Histories)
             .ToList() ?? new List<Currency>();
 
-    public void Update(Currency Currency)
+    public void Update(Currency currency)
     {
-        if (Currency == null)
+        if (currency == null)
         {
-            throw new ArgumentNullException(nameof(Currency));
+            throw new ArgumentNullException(nameof(currency));
         }
-        _context.Currency.Update(Currency);
+        _context.Currencies.Update(currency);
         _context.SaveChanges();
     }
 
     // Criando método de forma tradicional
     // public List<Currency>? ListAll()
     // {
-    //     return _context.Currency?.ToList() ?? new List<Currency>();
+    //     return _context.Currencies?.ToList() ?? new List<Currency>();
     // }
 
-    public void Delete(Currency Currency)
+    public void Delete(Currency currency)
     {
-        _context.Currency.Remove(Currency);
+        _context.Currencies.Remove(currency);
         _context.SaveChanges();
     }
 
