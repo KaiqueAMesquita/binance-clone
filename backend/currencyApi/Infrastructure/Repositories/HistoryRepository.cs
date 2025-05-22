@@ -1,8 +1,8 @@
 public class HistoryRepository : IHistoryRepository
 {
-    private readonly HistoryDbContext _context;
+    private readonly CurrencyDbContext _context;
 
-    public HistoryRepository(HistoryDbContext context)
+    public HistoryRepository(CurrencyDbContext context)
     {
         _context = context;
     }
