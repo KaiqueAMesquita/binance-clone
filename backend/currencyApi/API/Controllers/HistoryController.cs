@@ -18,7 +18,7 @@ public class HistoryController : ControllerBase
         return Ok(result);
     }
 
-     [HttpGet("{id}")]
+    [HttpGet("{id}")]
     public IActionResult GetHistoryDetails(int id)
     {
         var history = _historyService.GetHistoryDetails(id);
@@ -30,5 +30,16 @@ public class HistoryController : ControllerBase
     {
         var histories = _historyService.GetAllHistories();
         return Ok(histories);
+    }
+    
+    [HttpDelete("{id}")]
+    public IActionResult DeleteHistory(int id)
+    {
+        try{
+            _historyService.DeleteHistory(id);
+            return Ok();
+        }catch(Exception){
+            return BadRequest();
+        }
     }
 }
