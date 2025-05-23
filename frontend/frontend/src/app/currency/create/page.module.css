@@ -1,0 +1,9 @@
+.container {
+  @apply bg-gray-900 min-h-screen text-white p-8;
+}
+.inner {
+  @apply max-w-xl mx-auto p-8 rounded-lg shadow-lg bg-gray-800;
+}
+.title {
+  @apply text-yellow-400 text-3xl font-semibold text-center mb-6;
+}
