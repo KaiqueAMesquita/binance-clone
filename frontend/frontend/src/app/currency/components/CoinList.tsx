@@ -17,7 +17,7 @@ export default function CoinList() {
             <div className="flex items-center">
               <span className={styles.cellPrice}>${coin.price}</span>
               <Link
-                href={`/markets/${coin.symbol}`}
+                href={`/currency/${coin.symbol}`}
                 className={styles.actionBtn}
               >
                 Ver
