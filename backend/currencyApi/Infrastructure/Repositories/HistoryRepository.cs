@@ -18,7 +18,6 @@ public class HistoryRepository : IHistoryRepository
     // Criando método como array function
     public List<History>? ListAll() => _context.Histories?.ToList() ?? new List<History>();
 
-
     public void Update(History history)
     {
         if (history == null)

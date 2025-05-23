@@ -70,6 +70,31 @@ public class HistoryService : IHistoryService
         return historyDTOs.ToArray();
     }
 
+    public HistoryDTO? UpdateHistory(HistoryDTO historyDto, int id)
+    {
+        var currency = _currencyService.GetCurrencyById(historyDto.CurrencyId);
+
+        var history = _historyRepository.GetById(id);
+        if (history == null)
+        {
+            return null;
+        }
+
+        history.Datetime = historyDto.Datetime;
+        history.Price = historyDto.Price;
+        history.CurrencyId = historyDto.CurrencyId;
+        history.Currency = currency;
+
+        _historyRepository.Update(history);
+
+        return new HistoryDTO
+        {
+            Datetime = history.Datetime,
+            Price = history.Price,
+            CurrencyId = history.CurrencyId
+        };
+    }
+
     public void DeleteHistory(int id)
     {
         var history = _historyRepository.GetById(id);
