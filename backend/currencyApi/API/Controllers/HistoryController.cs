@@ -18,17 +18,17 @@ public class HistoryController : ControllerBase
         return Ok(result);
     }
 
-    //  [HttpGet("{id}")]
-    // public IActionResult GetHistoryDetails(int id)
-    // {
-    //     var history = _historyService.GetHistoryDetails(id);
-    //     return history != null ? Ok(history) : NotFound();
-    // }
+     [HttpGet("{id}")]
+    public IActionResult GetHistoryDetails(int id)
+    {
+        var history = _historyService.GetHistoryDetails(id);
+        return history != null ? Ok(history) : NotFound();
+    }
 
-    // [HttpGet]
-    // public IActionResult GetAllCurrencies()
-    // {
-    //     var histories = _historyService.GetAllCurrencies();
-    //     return Ok(histories);
-    // }
+    [HttpGet]
+    public IActionResult GetAllHistories()
+    {
+        var histories = _historyService.GetAllHistories();
+        return Ok(histories);
+    }
 }

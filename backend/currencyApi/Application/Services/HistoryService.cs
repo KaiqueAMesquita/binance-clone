@@ -39,35 +39,35 @@ public class HistoryService : IHistoryService
         };    
     }
 
-    // public HistoryResponseDTO? GetHistoryDetails(int id)
-    // {
-    //     var history = _historyRepository.GetById(id);
-    //     return history != null ? new HistoryDTO 
-    //     { 
-    //         Id = history.Id,
-    //         Datetime = history.Datetime,
-    //         Price = history.Price,
-    //         Currency = history.Currency      
-    //     } : null;
-    // }
+    public HistoryDTO? GetHistoryDetails(int id)
+    {
+        var history = _historyRepository.GetById(id);
+        return history != null ? new HistoryDTO 
+        { 
+            Id = history.Id,
+            Datetime = history.Datetime,
+            Price = history.Price,
+            CurrencyId = history.CurrencyId
+        } : null;
+    }
 
-    // public HistoryResponseDTO[] GetAllCurrencies()
-    // {
-    //     var histories = _historyRepository.ListAll();
-    //     var historyDTOs = new List<HistoryResponseDTO>();
+    public HistoryDTO[] GetAllHistories()
+    {
+        var histories = _historyRepository.ListAll();
+        var historyDTOs = new List<HistoryDTO>();
 
-    //     foreach(var history in histories)
-    //     {
-    //         historyDTOs.Add(new HistoryResponseDTO 
-    //         { 
-    //             Id = history.Id, 
-    //             Datetime = history.Datetime, 
-    //             Price = history.Price,
-    //             Currency = history.Currency
-    //         });
-    //     }
+        foreach (var history in histories)
+        {
+            historyDTOs.Add(new HistoryDTO
+            {
+                Id = history.Id,
+                Datetime = history.Datetime,
+                Price = history.Price,
+                CurrencyId = history.CurrencyId
+            });
+        }
 
-    //     return historyDTOs.ToArray();
-    // }
+        return historyDTOs.ToArray();
+    }
 
 }
