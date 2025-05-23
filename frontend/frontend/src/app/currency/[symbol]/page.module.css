@@ -1,0 +1,81 @@
+.container {
+  @apply bg-gray-900 min-h-screen p-8 text-white;
+}
+.backLink {
+  @apply text-yellow-400 mb-4 inline-block;
+}
+.gridLayout {
+  @apply grid grid-cols-1 lg:grid-cols-3 gap-8;
+}
+.main {
+  @apply lg:col-span-2;
+}
+.heading {
+  @apply flex items-center space-x-2 mb-2;
+}
+.icon {
+  @apply text-4xl;
+}
+.title {
+  @apply text-3xl font-semibold;
+}
+.subtitle {
+  @apply text-gray-300 mb-4;
+}
+.tabs {
+  @apply flex space-x-4 border-b border-gray-700 mb-4;
+}
+.tab {
+  @apply text-gray-400 px-2 py-1 cursor-pointer hover:text-white;
+}
+.tabActive {
+  @apply text-white border-b-2 border-yellow-400;
+}
+.chartContainer {
+  @apply bg-gray-800 h-64 rounded-lg mb-4 flex items-center justify-center;
+}
+.updateTime {
+  @apply text-gray-500 text-sm;
+}
+.sidebar {
+  @apply space-y-6;
+}
+.card {
+  @apply bg-gray-800 p-6 rounded-lg;
+}
+.cardHeader {
+  @apply text-lg font-semibold mb-4;
+}
+.formGroup {
+  @apply mb-4;
+}
+.formLabel {
+  @apply block text-sm text-gray-300 mb-1;
+}
+.formInput {
+  @apply w-full bg-gray-700 text-white p-2 rounded;
+}
+.ctaButton {
+  @apply w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold py-3 rounded-lg;
+}
+.note {
+  @apply text-gray-400 text-sm mt-4;
+}
+.fees {
+  @apply space-y-2 mt-4;
+}
+.feeItem {
+  @apply flex justify-between items-center;
+}
+.feeLabel {
+  @apply text-gray-300 text-sm;
+}
+.feeBarBg {
+  @apply bg-gray-700 h-2 rounded-full flex-1 mx-2;
+}
+.feeBar {
+  @apply bg-yellow-400 h-2 rounded-full;
+}
+.feeValue {
+  @apply text-white text-sm font-semibold;
+}
