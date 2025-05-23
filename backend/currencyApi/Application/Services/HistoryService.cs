@@ -36,14 +36,14 @@ public class HistoryService : IHistoryService
             Datetime = history.Datetime,
             Price = history.Price,
             CurrencyId = history.CurrencyId
-        };    
+        };
     }
 
     public HistoryDTO? GetHistoryDetails(int id)
     {
         var history = _historyRepository.GetById(id);
-        return history != null ? new HistoryDTO 
-        { 
+        return history != null ? new HistoryDTO
+        {
             Id = history.Id,
             Datetime = history.Datetime,
             Price = history.Price,
@@ -68,6 +68,12 @@ public class HistoryService : IHistoryService
         }
 
         return historyDTOs.ToArray();
+    }
+
+    public void DeleteHistory(int id)
+    {
+        var history = _historyRepository.GetById(id);
+        _historyRepository.Delete(history);
     }
 
 }
