@@ -1,4 +1,4 @@
-// app/markets/data.ts
+// app/currency/data.ts
 export const mockCoins = [
   { symbol: 'BTC', name: 'Bitcoin', price: '109,044.80' },
   { symbol: 'ETH', name: 'Ethereum', price: '2,565.08' },

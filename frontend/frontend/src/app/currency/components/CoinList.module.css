@@ -13,7 +13,6 @@
 .cellPrice {
   @apply text-yellow-400 font-medium;
 }
-/* <<< NOVA CLASSE >>> */
 .actionBtn {
   @apply text-gray-400 hover:text-white transition ml-4;
 }
