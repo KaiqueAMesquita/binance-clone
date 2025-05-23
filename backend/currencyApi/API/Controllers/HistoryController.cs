@@ -11,7 +11,7 @@ public class HistoryController : ControllerBase
         _historyService = historyService;
     }
 
-    [HttpPost]
+    [HttpPost("{currencyId}")]
     public IActionResult RegisterHistory(HistoryDTO historyDto, int currencyId)
     {
         var result = _historyService.RegisterHistory(historyDto, currencyId);
@@ -30,6 +30,13 @@ public class HistoryController : ControllerBase
     {
         var histories = _historyService.GetAllHistories();
         return Ok(histories);
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult UpdateHistory(HistoryDTO historyDto, int id)
+    {
+        var history = _historyService.UpdateHistory(historyDto, id);
+        return Ok(history);
     }
     
     [HttpDelete("{id}")]
