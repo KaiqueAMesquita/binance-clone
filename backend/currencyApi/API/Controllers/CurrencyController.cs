@@ -28,8 +28,8 @@ public class CurrencyController : ControllerBase
     [HttpGet]
     public IActionResult GetAllCurrencies()
     {
-        var currencys = _currencyService.GetAllCurrencies();
-        return Ok(currencys);
+        var currencies = _currencyService.GetAllCurrencies();
+        return Ok(currencies);
     }
 
       [HttpPut("{id}")]
