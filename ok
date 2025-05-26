@@ -1,0 +1,40 @@
+[1mdiff --git a/frontend/frontend/src/app/page.tsx b/frontend/frontend/src/app/page.tsx[m
+[1mindex 68eb13b..ab5bfe9 100644[m
+[1m--- a/frontend/frontend/src/app/page.tsx[m
+[1m+++ b/frontend/frontend/src/app/page.tsx[m
+[36m@@ -1,11 +1,20 @@[m
+[31m-import Header from '../components/common/Header';[m
+[32m+[m[32m'use client';[m
+[32m+[m
+[32m+[m[32mimport { useRouter } from 'next/navigation';[m
+ import HeroSection from '@/components/common/HeroSection';[m
+ import FeatureGrid from '@/components/common/FeatureGrid';[m
+[31m-import styles from './page.module.css'[m
+[32m+[m[32mimport styles from './page.module.css';[m
+[32m+[m
+ export default function Home() {[m
+[32m+[m[32m  const router = useRouter();[m
+   return ([m
+     <div className={styles.pageWrapper}>[m
+       <HeroSection />[m
+[32m+[m[32m      <button[m[41m [m
+[32m+[m[32m        onClick={() => router.push('/users')}[m
+[32m+[m[32m        className="btn text-white">Usuários</button>[m[41m [m
+[32m+[m[32m        {/* TODO: Mover essa merda de botão pra navbar,[m
+[32m+[m[32m          gambiarra pra teste apenas. */}[m
+       <FeatureGrid />[m
+     </div>[m
+   )[m
+[1mdiff --git a/frontend/frontend/src/app/users/login/page.tsx b/frontend/frontend/src/app/users/login/page.tsx[m
+[1mindex ec8abf0..11c210c 100644[m
+[1m--- a/frontend/frontend/src/app/users/login/page.tsx[m
+[1m+++ b/frontend/frontend/src/app/users/login/page.tsx[m
+[36m@@ -49,7 +49,7 @@[m [mexport default function LoginPage() {[m
+       );[m
+ [m
+       toast.success('Login realizado com sucesso!');[m
+[31m-      router.push('/users');[m
+[32m+[m[32m      router.push('/');[m
+     } catch {[m
+       toast.error('Erro ao efetuar login.');[m
+     } finally {[m

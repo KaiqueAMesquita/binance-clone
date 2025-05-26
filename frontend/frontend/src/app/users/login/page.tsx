@@ -49,7 +49,7 @@ export default function LoginPage() {
       );
 
       toast.success('Login realizado com sucesso!');
-      router.push('/users');
+      router.push('/');
     } catch {
       toast.error('Erro ao efetuar login.');
     } finally {
