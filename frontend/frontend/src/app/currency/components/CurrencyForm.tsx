@@ -5,11 +5,24 @@ import { toast } from 'react-toastify';
 import SubmitButton from './SubmitButton';
 import styles from './CurrencyForm.module.css';
 
-export default function CurrencyForm() {
+interface CurrencyFormProps {
+  initialValues?: {
+    name: string;
+    description: string;
+    price: string;
+  };
+  onSubmit?: (formData: {
+    name: string;
+    description: string;
+    price: string;
+  }) => void;
+}
+
+export default function CurrencyForm({ initialValues, onSubmit }: CurrencyFormProps) {
   const [form, setForm] = useState({
-    name: '',
-    description: '',
-    price: ''
+    name: initialValues?.name || '',
+    description: initialValues?.description || '',
+    price: initialValues?.price || ''
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -20,18 +33,22 @@ export default function CurrencyForm() {
     e.preventDefault();
 
     try {
-      const res = await fetch('/api/currencies', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
+      if (onSubmit) {
+        await onSubmit(form);
+      } else {
+        const res = await fetch('/api/currencies', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(form),
+        });
 
-      if (!res.ok) throw new Error();
+        if (!res.ok) throw new Error();
 
-      toast.success('Moeda cadastrada com sucesso! 💰');
-      setForm({ name: '', description: '', price: '' });
+        toast.success('Moeda cadastrada com sucesso! ');
+        setForm({ name: '', description: '', price: '' });
+      }
     } catch {
-      toast.error('Erro ao cadastrar moeda.');
+      toast.error('Erro ao processar moeda.');
     }
   };
 
@@ -72,7 +89,7 @@ export default function CurrencyForm() {
         />
       </div>
 
-      <SubmitButton label="Cadastrar Moeda" />
+      <SubmitButton label={initialValues ? 'Atualizar Moeda' : 'Cadastrar Moeda'} />
     </form>
   );
 }
