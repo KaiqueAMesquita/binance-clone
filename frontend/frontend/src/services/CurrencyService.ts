@@ -1,5 +1,3 @@
-import { create } from "domain";
-
 const BASE_URL = "http://localhost:5237/api";
 
 const crudAPI = (basePath: string) => ({
