@@ -1,31 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\projects\\binance-clone\\backend\\userApi\\userApi.csproj": {}
+    "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\userApi\\userApi.csproj": {}
   },
   "projects": {
-    "C:\\projects\\binance-clone\\backend\\userApi\\userApi.csproj": {
+    "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\userApi\\userApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projects\\binance-clone\\backend\\userApi\\userApi.csproj",
+        "projectUniqueName": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\userApi\\userApi.csproj",
         "projectName": "userApi",
-        "projectPath": "C:\\projects\\binance-clone\\backend\\userApi\\userApi.csproj",
-        "packagesPath": "C:\\Users\\kaiqu\\.nuget\\packages\\",
-        "outputPath": "C:\\projects\\binance-clone\\backend\\userApi\\obj\\",
+        "projectPath": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\userApi\\userApi.csproj",
+        "packagesPath": "C:\\Users\\DaviKonuma\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\userApi\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\kaiqu\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\DaviKonuma\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
