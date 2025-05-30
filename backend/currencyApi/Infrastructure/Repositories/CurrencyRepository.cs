@@ -34,12 +34,6 @@ public class CurrencyRepository : ICurrencyRepository
         _context.SaveChanges();
     }
 
-    // Criando método de forma tradicional
-    // public List<Currency>? ListAll()
-    // {
-    //     return _context.Currencies?.ToList() ?? new List<Currency>();
-    // }
-
     public void Delete(Currency currency)
     {
         _context.Currencies.Remove(currency);
