@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "FsUJ34j6QIY=",
+  "dgSpecHash": "tj7XoYIpBDs=",
   "success": true,
-  "projectFilePath": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\currencyApi\\currencyApi.csproj",
+  "projectFilePath": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\CurrencyApi\\currencyApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\DaviKonuma\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\DaviKonuma\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\9.0.4\\microsoft.aspnetcore.authentication.jwtbearer.9.0.4.nupkg.sha512",

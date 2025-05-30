@@ -1,23 +1,23 @@
 'use client';
 
 import Link from 'next/link';
-import { mockCoins } from '@/app/currency/data';
 import styles from './CoinList.module.css';
+import { currencyAPI } from '@/services/CurrencyService';
 
 export default function CoinList() {
   return (
     <div className="overflow-hidden rounded-lg shadow-lg bg-gray-900">
       <div className={styles.table}>
-        {mockCoins.map((coin) => (
-          <div key={coin.symbol} className={styles.row}>
+        {(currencyAPI.getAll()).map((currency: any) => (
+          <div key={currency.symbol} className={styles.row}>
             <div className="flex items-center space-x-3">
-              <span className={styles.cellSymbol}>{coin.symbol}</span>
-              <span className={styles.cellName}>{coin.name}</span>
+              <span className={styles.cellSymbol}>{currency.symbol}</span>
+              <span className={styles.cellName}>{currency.name}</span>
             </div>
             <div className="flex items-center">
-              <span className={styles.cellPrice}>${coin.price}</span>
+              <span className={styles.cellPrice}>${ currency.price}</span>
               <Link
-                href={`/currency/${coin.symbol}`}
+                href={`/currency/${currency.symbol}`}
                 className={styles.actionBtn}
               >
                 Ver
