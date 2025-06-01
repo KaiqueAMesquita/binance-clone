@@ -22,7 +22,7 @@ public class CurrencyService : ICurrencyService
 
         return new CurrencyDTO
         {
-            Symbol = currency.Symbol
+            Symbol = currency.Symbol,
             Name = currency.Name,
             Description = currency.Description,
             Backing = currency.Backing,
