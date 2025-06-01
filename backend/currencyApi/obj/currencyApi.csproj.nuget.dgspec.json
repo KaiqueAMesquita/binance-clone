@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\CurrencyApi\\currencyApi.csproj": {}
   },
   "projects": {
@@ -12,9 +13,28 @@
         "projectPath": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\CurrencyApi\\currencyApi.csproj",
         "packagesPath": "C:\\Users\\DaviKonuma\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\CurrencyApi\\obj\\",
+=======
+    "C:\\Users\\lucas\\OneDrive\\Documentos\\A_Estudos\\A_EtecFatec\\5º ADS Fatec\\ProgMultiPlat\\binance-clone\\backend\\currencyapi\\currencyApi.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\lucas\\OneDrive\\Documentos\\A_Estudos\\A_EtecFatec\\5º ADS Fatec\\ProgMultiPlat\\binance-clone\\backend\\currencyapi\\currencyApi.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\lucas\\OneDrive\\Documentos\\A_Estudos\\A_EtecFatec\\5º ADS Fatec\\ProgMultiPlat\\binance-clone\\backend\\currencyapi\\currencyApi.csproj",
+        "projectName": "currencyApi",
+        "projectPath": "C:\\Users\\lucas\\OneDrive\\Documentos\\A_Estudos\\A_EtecFatec\\5º ADS Fatec\\ProgMultiPlat\\binance-clone\\backend\\currencyapi\\currencyApi.csproj",
+        "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lucas\\OneDrive\\Documentos\\A_Estudos\\A_EtecFatec\\5º ADS Fatec\\ProgMultiPlat\\binance-clone\\backend\\currencyapi\\obj\\",
+>>>>>>> feature/refactoring_currency_database
         "projectStyle": "PackageReference",
         "configFilePaths": [
+<<<<<<< HEAD
           "C:\\Users\\DaviKonuma\\AppData\\Roaming\\NuGet\\NuGet.Config"
+=======
+          "C:\\Users\\lucas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+>>>>>>> feature/refactoring_currency_database
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -66,6 +86,12 @@
               "target": "Package",
               "version": "[9.0.4, )"
             },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
             "Microsoft.IdentityModel.Tokens": {
               "target": "Package",
               "version": "[8.9.0, )"
@@ -94,7 +120,11 @@
               "privateAssets": "all"
             }
           },
+<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+=======
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.204/PortableRuntimeIdentifierGraph.json"
+>>>>>>> feature/refactoring_currency_database
         }
       }
     }
