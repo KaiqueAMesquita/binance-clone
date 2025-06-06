@@ -13,11 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("currencyApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2c35ad699846e3f342cbbf03b969960f0ece24c4")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+db93308906a834754c94415b05c8634e1b2b9a39")]
->>>>>>> feature/refactoring_currency_database
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+15c0f303f17f39688e5ae19fd0a1bbe50a347131")]
 [assembly: System.Reflection.AssemblyProductAttribute("currencyApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("currencyApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

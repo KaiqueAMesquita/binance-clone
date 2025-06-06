@@ -104,6 +104,13 @@ public class CurrencyService : ICurrencyService
         };
     }
 
+    public void DeleteCurrency(int id)
+    {
+        var currency = _currencyRepository.GetById(id);
+        _currencyRepository.Delete(currency);
+    }
+
+    // Retorna Entity Currency para usar no HistoryService
     public Currency? GetCurrencyById(int id)
     {
         var currency = _currencyRepository.GetById(id);
