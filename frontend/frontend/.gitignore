@@ -15,6 +15,17 @@
 # production
 /build
 
+# .NET build artifacts
+/backend/currencyApi/bin/
+/backend/currencyApi/obj/
+
+# UserApi build artifacts
+/backend/userApi/bin/
+/backend/userApi/obj/
+
+# SQLite local DB
+*.sqlite
+
 # misc
 .DS_Store
 *.pem
