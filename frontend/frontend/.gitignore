@@ -33,3 +33,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# .NET build artifacts
+/backend/currencyApi/bin/
+/backend/currencyApi/obj/
+/*.sqlite
