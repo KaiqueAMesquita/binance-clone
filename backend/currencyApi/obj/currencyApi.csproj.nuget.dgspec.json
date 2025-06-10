@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\CurrencyApi\\currencyApi.csproj": {}
+    "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\currencyApi\\currencyApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\CurrencyApi\\currencyApi.csproj": {
+    "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\currencyApi\\currencyApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\CurrencyApi\\currencyApi.csproj",
+        "projectUniqueName": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\currencyApi\\currencyApi.csproj",
         "projectName": "currencyApi",
-        "projectPath": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\CurrencyApi\\currencyApi.csproj",
+        "projectPath": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\currencyApi\\currencyApi.csproj",
         "packagesPath": "C:\\Users\\DaviKonuma\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\CurrencyApi\\obj\\",
+        "outputPath": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\currencyApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\DaviKonuma\\AppData\\Roaming\\NuGet\\NuGet.Config"
