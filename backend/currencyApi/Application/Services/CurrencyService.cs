@@ -13,6 +13,7 @@ public class CurrencyService : ICurrencyService
     {
         var currency = new Currency
         {
+            Symbol = currencyDto.Symbol,
             Name = currencyDto.Name,
             Description = currencyDto.Description,
             Backing = currencyDto.Backing,
@@ -21,6 +22,7 @@ public class CurrencyService : ICurrencyService
 
         return new CurrencyDTO
         {
+            Symbol = currency.Symbol,
             Name = currency.Name,
             Description = currency.Description,
             Backing = currency.Backing,
@@ -33,6 +35,7 @@ public class CurrencyService : ICurrencyService
         return currency != null ? new CurrencyDTO
         {
             Id = currency.Id,
+            Symbol = currency.Symbol,
             Name = currency.Name,
             Description = currency.Description,
             Backing = currency.Backing,
@@ -57,6 +60,7 @@ public class CurrencyService : ICurrencyService
             currencyDTOs.Add(new CurrencyDTO
             {
                 Id = currency.Id,
+                Symbol = currency.Symbol,
                 Name = currency.Name,
                 Description = currency.Description,
                 Backing = currency.Backing,
@@ -83,6 +87,7 @@ public class CurrencyService : ICurrencyService
             return null;
         }
 
+        currency.Symbol = currencyDto.Symbol;
         currency.Name = currencyDto.Name;
         currency.Description = currencyDto.Description;
         currency.Backing = currencyDto.Backing;
@@ -91,6 +96,7 @@ public class CurrencyService : ICurrencyService
 
         return new CurrencyDTO
         {
+            Symbol = currency.Symbol,
             Name = currency.Name,
             Description = currency.Description,
             Backing = currency.Backing,
@@ -98,6 +104,13 @@ public class CurrencyService : ICurrencyService
         };
     }
 
+    public void DeleteCurrency(int id)
+    {
+        var currency = _currencyRepository.GetById(id);
+        _currencyRepository.Delete(currency);
+    }
+
+    // Retorna Entity Currency para usar no HistoryService
     public Currency? GetCurrencyById(int id)
     {
         var currency = _currencyRepository.GetById(id);

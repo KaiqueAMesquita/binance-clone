@@ -18,7 +18,7 @@ public class CurrencyController : ControllerBase
         return Ok(result);
     }
 
-     [HttpGet("{id}")]
+    [HttpGet("{id}")]
     public IActionResult GetCurrencyDetails(int id)
     {
         var currency = _currencyService.GetCurrencyDetails(id);
@@ -32,18 +32,27 @@ public class CurrencyController : ControllerBase
         return Ok(currencies);
     }
 
-      [HttpPut("{id}")]
-    public IActionResult UpdateCurrency(int id, CurrencyDTO currencyDTO){
-        if(id != currencyDTO.Id ){
+    [HttpPut("{id}")]
+    public IActionResult UpdateCurrency(int id, CurrencyDTO currencyDTO) {
+        if (id != currencyDTO.Id) {
             return BadRequest();
         }
-        
+
         var currency = _currencyService.UpdateCurrency(id, currencyDTO);
-        if(currency == null){
+        if (currency == null) {
             return NotFound();
         }
         return Ok(currency);
     }
 
-  
+    [HttpDelete("{id}")]
+    public IActionResult DeleteCurrency(int id)
+    {
+        try{
+            _currencyService.DeleteCurrency(id);
+            return Ok();
+        }catch(Exception){
+            return BadRequest();
+        }
+    }
 }
