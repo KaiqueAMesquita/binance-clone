@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\currencyApi\\currencyApi.csproj": {}
   },
   "projects": {
@@ -12,14 +13,33 @@
         "projectPath": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\currencyApi\\currencyApi.csproj",
         "packagesPath": "C:\\Users\\DaviKonuma\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\currencyApi\\obj\\",
+=======
+    "C:\\Users\\0031432412020\\Documents\\binance-clone\\backend\\currencyapi\\currencyApi.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\0031432412020\\Documents\\binance-clone\\backend\\currencyapi\\currencyApi.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\0031432412020\\Documents\\binance-clone\\backend\\currencyapi\\currencyApi.csproj",
+        "projectName": "currencyApi",
+        "projectPath": "C:\\Users\\0031432412020\\Documents\\binance-clone\\backend\\currencyapi\\currencyApi.csproj",
+        "packagesPath": "C:\\Users\\0031432412020\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\0031432412020\\Documents\\binance-clone\\backend\\currencyapi\\obj\\",
+>>>>>>> 01f61116c3806f3b2c81f4c461ec15fb36d5c970
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\DaviKonuma\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\0031432412020\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -38,7 +58,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net9.0": {
@@ -63,6 +83,12 @@
               "version": "[9.0.4, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.4, )"
             },
@@ -94,7 +120,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

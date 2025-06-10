@@ -30,6 +30,11 @@
 .DS_Store
 *.pem
 
+# Ignore pastas de build do .NET
+**/bin/
+**/obj/
+
+
 # debug
 npm-debug.log*
 yarn-debug.log*
