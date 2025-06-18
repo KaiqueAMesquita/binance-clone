@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import SubmitButton from './SubmitButton';
 import styles from './CurrencyForm.module.css';
-import { useEffect } from 'react';
 import { currencyAPI, Currency } from '../../../services/CurrencyService';
 
 interface CurrencyFormData {
@@ -24,6 +24,7 @@ interface CurrencyFormProps {
 }
 
 export default function CurrencyForm({ initialValues, onSubmit }: CurrencyFormProps) {
+  const router = useRouter();
   const [form, setForm] = useState<CurrencyFormData>(initialValues || {
     name: '',
     description: '',
@@ -80,15 +81,10 @@ export default function CurrencyForm({ initialValues, onSubmit }: CurrencyFormPr
           const result = await currencyAPI.create(currency);
           console.log('Resposta do backend:', result);
           
-          // Atualizar o estado do form com o ID retornado
-          setForm({
-            ...form,
-            name: '',
-            description: '',
-            backing: ''
-          });
-          
+          // Redirecionar para a página principal de moedas
+          router.push('/currency');
           toast.success('Moeda cadastrada com sucesso!');
+          return;
         } catch (error) {
           console.error('Erro detalhado:', error);
           toast.error('Erro ao cadastrar moeda');
