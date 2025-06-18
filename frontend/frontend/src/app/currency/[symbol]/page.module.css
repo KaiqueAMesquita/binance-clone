@@ -24,22 +24,9 @@
   align-items: center;
   gap: 1rem;
 }
-.editButton {
-  background-color: #2563eb;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  font-size: 0.875rem;
-  transition: background-color 0.2s;
-}
-.editButton:hover {
-  background-color: #1d4ed8;
-}
-.editButton:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.5);
+.actionButtons {
+  display: flex;
+  gap: 0.5rem;
 }
 .subtitle {
   @apply text-gray-300 mb-4;

@@ -1,6 +1,6 @@
 'use client';
 
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { currencyAPI, Currency } from '@/services/CurrencyService';
@@ -9,6 +9,7 @@ import styles from './page.module.css';
 
 export default function CurrencyEditPage() {
   const params = useParams();
+  const router = useRouter();
   const id = params.id;
   const [currency, setCurrency] = useState<Currency | null>(null);
   const [loading, setLoading] = useState(true);
@@ -51,6 +52,7 @@ export default function CurrencyEditPage() {
 
       await currencyAPI.update(updatedCurrency.id, updatedCurrency);
       toast.success('Moeda atualizada com sucesso!');
+      router.push(`/currency/${updatedCurrency.id}`);
       setCurrency(updatedCurrency);
     } catch (error) {
       console.error('Erro ao atualizar moeda:', error);

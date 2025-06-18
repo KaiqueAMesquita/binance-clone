@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import { currencyAPI, Currency } from '@/services/CurrencyService';
 import styles from './page.module.css';
@@ -9,6 +10,7 @@ import PriceChart from '../components/PriceChart';
 
 export default function CoinDetailPage() {
   const { symbol: id } = useParams();
+  const router = useRouter();
   const [coin, setCoin] = useState<Currency | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -46,6 +48,22 @@ export default function CoinDetailPage() {
     });
   };
 
+  const handleDelete = async () => {
+    try {
+      if (!coin) return;
+
+      const confirm = window.confirm('Tem certeza que deseja deletar esta moeda?');
+      if (!confirm) return;
+
+      await currencyAPI.delete(coin.id);
+      toast.success('Moeda deletada com sucesso!');
+      router.push('/currency');
+    } catch (error) {
+      console.error('Erro ao deletar moeda:', error);
+      toast.error('Erro ao deletar moeda');
+    }
+  };
+
   if (loading) {
     return (
       <div className={styles.container}>
@@ -81,9 +99,20 @@ export default function CoinDetailPage() {
             <div className={styles.icon}>📈</div>
             <h1 className={styles.title}>
               Preço do {coin.name} ({coin.name})
-              <Link href={`/currency/edit/${coin.id}`} className={styles.editButton}>
-                Editar
-              </Link>
+              <div className="actionButtons">
+                <button
+                  className="editButton"
+                  onClick={() => router.push(`/currency/edit/${coin?.id}`)}
+                >
+                  Editar
+                </button>
+                <button
+                  className="deleteButton"
+                  onClick={handleDelete}
+                >
+                  Deletar
+                </button>
+              </div>
             </h1>
           </div>
           <p className={styles.subtitle}>

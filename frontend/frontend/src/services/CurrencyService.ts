@@ -94,6 +94,22 @@ const currencyService = {
       console.error('Erro detalhado:', error);
       throw error;
     }
+  },
+
+  delete: async (id: number): Promise<void> => {
+    try {
+      const response = await fetch(`${BASE_URL}/Currency/${id}`, {
+        method: 'DELETE'
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || `Erro ao deletar moeda: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Erro detalhado:', error);
+      throw error;
+    }
   }
 };
 
