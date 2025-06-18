@@ -81,6 +81,9 @@ export default function CoinDetailPage() {
             <div className={styles.icon}>📈</div>
             <h1 className={styles.title}>
               Preço do {coin.name} ({coin.name})
+              <Link href={`/currency/edit/${coin.id}`} className={styles.editButton}>
+                Editar
+              </Link>
             </h1>
           </div>
           <p className={styles.subtitle}>
@@ -141,13 +144,14 @@ export default function CoinDetailPage() {
               ].map((f) => (
                 <div key={f.label} className={styles.feeItem}>
                   <span className={styles.feeLabel}>{f.label}</span>
-                  <div className={styles.feeBarBg}>
-                    <div
-                      className={styles.feeBar}
-                      style={{ width: `${f.value * 100}%` }}
-                    />
+                  <div className="flex items-center space-x-2">
+                    <Link
+                      href={`/currency/${coin.id}`}
+                      className={styles.actionBtn}
+                    >
+                      Ver
+                    </Link>
                   </div>
-                  <span className={styles.feeValue}>{f.value}%</span>
                 </div>
               ))}
             </div>
