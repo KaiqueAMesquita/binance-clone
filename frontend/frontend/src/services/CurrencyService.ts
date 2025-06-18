@@ -68,6 +68,33 @@ const currencyService = {
       throw error;
     }
   },
+
+  update: async (id: number, currency: Currency): Promise<void> => {
+    try {
+      const response = await fetch(`${BASE_URL}/Currency/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id,
+          symbol: currency.symbol,
+          name: currency.name,
+          description: currency.description,
+          backing: currency.backing,
+          histories: currency.histories
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || `Erro ao atualizar moeda: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Erro detalhado:', error);
+      throw error;
+    }
+  }
 };
 
 export { currencyService as currencyAPI };
