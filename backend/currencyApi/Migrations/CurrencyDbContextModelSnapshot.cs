@@ -36,6 +36,9 @@ namespace currencyApi.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("Reverse")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Symbol")
                         .IsRequired()
                         .HasMaxLength(10)

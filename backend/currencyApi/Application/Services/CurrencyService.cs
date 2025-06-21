@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using CurrencyApi.API.DTOs;
+using CurrencyAPI.API.DTOs;
 public class CurrencyService : ICurrencyService
 {
     private readonly ICurrencyRepository _currencyRepository;
@@ -9,7 +10,7 @@ public class CurrencyService : ICurrencyService
         _currencyRepository = currencyRepository;
     }
 
-    public CurrencyDTO RegisterCurrency(CurrencyDTO currencyDto)
+    public async Task<CurrencyDTO> RegisterCurrency(CurrencyDTO currencyDto)
     {
         var currency = new Currency
         {
@@ -18,7 +19,7 @@ public class CurrencyService : ICurrencyService
             Description = currencyDto.Description,
             Backing = currencyDto.Backing,
         };
-        _currencyRepository.Add(currency);
+        await _currencyRepository.Add(currency);
 
         return new CurrencyDTO
         {
@@ -29,9 +30,9 @@ public class CurrencyService : ICurrencyService
         };
     }
 
-    public CurrencyDTO? GetCurrencyDetails(int id)
+    public async Task<CurrencyDTO?> GetCurrencyDetails(int id)
     {
-        var currency = _currencyRepository.GetById(id);
+        var currency = await _currencyRepository.GetById(id);
         return currency != null ? new CurrencyDTO
         {
             Id = currency.Id,
@@ -50,9 +51,9 @@ public class CurrencyService : ICurrencyService
         } : null;
     }
 
-    public CurrencyDTO[] GetAllCurrencies()
+    public async Task<CurrencyDTO[]> GetAllCurrencies()
     {
-        var currencies = _currencyRepository.ListAll();
+        var currencies = await _currencyRepository.ListAll();
         var currencyDTOs = new List<CurrencyDTO>();
 
         foreach (var currency in currencies)
@@ -78,10 +79,10 @@ public class CurrencyService : ICurrencyService
         return currencyDTOs.ToArray();
     }
 
-    public CurrencyDTO? UpdateCurrency(int id, CurrencyDTO currencyDto)
+    public async Task<CurrencyDTO?> UpdateCurrency(int id, CurrencyDTO currencyDto)
     {
 
-        var currency = _currencyRepository.GetById(id);
+        var currency = await _currencyRepository.GetById(id);
         if (currency == null)
         {
             return null;
@@ -91,7 +92,7 @@ public class CurrencyService : ICurrencyService
         currency.Name = currencyDto.Name;
         currency.Description = currencyDto.Description;
         currency.Backing = currencyDto.Backing;
-        _currencyRepository.Update(currency);
+        await _currencyRepository.Update(currency);
 
 
         return new CurrencyDTO
@@ -104,16 +105,16 @@ public class CurrencyService : ICurrencyService
         };
     }
 
-    public void DeleteCurrency(int id)
+    public async Task DeleteCurrency(int id)
     {
-        var currency = _currencyRepository.GetById(id);
-        _currencyRepository.Delete(currency);
+        var currency = await _currencyRepository.GetById(id);
+        await _currencyRepository.Delete(currency);
     }
 
     // Retorna Entity Currency para usar no HistoryService
-    public Currency? GetCurrencyById(int id)
+    public async Task<Currency?> GetCurrencyById(int id)
     {
-        var currency = _currencyRepository.GetById(id);
+        var currency = await _currencyRepository.GetById(id);
         if (currency == null)
         {
             return null;
@@ -121,4 +122,19 @@ public class CurrencyService : ICurrencyService
         return currency;
 
     } 
+
+    public async Task<CurrencyWithLastPriceDto?> GetLastPriceBySymbolAsync(string symbol)
+    {
+        return await _currencyRepository.GetLastPriceBySymbolAsync(symbol);
+    }
+
+    public async Task<IEnumerable<CurrencySummaryDto>> GetCurrencySummariesAsync()
+    {
+        return await _currencyRepository.GetCurrencySummariesAsync();
+    }
+
+    public async Task<IEnumerable<ChartPointDto>> GetChartDataAsync(int currencyId, int quantity)
+    {
+        return await _currencyRepository.GetChartDataAsync(currencyId, quantity);
+    }
 }
