@@ -15,29 +15,57 @@ export default function UserForm() {
     phone: '',
     address: '',
     password: '',
-    photo: '',
   });
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    if (e.target.type === 'file' && e.target.files?.[0]) {
+      setPhotoFile(e.target.files[0]);
+    } else {
+      setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!photoFile) {
+      toast.error('Selecione uma foto de perfil.');
+      return;
+    }
 
     try {
-      const response = await fetch(userAPI.create(), {
+      const data = new FormData();
+      data.append('photo', photoFile);
+
+      console.log('>> enviando FormData para /api/upload …');
+      const uploadRes = await fetch('/api/upload', { method: 'POST', body: data });
+      console.log('upload status:', uploadRes.status);
+
+      // clona para ler raw text
+      const raw = await uploadRes.clone().text();
+      console.log('upload raw text:', raw);
+
+      // parseia JSON da original
+      const { url, error } = await uploadRes.json();
+      if (!uploadRes.ok) {
+        throw new Error(error || 'Falha no upload da foto.');
+      }
+
+      // 2) envia usuário + URL da foto para o backend
+      const payload = { ...form, photo: url };
+      const res = await fetch(userAPI.create(), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify(payload),
       });
-
-      if (!response.ok) throw new Error('Erro ao cadastrar.');
+      if (!res.ok) throw new Error('Erro ao cadastrar.');
 
       toast.success('Usuário cadastrado com sucesso! ✨');
-      setForm({ name: '', email: '', phone: '', address: '', password: '', photo: '' });
-    } catch {
-      toast.error('Erro ao cadastrar o usuário!');
+      setForm({ name: '', email: '', phone: '', address: '', password: '' });
+      setPhotoFile(null);
+    } catch (err: any) {
+      console.error(err);
+      toast.error(err.message || 'Erro ao cadastrar o usuário!');
     }
   };
 
@@ -95,15 +123,16 @@ export default function UserForm() {
         onChange={handleChange}
         placeholder="Digite a senha"
       />
-
-      <FormInput
-        label="URL da Foto"
-        name="photo"
-        value={form.photo}
-        onChange={handleChange}
-        placeholder="https://..."
-      />
-
+      <div>
+        <label className={styles.label}>Foto de Perfil</label>
+        <input
+          type="file"
+          name="photo"
+          accept="image/*"
+          onChange={handleChange}
+          className={styles.input}
+        />
+      </div>
       <SubmitButton label="Cadastrar" />
     </form>
   );

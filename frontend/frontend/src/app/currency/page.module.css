@@ -1,0 +1,6 @@
+.container {
+  @apply bg-gray-900 min-h-screen p-8;
+}
+.header {
+  @apply text-white text-3xl font-semibold mb-6;
+}

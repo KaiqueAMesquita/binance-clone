@@ -30,7 +30,7 @@ export default function ProfilePage() {
     const token = localStorage.getItem('token');
     if (!token) {
       toast.error('Você precisa estar logado.');
-      return router.push('/login');
+      return router.push('/users/login');
     }
 
     let userId: string | undefined;
@@ -40,7 +40,7 @@ export default function ProfilePage() {
       if (!userId) throw new Error();
     } catch {
       toast.error('Token inválido.');
-      return router.push('/login');
+      return router.push('/users/login');
     }
 
     fetch(userAPI.getById(userId), {
@@ -63,7 +63,7 @@ export default function ProfilePage() {
       <div className={styles.inner}>
         <h1 className={styles.title}>Olá, {profile.name}</h1>
         <img
-          src={profile.photo || '/avatar-placeholder.png'}
+          src={profile.photo }
           alt={profile.name}
           className={styles.photo}
           onError={(e) => { e.currentTarget.src = '/avatar-placeholder.png'; }}

@@ -15,9 +15,25 @@
 # production
 /build
 
+# .NET build artifacts
+/backend/currencyApi/bin/
+/backend/currencyApi/obj/
+
+# UserApi build artifacts
+/backend/userApi/bin/
+/backend/userApi/obj/
+
+# SQLite local DB
+*.sqlite
+
 # misc
 .DS_Store
 *.pem
+
+# Ignore pastas de build do .NET
+**/bin/
+**/obj/
+
 
 # debug
 npm-debug.log*
@@ -33,3 +49,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# .NET build artifacts
+/backend/currencyApi/bin/
+/backend/currencyApi/obj/
+/*.sqlite
