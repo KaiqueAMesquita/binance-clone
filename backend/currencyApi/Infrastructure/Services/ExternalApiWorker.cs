@@ -63,7 +63,7 @@ namespace CurrencyAPI.Infrastructure.Services
                                     var historyDto = new HistoryDTO
                                     {
                                         CurrencyId = currency.Id,
-                                        Price = decimal.Parse(apiResponse.Price),
+                                        Price = decimal.Parse(apiResponse.Price)/100000000,
                                         Datetime = DateTime.UtcNow
                                     };
 
