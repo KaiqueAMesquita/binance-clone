@@ -5,6 +5,7 @@ public class Currency
     public string Name { get; set; }
     public string Description { get; set; }
     public string Backing { get; set; }
+    public bool Reverse { get; set; } = false;
     
     public ICollection<History> Histories { get; set; }
 }
