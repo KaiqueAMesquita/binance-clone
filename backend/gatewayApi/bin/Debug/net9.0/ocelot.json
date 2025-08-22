@@ -1,0 +1,16 @@
+{
+    "Routes": [
+        {
+            "DownstreamPathTemplate": "/api/Currency",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5237
+                }
+            ],
+            "UpstreamPathTemplate": "/currecy",
+            "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+        }
+    ]
+}
