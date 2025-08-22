@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using CurrencyApi.API.DTOs;
+using Microsoft.AspNetCore.DataProtection.Repositories;
 
 
 public class HistoryService : IHistoryService
@@ -13,35 +14,14 @@ public class HistoryService : IHistoryService
         _currencyService = currencyService;
     }
 
-    public HistoryDTO RegisterHistory(HistoryDTO historyDto, int currencyId)
+    public async Task RegisterHistory(History history)
     {
-        var currency = _currencyService.GetCurrencyById(currencyId);
-        if (currency == null)
-        {
-            throw new ArgumentException("Currency não encontrada");
-        }
-
-        var history = new History
-        {
-            Datetime = DateTime.Now,
-            Price = historyDto.Price,
-            CurrencyId = currency.Id,
-            Currency = currency
-        };
-        _historyRepository.Add(history);
-
-        return new HistoryDTO
-        {
-            Id = history.Id,
-            Datetime = history.Datetime,
-            Price = history.Price,
-            CurrencyId = history.CurrencyId
-        };
+        await _historyRepository.Add(history);
     }
 
-    public HistoryDTO? GetHistoryDetails(int id)
+    public async Task<HistoryDTO?> GetHistoryDetails(int id)
     {
-        var history = _historyRepository.GetById(id);
+        var history = await _historyRepository.GetById(id);
         return history != null ? new HistoryDTO
         {
             Id = history.Id,
@@ -51,9 +31,9 @@ public class HistoryService : IHistoryService
         } : null;
     }
 
-    public HistoryDTO[] GetAllHistories()
+    public async Task<HistoryDTO[]> GetAllHistories()
     {
-        var histories = _historyRepository.ListAll();
+        var histories = await _historyRepository.ListAll();
         var historyDTOs = new List<HistoryDTO>();
 
         foreach (var history in histories)
@@ -70,11 +50,11 @@ public class HistoryService : IHistoryService
         return historyDTOs.ToArray();
     }
 
-    public HistoryDTO? UpdateHistory(HistoryDTO historyDto, int id)
+    public async Task<HistoryDTO?> UpdateHistory(HistoryDTO historyDto, int id)
     {
-        var currency = _currencyService.GetCurrencyById(historyDto.CurrencyId);
+        var currency = await _currencyService.GetCurrencyById(historyDto.CurrencyId);
 
-        var history = _historyRepository.GetById(id);
+        var history = await _historyRepository.GetById(id);
         if (history == null)
         {
             return null;
@@ -85,7 +65,7 @@ public class HistoryService : IHistoryService
         history.CurrencyId = historyDto.CurrencyId;
         history.Currency = currency;
 
-        _historyRepository.Update(history);
+        await _historyRepository.Update(history);
 
         return new HistoryDTO
         {
@@ -95,10 +75,9 @@ public class HistoryService : IHistoryService
         };
     }
 
-    public void DeleteHistory(int id)
+    public async Task DeleteHistory(int id)
     {
-        var history = _historyRepository.GetById(id);
-        _historyRepository.Delete(history);
+        var history = await _historyRepository.GetById(id);
+        await _historyRepository.Delete(history);
     }
-
 }

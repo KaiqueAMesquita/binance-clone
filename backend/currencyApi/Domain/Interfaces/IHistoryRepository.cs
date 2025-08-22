@@ -1,8 +1,8 @@
 public interface IHistoryRepository
 {
-    void Add(History history);
-    History? GetById(int id);
-    List<History>? ListAll();
-    void Update(History history);
-    void Delete(History history);
+    Task Add(History history);
+    Task<History?> GetById(int id);
+    Task<IEnumerable<History?>> ListAll();
+    Task Update(History history);
+    Task Delete(History history);
 }

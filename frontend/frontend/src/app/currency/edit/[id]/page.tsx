@@ -1,57 +1,91 @@
 'use client';
 
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { currencyAPI, Currency } from '@/services/CurrencyService';
 import CurrencyForm from '../../components/CurrencyForm';
 import styles from './page.module.css';
 
 export default function CurrencyEditPage() {
-  const { id } = useParams();
-  const [currency, setCurrency] = useState<{
-    name: string;
-    description: string;
-    price: string;
-  } | null>(null);
+  const params = useParams();
+  const router = useRouter();
+  const id = params.id;
+  const [currency, setCurrency] = useState<Currency | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Simulando dados falsos
   useEffect(() => {
-    const fakeCurrency = {
-      name: 'Bitcoin',
-      description: 'A primeira e mais conhecida moeda digital do mundo',
-      price: '30000.00'
+    const fetchCurrency = async () => {
+      try {
+        const coinId = Array.isArray(id) ? id[0] : id;
+        const data = await currencyAPI.getById(coinId);
+        setCurrency(data);
+      } catch (error) {
+        console.error('Erro ao buscar moeda:', error);
+        toast.error('Erro ao carregar dados da moeda');
+        setError('Erro ao carregar dados da moeda');
+      } finally {
+        setLoading(false);
+      }
     };
-    setCurrency(fakeCurrency);
+
+    if (id) {
+      fetchCurrency();
+    }
   }, [id]);
 
-  // Simulando a atualização
   const handleUpdate = async (formData: {
     name: string;
     description: string;
-    price: string;
+    backing: string;
   }) => {
     try {
-      // Simulando sucesso
-      toast.success('Moeda atualizada com sucesso! 💰');
-      // Atualizando os dados localmente
-      setCurrency(formData);
-    } catch {
-      toast.error('Erro ao atualizar moeda.');
+      if (!currency) return;
+
+      const updatedCurrency: Currency = {
+        ...currency,
+        name: formData.name,
+        description: formData.description,
+        backing: formData.backing,
+      };
+
+      await currencyAPI.update(updatedCurrency.id, updatedCurrency);
+      toast.success('Moeda atualizada com sucesso!');
+      router.push(`/currency/${updatedCurrency.id}`);
+      setCurrency(updatedCurrency);
+    } catch (error) {
+      console.error('Erro ao atualizar moeda:', error);
+      toast.error('Erro ao atualizar moeda');
     }
   };
+
+  if (loading) {
+    return <div className={styles.loading}>Carregando...</div>;
+  }
+
+  if (error) {
+    return <div className={styles.error}>{error}</div>;
+  }
+
+  if (!currency) {
+    return <div className={styles.error}>Moeda não encontrada</div>;
+  }
 
   return (
     <div className={styles.container}>
       <div className={styles.inner}>
         <h1 className={styles.title}>Editar Moeda</h1>
-        {currency ? (
+        <div className={styles.formContainer}>
           <CurrencyForm
-            initialValues={currency}
+            initialValues={{
+              name: currency.name,
+              description: currency.description,
+              backing: currency.backing,
+            }}
             onSubmit={handleUpdate}
           />
-        ) : (
-          <p>Carregando...</p>
-        )}
+        </div>
       </div>
     </div>
   );
