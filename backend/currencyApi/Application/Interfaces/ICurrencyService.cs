@@ -1,11 +1,14 @@
+using CurrencyAPI.API.DTOs;
+
 public interface ICurrencyService
 {
-    CurrencyDTO RegisterCurrency(CurrencyDTO currencyDto);
-
-    CurrencyDTO? GetCurrencyDetails(int id);
-    CurrencyDTO[] GetAllCurrencies();
-
-    CurrencyDTO? UpdateCurrency(int id, CurrencyDTO currencytDTO);
-
-    Currency? GetCurrencyById(int id);
+    Task<CurrencyDTO> RegisterCurrency(CurrencyDTO currencyDto);
+    Task<CurrencyDTO?> GetCurrencyDetails(int id);
+    Task<CurrencyDTO[]> GetAllCurrencies();
+    Task<CurrencyDTO?> UpdateCurrency(int id, CurrencyDTO currencytDTO);
+    Task DeleteCurrency(int id);
+    Task<Currency?> GetCurrencyById(int id);
+    Task<CurrencyWithLastPriceDto?> GetLastPriceBySymbolAsync(string symbol);
+    Task<IEnumerable<CurrencySummaryDto>> GetCurrencySummariesAsync();
+    Task<IEnumerable<ChartPointDto>> GetChartDataAsync(int currencyId, int quantity);
 }

@@ -1,31 +1,55 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import SubmitButton from './SubmitButton';
 import styles from './CurrencyForm.module.css';
+import { currencyAPI, Currency } from '../../../services/CurrencyService';
+
+interface CurrencyFormData {
+  name: string;
+  description: string;
+  backing: string;
+}
+
+interface CurrencySelectOption {
+  value: string;
+  label: string;
+}
 
 interface CurrencyFormProps {
-  initialValues?: {
-    name: string;
-    description: string;
-    price: string;
-  };
-  onSubmit?: (formData: {
-    name: string;
-    description: string;
-    price: string;
-  }) => void;
+  initialValues?: CurrencyFormData;
+  onSubmit?: (formData: CurrencyFormData) => void;
 }
 
 export default function CurrencyForm({ initialValues, onSubmit }: CurrencyFormProps) {
-  const [form, setForm] = useState({
-    name: initialValues?.name || '',
-    description: initialValues?.description || '',
-    price: initialValues?.price || ''
+  const router = useRouter();
+  const [form, setForm] = useState<CurrencyFormData>(initialValues || {
+    name: '',
+    description: '',
+    backing: ''
   });
+  const [currencies, setCurrencies] = useState<Currency[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  useEffect(() => {
+    const loadCurrencies = async () => {
+      try {
+        const currencies = await currencyAPI.getAll();
+        setCurrencies(currencies);
+      } catch (error) {
+        console.error('Erro ao carregar moedas:', error);
+        toast.error('Erro ao carregar moedas de referência');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadCurrencies();
+  }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -36,19 +60,43 @@ export default function CurrencyForm({ initialValues, onSubmit }: CurrencyFormPr
       if (onSubmit) {
         await onSubmit(form);
       } else {
-        const res = await fetch('/api/currencies', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(form),
-        });
+        // Gerar um symbol baseado no nome
+        const symbol = form.name
+          .toUpperCase()
+          .replace(/[^A-Z]/g, '')
+          .substring(0, 3);
 
-        if (!res.ok) throw new Error();
+        const currency: Currency = {
+          id: 0, // ID será gerado pelo backend
+          symbol: symbol,
+          name: form.name,
+          description: form.description,
+          backing: form.backing,
+          histories: []
+        };
 
-        toast.success('Moeda cadastrada com sucesso! ');
-        setForm({ name: '', description: '', price: '' });
+        console.log('Dados enviados para o backend:', currency);
+
+        try {
+          const result = await currencyAPI.create(currency);
+          console.log('Resposta do backend:', result);
+          
+          // Redirecionar para a página principal de moedas
+          router.push('/currency');
+          toast.success('Moeda cadastrada com sucesso!');
+          return;
+        } catch (error) {
+          console.error('Erro detalhado:', error);
+          toast.error('Erro ao cadastrar moeda');
+          throw error;
+        }
+
+        toast.success('Moeda cadastrada com sucesso!');
+        setForm({ name: '', description: '', backing: ''});
       }
-    } catch {
-      toast.error('Erro ao processar moeda.');
+    } catch (error) {
+      toast.error('Erro ao cadastrar moeda');
+      console.error('Erro:', error);
     }
   };
 
@@ -78,13 +126,13 @@ export default function CurrencyForm({ initialValues, onSubmit }: CurrencyFormPr
       </div>
 
       <div>
-        <label className={styles.label}>Preço</label>
+        <label className={styles.label}>Moeda de Referência</label>
         <input
-          type="number"
-          name="price"
-          value={form.price}
+          type="text"
+          name="backing"
+          value={form.backing}
           onChange={handleChange}
-          placeholder="0.00"
+          placeholder="USD, EUR..."
           className={styles.input}
         />
       </div>

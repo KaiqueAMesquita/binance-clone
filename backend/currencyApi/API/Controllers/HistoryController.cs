@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using CurrencyApi.API.DTOs;
+using CurrencyAPI.Application.Mappers;
 [ApiController]
 [Route("api/[controller]")]
 public class HistoryController : ControllerBase
@@ -11,39 +12,39 @@ public class HistoryController : ControllerBase
         _historyService = historyService;
     }
 
-    [HttpPost("{currencyId}")]
-    public IActionResult RegisterHistory(HistoryDTO historyDto, int currencyId)
+    [HttpPost]
+    public async Task<IActionResult> RegisterHistory(HistoryDTO historyDto)
     {
-        var result = _historyService.RegisterHistory(historyDto, currencyId);
-        return Ok(result);
+        await _historyService.RegisterHistory(historyDto.ToEntity());
+        return Created("", historyDto);
     }
 
     [HttpGet("{id}")]
-    public IActionResult GetHistoryDetails(int id)
+    public async Task<IActionResult> GetHistoryDetails(int id)
     {
-        var history = _historyService.GetHistoryDetails(id);
+        var history = await _historyService.GetHistoryDetails(id);
         return history != null ? Ok(history) : NotFound();
     }
 
     [HttpGet]
-    public IActionResult GetAllHistories()
+    public async Task<IActionResult> GetAllHistories()
     {
-        var histories = _historyService.GetAllHistories();
+        var histories = await _historyService.GetAllHistories();
         return Ok(histories);
     }
 
     [HttpPut("{id}")]
-    public IActionResult UpdateHistory(HistoryDTO historyDto, int id)
+    public async Task<IActionResult> UpdateHistory(HistoryDTO historyDto, int id)
     {
-        var history = _historyService.UpdateHistory(historyDto, id);
+        var history = await _historyService.UpdateHistory(historyDto, id);
         return Ok(history);
     }
     
     [HttpDelete("{id}")]
-    public IActionResult DeleteHistory(int id)
+    public async Task<IActionResult> DeleteHistory(int id)
     {
         try{
-            _historyService.DeleteHistory(id);
+            await _historyService.DeleteHistory(id);
             return Ok();
         }catch(Exception){
             return BadRequest();
