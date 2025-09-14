@@ -71,31 +71,46 @@ public class UserService : IUserService
         return userDTOs.ToArray();
     }
     
-     public UserDTO? UpdateUser(int id, UserDTO userDto)
+     public UpdateUserDTO? UpdateUser(int id, UpdateUserDTO userDto)
     {
-        var hashedPassword = BCrypt.Net.BCrypt.HashPassword(userDto.Password);
-
         var user = _userRepository.GetById(id);
-        if(user == null){
+        if (user == null)
+        {
             return null;
         }
 
-        user.Name = userDto.Name;
-        user.Email = userDto.Email;
-        user.Phone = userDto.Phone;
-        user.Address = userDto.Address;
-        user.Password = hashedPassword;
-        user.Photo = userDto.Photo;
+        // Atualiza apenas os campos que foram fornecidos
+        if (userDto.Name != null)
+            user.Name = userDto.Name;
+            
+        if (userDto.Email != null)
+            user.Email = userDto.Email;
+            
+        if (userDto.Phone != null)
+            user.Phone = userDto.Phone;
+            
+        if (userDto.Address != null)
+            user.Address = userDto.Address;
+
+        // Atualiza a senha apenas se fornecida
+        if (!string.IsNullOrEmpty(userDto.Password))
+        {
+            user.Password = BCrypt.Net.BCrypt.HashPassword(userDto.Password);
+        }
+
+        if (userDto.Photo != null)
+            user.Photo = userDto.Photo;
+
         _userRepository.Update(user);
 
-        return new UserDTO
+        return new UpdateUserDTO
         {
             Name = user.Name,
             Email = user.Email,
             Phone = user.Phone,
             Address = user.Address,
-            Password = user.Password,
             Photo = user.Photo
+            // Não retornar a senha, mesmo que hasheada
         };
     }
 

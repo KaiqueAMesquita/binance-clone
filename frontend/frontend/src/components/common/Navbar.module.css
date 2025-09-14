@@ -1,0 +1,179 @@
+/* Limpando o arquivo e adicionando novos estilos */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    height: 64px;
+    background-color:rgb(17 24 39 / var(--tw-bg-opacity, 1)) ;
+    color: #EAECEF;
+    border-bottom: 1px solid #2B3139;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  /* --- Seção Esquerda --- */
+  .navLeft {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navLinks {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  
+  .navLink {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    color: #EAECEF;
+    position: relative;
+    transition: color 0.2s ease;
+  }
+  
+  .navLink:hover {
+    color: #F0B90B;
+  }
+  
+  .hasNotification::after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 6px;
+    height: 6px;
+    background-color: #F0B90B;
+    border-radius: 50%;
+  }
+
+  .logo	{
+    @apply text-yellow-500 font-bold text-2xl;
+  }
+  
+  /* --- Seção Direita --- */
+  .navRight {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .iconButton {
+    background: none;
+    border: none;
+    color: #EAECEF;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: color 0.2s ease;
+  }
+  
+  .iconButton:hover {
+    color: #F0B90B;
+  }
+  
+  .depositButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #F0B90B;
+    color: #121212;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .depositButton:hover {
+    background-color: #FCD535;
+  }
+  
+  .separator {
+    width: 1px;
+    height: 16px;
+    background-color: #38404A;
+  }
+  
+  .iconGroup {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .notificationDotSmall {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 8px;
+    height: 8px;
+    background-color: #F0B90B;
+    border-radius: 50%;
+    border: 1px solid #121212;
+  }
+
+.loginButton {
+    background: none;
+    border: none;
+    color: #EAECEF;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  
+  .loginButton:hover {
+    color: #F0B90B;
+  }
+  
+  .registerButton {
+    /* Reutilizando o estilo do botão de depósito para destaque */
+    display: inline-block;
+    background-color: #F0B90B;
+    color: #121212;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+  
+  .registerButton:hover {
+    background-color: #FCD535;
+  }
+  
+  .logoutButton {
+    background: none;
+    border: 1px solid #38404A;
+    color: #EAECEF;
+    border-radius: 4px;
+    padding: 7px 15px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .logoutButton:hover {
+    border-color: #F0B90B;
+    color: #F0B90B;
+  }

@@ -1,0 +1,94 @@
+'use client';
+
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext'; // Importe seu hook de autenticação
+import styles from '@/components/common/Navbar.module.css';
+import { IoSearch } from 'react-icons/io5';
+import { FaRegUserCircle, FaWallet } from 'react-icons/fa';
+import { BiMessageSquareDetail, BiSolidMoon } from 'react-icons/bi';
+import { MdOutlineFileDownload } from 'react-icons/md';
+
+export default function Navbar() {
+  const { isAuthenticated, logout } = useAuth(); // Obtenha o estado de autenticação
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      router.push('/users/login'); // Redireciona para o login após sair
+      router.refresh();
+    } catch (error) {
+      console.error('Falha ao fazer logout:', error);
+    }
+  };
+
+  return (
+    <nav className={styles.navbar}>
+      {/* A seção da esquerda permanece a mesma */}
+      <div className={styles.navLeft}>
+        <div className={styles.logo}>
+          <Link href="/">Binance Clone</Link>
+        </div>
+        <div className={styles.navLinks}>
+          <div className={styles.navLink}>
+            <span>Compre Cripto</span>
+          </div>
+          <div className={styles.navLink}>
+            <Link href="/currency">
+              <span>Moedas</span>
+            </Link>
+          </div>
+          <div className={styles.navLink}>
+            <Link href="/users">
+              <span>Usuários</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* A seção da direita agora é condicional */}
+      <div className={styles.navRight}>
+        {isAuthenticated ? (
+          <>
+            {/* --- VISÃO QUANDO ESTÁ LOGADO --- */}
+            <button className={styles.iconButton}>
+              <IoSearch size={20} />
+            </button>
+            <button className={styles.depositButton}>
+              <MdOutlineFileDownload size={18} />
+              Depositar
+            </button>
+            <div className={styles.separator}></div>
+            <div className={styles.iconGroup}>
+              <Link href="/users/profile" className={styles.iconButton}>
+                <FaRegUserCircle size={20} />
+              </Link>
+              <button className={styles.iconButton}><FaWallet size={20} /></button>
+              <button className={styles.iconButton}>
+                <BiMessageSquareDetail size={20} />
+              </button>
+            </div>
+            <div className={styles.separator}></div>
+            <div className={styles.iconGroup}>
+              <button className={styles.iconButton}><BiSolidMoon size={20} /></button>
+              <button onClick={handleLogout} className={styles.logoutButton}>
+                Sair
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            {/* --- VISÃO QUANDO NÃO ESTÁ LOGADO --- */}
+            <Link href="/users/login" className={styles.loginButton}>
+              Entrar
+            </Link>
+            <Link href="/users/register" className={styles.registerButton}>
+              Cadastrar
+            </Link>
+          </>
+        )}
+      </div>
+    </nav>
+  );
+}

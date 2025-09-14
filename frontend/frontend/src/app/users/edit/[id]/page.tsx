@@ -8,6 +8,8 @@ import FormInput from '@/app/users/components/FormInput';
 import SubmitButton from '@/app/users/components/SubmitButton';
 import { userAPI } from '@/services/API';
 import styles from './page.module.css';
+import { apiClient } from '@/services/apiClient';
+import { userService } from '@/services/UserService';
 
 export default function EditUserPage() {
   const { id } = useParams();
@@ -24,10 +26,18 @@ export default function EditUserPage() {
   useEffect(() => {
     async function fetchUser() {
       try {
-        const res = await fetch(userAPI.getById(id!));
-        const data = await res.json();
-        setForm(data);
-      } catch {
+        const userId = Array.isArray(id) ? id[0] : id;
+        const userData = await userService.getUserById(Number(userId));
+        setForm({
+          name: userData.name,
+          email: userData.email,
+          phone: userData.phone || '',
+          address: userData.address || '',
+          password: '', 
+          photo: userData.photo || '',
+        });
+      } catch (error) {
+        console.error('Erro ao carregar usuário:', error);
         toast.error('Erro ao carregar dados do usuário');
       }
     }
@@ -40,18 +50,16 @@ export default function EditUserPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const payload = { ...form, id: Number(id) };
+    const userId = Array.isArray(id) ? id[0] : id;
+  
     try {
-      const res = await fetch(userAPI.edit(id!), {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      if (!res.ok) throw new Error();
-      toast.success('Usuário atualizado com sucesso! 🎉');
+      console.log('Dados a serem enviados:', form); // Adicione esta linha
+      await userService.updateUser(Number(userId), form);
+      toast.success('Usuário atualizado com sucesso!');
       router.push('/users');
-    } catch {
-      toast.error('Erro ao editar o usuário.');
+    } catch (error) {
+      console.error('Erro ao atualizar usuário:', error);
+      toast.error('Erro ao editar o usuário. Tente novamente.');
     }
   };
 

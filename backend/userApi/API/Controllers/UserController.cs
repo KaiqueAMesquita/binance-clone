@@ -38,10 +38,9 @@ public class UserController : ControllerBase
     }
     [Authorize]
     [HttpPut("{id}")]
-    public IActionResult UpdateUser(int id, UserDTO userDTO){
-        if(id != userDTO.Id ){
-            return BadRequest();
-        }
+    public IActionResult UpdateUser(int id, [FromBody] UpdateUserDTO userDTO){
+        // Garante que o ID da rota seja usado
+        userDTO.Id = id;
         
         var user = _userService.UpdateUser(id, userDTO);
         if(user == null){
