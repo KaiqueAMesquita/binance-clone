@@ -1,57 +1,39 @@
-// app/login/page.tsx
 'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
-import {jwtDecode} from 'jwt-decode';
-import { authAPI } from '@/services/API';
-import styles from './page.module.css'
-
-type JwtPayload = {
-  nameid?: string;
-  sub?: string;
-  name?: string;
-  exp?: number;
-  email?: string;
-};
+import styles from './page.module.css';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    console.log('Iniciando login...');
 
     try {
-      const res = await fetch(authAPI.login(), {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-      if (!res.ok) throw new Error();
-
-      const { token } = await res.json();
-      // Decodifica o JWT para extrair id e nome
-      const decoded: JwtPayload = jwtDecode(token);
-      const userId = decoded.nameid || decoded.sub;
-      // Se não vier name do token, uso a parte antes do '@' do e-mail
-      const userName = decoded.name || email.split('@')[0];
-
-      // Armazena token e dados do usuário
-      localStorage.setItem('token', token);
-      localStorage.setItem(
-        'user',
-        JSON.stringify({ id: Number(userId), name: userName })
-      );
-
-      toast.success('Login realizado com sucesso!');
-      router.push('/users');
-    } catch {
-      toast.error('Erro ao efetuar login.');
+      console.log('Chamando login com:', { email });
+      const result = await login(email, password);
+      console.log('Resposta do login:', result);
+      
+      if (result?.user && result?.token) {
+        console.log('Login bem-sucedido, redirecionando...');
+        toast.success('Login realizado com sucesso!');
+        window.location.href = '/users';
+      } else {
+        console.error('Resposta de login inválida:', result);
+        toast.error('Resposta inválida do servidor');
+      }
+    } catch (error) {
+      console.error('Erro no login:', error);
+      toast.error('Falha no login. Verifique suas credenciais.');
     } finally {
       setLoading(false);
     }
