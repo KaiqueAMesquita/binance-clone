@@ -1,0 +1,197 @@
+﻿.container {
+  background-color: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 16px;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.headerRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.headerLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.headerLeft h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.tabs {
+  display: inline-flex;
+  background-color: #374151;
+  border-radius: 12px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.tabButton {
+  border: none;
+  background: transparent;
+  color: #9ca3af;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.tabButton:hover {
+  color: #f0b90b;
+}
+
+.tabActive {
+  background-color: #4b5563;
+  color: #f0b90b;
+}
+
+.checkboxLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #9ca3af;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.checkboxLabel input {
+  width: 16px;
+  height: 16px;
+  accent-color: #f0b90b;
+  cursor: pointer;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 640px;
+}
+
+.table thead th {
+  font-size: 12px;
+  font-weight: 500;
+  text-align: left;
+  padding: 12px 10px;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.table tbody tr {
+  background-color: #111827;
+  border-top: 1px solid #374151;
+  transition: background-color 0.2s ease;
+}
+
+.table tbody tr:first-child {
+  border-top: 1px solid #374151;
+}
+
+.table tbody tr:hover {
+  background-color: #374151;
+}
+
+.table tbody td {
+  padding: 16px 10px;
+  font-size: 14px;
+  color: #f9fafb;
+  vertical-align: middle;
+}
+
+.assetCell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.assetIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #fff;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.assetText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.assetSymbol {
+  font-weight: 600;
+}
+
+.assetName {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.quantityColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.quantityFiat {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.priceColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.costBasis {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.pnlPositive {
+  color: #0ecb81;
+  font-weight: 600;
+}
+
+.pnlNegative {
+  color: #f6465d;
+  font-weight: 600;
+}
+
+.pnlNeutral {
+  color: #9ca3af;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  .table {
+    min-width: unset;
+  }
+}
+

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ZYf+7E8HEI4=",
+  "dgSpecHash": "hYQJfq0Ftlc=",
   "success": true,
-  "projectFilePath": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\userApi\\userApi.csproj",
+  "projectFilePath": "C:\\Users\\DaviKonuma\\Downloads\\binance-clone\\backend\\userapi\\userApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\DaviKonuma\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\DaviKonuma\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
