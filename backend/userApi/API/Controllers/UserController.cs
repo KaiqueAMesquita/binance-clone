@@ -1,9 +1,6 @@
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
+
 [ApiController]
 [Route("api/[controller]")]
 public class UserController : ControllerBase
@@ -29,6 +26,7 @@ public class UserController : ControllerBase
         var user = _userService.GetUserDetails(id);
         return user != null ? Ok(user) : NotFound();
     }
+
     [Authorize]
     [HttpGet]
     public IActionResult GetAllUsers()
@@ -36,16 +34,19 @@ public class UserController : ControllerBase
         var users = _userService.GetAllUsers();
         return Ok(users);
     }
+
     [Authorize]
     [HttpPut("{id}")]
-    public IActionResult UpdateUser(int id, [FromBody] UpdateUserDTO userDTO){
-        // Garante que o ID da rota seja usado
-        userDTO.Id = id;
-        
-        var user = _userService.UpdateUser(id, userDTO);
-        if(user == null){
+    public IActionResult UpdateUser(int id, [FromBody] UpdateUserDTO userDto)
+    {
+        userDto.Id = id;
+
+        var user = _userService.UpdateUser(id, userDto);
+        if (user == null)
+        {
             return NotFound();
         }
+
         return Ok(user);
     }
 
@@ -53,10 +54,17 @@ public class UserController : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult DeleteUser(int id)
     {
-        try{
+        try
+        {
             _userService.DeleteUser(id);
             return Ok();
-        }catch(Exception){
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound();
+        }
+        catch (Exception)
+        {
             return BadRequest();
         }
     }

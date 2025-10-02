@@ -1,8 +1,8 @@
-'use client';
+﻿'use client';
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/contexts/AuthContext'; // Importe seu hook de autenticação
+import { useAuth } from '@/contexts/AuthContext';
 import styles from '@/components/common/Navbar.module.css';
 import { IoSearch } from 'react-icons/io5';
 import { FaRegUserCircle, FaWallet } from 'react-icons/fa';
@@ -10,13 +10,13 @@ import { BiMessageSquareDetail, BiSolidMoon } from 'react-icons/bi';
 import { MdOutlineFileDownload } from 'react-icons/md';
 
 export default function Navbar() {
-  const { isAuthenticated, logout } = useAuth(); // Obtenha o estado de autenticação
+  const { isAuthenticated, logout } = useAuth();
   const router = useRouter();
 
   const handleLogout = async () => {
     try {
       await logout();
-      router.push('/users/login'); // Redireciona para o login após sair
+      router.push('/users/login');
       router.refresh();
     } catch (error) {
       console.error('Falha ao fazer logout:', error);
@@ -25,7 +25,6 @@ export default function Navbar() {
 
   return (
     <nav className={styles.navbar}>
-      {/* A seção da esquerda permanece a mesma */}
       <div className={styles.navLeft}>
         <div className={styles.logo}>
           <Link href="/">Binance Clone</Link>
@@ -40,18 +39,21 @@ export default function Navbar() {
             </Link>
           </div>
           <div className={styles.navLink}>
+            <Link href="/wallet">
+              <span>Carteira</span>
+            </Link>
+          </div>
+          <div className={styles.navLink}>
             <Link href="/users">
-              <span>Usuários</span>
+              <span>Usuarios</span>
             </Link>
           </div>
         </div>
       </div>
 
-      {/* A seção da direita agora é condicional */}
       <div className={styles.navRight}>
         {isAuthenticated ? (
           <>
-            {/* --- VISÃO QUANDO ESTÁ LOGADO --- */}
             <button className={styles.iconButton}>
               <IoSearch size={20} />
             </button>
@@ -64,14 +66,18 @@ export default function Navbar() {
               <Link href="/users/profile" className={styles.iconButton}>
                 <FaRegUserCircle size={20} />
               </Link>
-              <button className={styles.iconButton}><FaWallet size={20} /></button>
+              <Link href="/wallet" className={styles.iconButton}>
+                <FaWallet size={20} />
+              </Link>
               <button className={styles.iconButton}>
                 <BiMessageSquareDetail size={20} />
               </button>
             </div>
             <div className={styles.separator}></div>
             <div className={styles.iconGroup}>
-              <button className={styles.iconButton}><BiSolidMoon size={20} /></button>
+              <button className={styles.iconButton}>
+                <BiSolidMoon size={20} />
+              </button>
               <button onClick={handleLogout} className={styles.logoutButton}>
                 Sair
               </button>
@@ -79,11 +85,10 @@ export default function Navbar() {
           </>
         ) : (
           <>
-            {/* --- VISÃO QUANDO NÃO ESTÁ LOGADO --- */}
             <Link href="/users/login" className={styles.loginButton}>
               Entrar
             </Link>
-            <Link href="/users/register" className={styles.registerButton}>
+            <Link href="/users/create" className={styles.registerButton}>
               Cadastrar
             </Link>
           </>
