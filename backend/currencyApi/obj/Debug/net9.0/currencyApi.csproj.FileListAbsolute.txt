@@ -651,12 +651,6 @@ C:\Users\DaviKonuma\Downloads\binance-clone\backend\currencyApi\obj\Debug\net9.0
 C:\Users\DaviKonuma\Downloads\binance-clone\backend\currencyApi\obj\Debug\net9.0\staticwebassets.build.json
 C:\Users\DaviKonuma\Downloads\binance-clone\backend\currencyApi\obj\Debug\net9.0\staticwebassets.development.json
 C:\Users\DaviKonuma\Downloads\binance-clone\backend\currencyApi\obj\Debug\net9.0\staticwebassets.build.endpoints.json
-C:\Users\DaviKonuma\Downloads\binance-clone\backend\currencyApi\obj\Debug\net9.0\staticwebassets\msbuild.currencyApi.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Users\DaviKonuma\Downloads\binance-clone\backend\currencyApi\obj\Debug\net9.0\staticwebassets\msbuild.currencyApi.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
-C:\Users\DaviKonuma\Downloads\binance-clone\backend\currencyApi\obj\Debug\net9.0\staticwebassets\msbuild.build.currencyApi.props
-C:\Users\DaviKonuma\Downloads\binance-clone\backend\currencyApi\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.currencyApi.props
-C:\Users\DaviKonuma\Downloads\binance-clone\backend\currencyApi\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.currencyApi.props
-C:\Users\DaviKonuma\Downloads\binance-clone\backend\currencyApi\obj\Debug\net9.0\staticwebassets.pack.json
 C:\Users\DaviKonuma\Downloads\binance-clone\backend\currencyApi\obj\Debug\net9.0\currency.D56DEC23.Up2Date
 C:\Users\DaviKonuma\Downloads\binance-clone\backend\currencyApi\obj\Debug\net9.0\currencyApi.dll
 C:\Users\DaviKonuma\Downloads\binance-clone\backend\currencyApi\obj\Debug\net9.0\refint\currencyApi.dll
@@ -1160,3 +1154,8 @@ C:\Users\lucas\OneDrive\Documentos\A_Estudos\A_EtecFatec\5º ADS Fatec\ProgMulti
 C:\Users\lucas\OneDrive\Documentos\A_Estudos\A_EtecFatec\5º ADS Fatec\ProgMultiPlat\binance-clone\backend\currencyAPI\obj\Debug\net9.0\currencyApi.pdb
 C:\Users\lucas\OneDrive\Documentos\A_Estudos\A_EtecFatec\5º ADS Fatec\ProgMultiPlat\binance-clone\backend\currencyAPI\obj\Debug\net9.0\currencyApi.genruntimeconfig.cache
 C:\Users\lucas\OneDrive\Documentos\A_Estudos\A_EtecFatec\5º ADS Fatec\ProgMultiPlat\binance-clone\backend\currencyAPI\obj\Debug\net9.0\ref\currencyApi.dll
+C:\Users\DaviKonuma\Downloads\binance-clone\backend\currencyApi\obj\Debug\net9.0\rpswa.dswa.cache.json
+C:\Users\DaviKonuma\Downloads\binance-clone\backend\currencyApi\obj\Debug\net9.0\rjimswa.dswa.cache.json
+C:\Users\DaviKonuma\Downloads\binance-clone\backend\currencyApi\obj\Debug\net9.0\rjsmrazor.dswa.cache.json
+C:\Users\DaviKonuma\Downloads\binance-clone\backend\currencyApi\obj\Debug\net9.0\rjsmcshtml.dswa.cache.json
+C:\Users\DaviKonuma\Downloads\binance-clone\backend\currencyApi\obj\Debug\net9.0\staticwebassets.build.json.cache
