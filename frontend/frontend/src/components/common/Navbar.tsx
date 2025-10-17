@@ -44,6 +44,11 @@ export default function Navbar() {
             </Link>
           </div>
           <div className={styles.navLink}>
+            <Link href="/wallet/convert">
+              <span>Converter</span>
+            </Link>
+          </div>
+          <div className={styles.navLink}>
             <Link href="/users">
               <span>Usuarios</span>
             </Link>
