@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "5d1xGSZXyZQ=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\lucas\\Documents\\A_Estudos\\A_EtecFatec\\5º ADS Fatec\\ProgMultiPlat\\binance-clone\\brokerApi\\brokerApi.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\lucas\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.10\\microsoft.aspnetcore.openapi.9.0.10.nupkg.sha512",
+    "C:\\Users\\lucas\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
