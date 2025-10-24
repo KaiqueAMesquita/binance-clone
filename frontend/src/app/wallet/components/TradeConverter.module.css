@@ -1,0 +1,280 @@
+/* src/components/TradeConverter.module.css */
+
+/* --- Container e Layout Geral --- */
+.container {
+  min-height: 100vh;
+  background-color: #0B0E11;
+  color: #F3F4F6;
+  padding-bottom: 7rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.contentWrapper {
+  max-width: 36rem; /* Equivalente a max-w-xl */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* --- Cabeçalho --- */
+.header {
+  padding-top: 0.75rem;
+  padding-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #D1D5DB;
+}
+
+.header button {
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.header button:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+.header h1 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #E5E7EB;
+}
+
+/* --- Abas de Navegação --- */
+.tabsContainer {
+  display: inline-grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  background-color: #151A1F;
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+  border: 1px solid #1f242c;
+}
+.tabButton {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  border-radius: 0.375rem;
+  transition: color 0.2s;
+  color: #9CA3AF;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.tabButton:hover {
+  color: #E5E7EB;
+}
+.activeTab {
+  composes: tabButton;
+  background-color: #1E2329;
+  color: white;
+}
+
+/* --- Cartão Principal --- */
+.card {
+  margin-top: 1rem;
+  background-color: #151A1F;
+  border: 1px solid #1f242c;
+  border-radius: 1rem;
+  padding: 1.25rem;
+}
+
+.labelsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #9CA3AF;
+}
+
+.maxButton {
+  color: #FBBF24;
+  margin-left: 0.25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.maxButton:hover {
+  color: #FCD34D;
+}
+
+/* --- Linha de Entrada (From/To) --- */
+.inputRow {
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.currencySelector {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #1E2329;
+  border: 1px solid #2b3139;
+  border-radius: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+}
+.currencySelector span {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.currencySelector svg {
+  color: #9CA3AF;
+}
+
+.inputField {
+  flex-grow: 1;
+  min-width: 0;
+  background-color: transparent;
+  border: none;
+  text-align: right;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.inputField:focus {
+  outline: none;
+}
+.inputField::placeholder {
+  color: #4B5563;
+}
+.outputValue {
+  composes: inputField;
+  color: #6B7280;
+}
+
+/* --- Menu Dropdown de Moedas --- */
+.currencyMenu {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  margin-top: 0.5rem;
+  z-index: 50;
+  width: 14rem;
+  max-height: 20rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-radius: 0.75rem;
+  border: 1px solid #2b3139;
+  background-color: #0F1318;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+.currencyMenuItem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: #E5E7EB;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+.currencyMenuItem:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+.currencyMenuItem .symbol {
+  font-weight: 500;
+}
+.currencyMenuItem .name {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: #6B7280;
+}
+
+/* --- Separador e Botão de Inversão --- */
+.separator {
+  position: relative;
+  margin: 1.25rem 0;
+}
+.separator hr {
+  height: 1px;
+  width: 100%;
+  background-color: #1f242c;
+  border: none;
+}
+.invertButton {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #1E2329;
+  border: 1px solid #2b3139;
+  border-radius: 0.75rem;
+  padding: 0.5rem;
+  color: #D1D5DB;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.invertButton:hover {
+  color: #FBBF24;
+}
+
+/* --- Taxa de Câmbio --- */
+.exchangeRate {
+  font-size: 0.75rem;
+  color: #6B7280;
+  margin-top: 0.75rem;
+  min-height: 1rem; /* Para evitar que o layout pule */
+}
+
+/* --- Botão Principal --- */
+.previewButtonContainer {
+  margin-top: 1.25rem;
+}
+.previewButton {
+  width: 100%;
+  padding: 0.875rem 0;
+  border-radius: 1rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+  background-color: #F0B90B;
+  color: #0B0E11;
+}
+.previewButton:hover {
+  background-color: #FCD535;
+}
+.previewButton:active {
+  transform: scale(0.99);
+}
+.previewButton:disabled {
+  background-color: rgba(240, 185, 11, 0.2);
+  color: rgba(240, 185, 11, 0.4);
+  cursor: not-allowed;
+}
+
+/* --- Bottom Sheet de Confirmação --- */
+.bottomSheetOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.bottomSheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #1A1F25;
+  border-top: 1px solid #1f242c;
+  border-top-left-radius: 26px;
+  border-top-right-radius: 26px;
+  padding: 1.5rem;
+}
