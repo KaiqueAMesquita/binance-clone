@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "DDNR6Qxm3yc=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\lucas\\Documents\\A_Estudos\\A_EtecFatec\\5º ADS Fatec\\ProgMultiPlat\\binance-clone\\backend\\walletApi\\walletApi.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\lucas\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.10\\microsoft.aspnetcore.openapi.9.0.10.nupkg.sha512",
+    "C:\\Users\\lucas\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512",
+    "C:\\Users\\lucas\\.nuget\\packages\\rabbitmq.client\\6.8.1\\rabbitmq.client.6.8.1.nupkg.sha512",
+    "C:\\Users\\lucas\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
+    "C:\\Users\\lucas\\.nuget\\packages\\system.threading.channels\\7.0.0\\system.threading.channels.7.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
