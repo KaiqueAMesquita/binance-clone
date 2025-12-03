@@ -5,6 +5,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from '@/components/common/Navbar';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { ChatProvider } from '@/contexts/ChatContext';
+import ChatModal from '@/components/ChatModal/ChatModal';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,17 +24,20 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-          <Navbar/>
-          {children}
-          <ToastContainer
-            position="top-right"
-            autoClose={3000}
-            hideProgressBar={false}
-            closeOnClick
-            pauseOnHover
-            draggable
-            theme="dark"
-          />
+          <ChatProvider>
+            <Navbar />
+            {children}
+            <ChatModal />
+            <ToastContainer
+              position="top-right"
+              autoClose={3000}
+              hideProgressBar={false}
+              closeOnClick
+              pauseOnHover
+              draggable
+              theme="dark"
+            />
+          </ChatProvider>
         </AuthProvider>
       </body>
     </html>

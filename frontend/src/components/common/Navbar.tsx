@@ -1,8 +1,11 @@
 ﻿'use client';
 
+import React from 'react';
+
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
+import { useChat } from '@/contexts/ChatContext';
 import styles from '@/components/common/Navbar.module.css';
 import { IoSearch } from 'react-icons/io5';
 import { FaRegUserCircle, FaWallet } from 'react-icons/fa';
@@ -11,6 +14,7 @@ import { MdOutlineFileDownload } from 'react-icons/md';
 
 export default function Navbar() {
   const { isAuthenticated, logout } = useAuth();
+  const { toggleChat } = useChat();
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -74,7 +78,7 @@ export default function Navbar() {
               <Link href="/wallet" className={styles.iconButton}>
                 <FaWallet size={20} />
               </Link>
-              <button className={styles.iconButton}>
+              <button onClick={toggleChat} aria-label="Abrir chat" className={styles.iconButton}>
                 <BiMessageSquareDetail size={20} />
               </button>
             </div>

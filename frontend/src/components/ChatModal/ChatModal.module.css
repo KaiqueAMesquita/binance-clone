@@ -1,0 +1,112 @@
+.container {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 340px;
+  max-height: 480px;
+  display: flex;
+  flex-direction: column;
+  background: #1A1F25;
+  border: 1px solid #2b3139;
+  color: #EAECEF;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  overflow: hidden;
+  animation: slideIn 220ms ease-out;
+  z-index: 60;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-bottom: 1px solid #2b3139;
+}
+
+.title {
+  font-weight: 600;
+  color: #EAECEF;
+}
+
+.close {
+  background: transparent;
+  border: none;
+  color: #6B7280;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.close:hover { color: #F0B90B; }
+
+.messages {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  flex: 1 1 auto;
+}
+
+.messageBot {
+  align-self: flex-start;
+  background: rgba(255,255,255,0.03);
+  color: #EAECEF;
+  padding: 8px 10px;
+  border-radius: 8px;
+  max-width: 78%;
+}
+
+.messageUser {
+  align-self: flex-end;
+  background: #262b31;
+  color: #EAECEF;
+  padding: 8px 10px;
+  border-radius: 8px;
+  max-width: 78%;
+}
+
+.messageText {
+  font-size: 13px;
+  color: #EAECEF;
+}
+
+.inputArea {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  border-top: 1px solid #2b3139;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+}
+
+.inputArea input {
+  flex: 1 1 auto;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #111418;
+  border: 1px solid #2b3139;
+  color: #EAECEF;
+  outline: none;
+}
+
+.inputArea input::placeholder { color: #6B7280; }
+
+.sendButton {
+  background: #F0B90B;
+  border: none;
+  color: #111;
+  padding: 8px 10px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.sendButton:active { transform: translateY(1px); }
