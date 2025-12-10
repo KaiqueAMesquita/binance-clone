@@ -131,47 +131,55 @@ public class WalletRepository : IWalletRepository
     //         .ToListAsync();
     // }
 
-    public async Task<Wallet> CreateWalletAsync(Wallet wallet)
+    public async Task<Wallet> AddAsync(Wallet wallet)
     {
         _context.Wallets.Add(wallet);
         await _context.SaveChangesAsync();
         return wallet;
     }
 
-    public async Task UpdateWalletAsync(Wallet wallet)
+    public async Task UpdateAsync(Wallet wallet)
     {
         wallet.UpdatedAt = DateTime.UtcNow;
-        _context.Entry(wallet).State = EntityState.Modified;
+        // _context.Entry(wallet).State = EntityState.Modified;
+
+        _context.Wallets.Update(wallet);
         await _context.SaveChangesAsync();
     }
 
-    public async Task<IEnumerable<Wallet>> GetAllWalletsAsync()
+    public async Task DeleteAsync(Wallet wallet)
     {
-        return await _context.Wallets.ToListAsync();
+        _context.Wallets.Remove(wallet);
+        await _context.SaveChangesAsync();
     }
+
+    // public async Task<IEnumerable<Wallet?>> ListAllAsync()
+    // {
+    //     return await _context.Wallets.ToListAsync();
+    // }
+
+    public async Task<IEnumerable<Wallet?>> ListAllAsync() =>
+        await _context.Wallets
+            .Include(c => c.Transactions)
+            .ToListAsync() ?? new List<Wallet>();
     
-    public async Task<Wallet> GetWalletByIdAsync(int id)
+    public async Task<Wallet?> GetByIdAsync(int id)
     {
         return await _context.Wallets
             .Include(w => w.Transactions)
             .FirstOrDefaultAsync(w => w.Id == id);
     }
     
-    public async Task<IEnumerable<Wallet>> GetWalletsByUserIdAsync(int userId)
+    public async Task<IEnumerable<Wallet?>> ListAllByUserIdAsync(int userId)
     {
         return await _context.Wallets
             .Where(w => w.UserId == userId)
             .ToListAsync();
     }
     
-    public async Task<Wallet> GetWalletByUserAndCurrencyAsync(int userId, string currency)
+    public async Task<Wallet?> GetByUserAndCurrencyAsync(int userId, string currency)
     {
         return await _context.Wallets
             .FirstOrDefaultAsync(w => w.UserId == userId && w.Currency == currency);
-    }
-
-    public async Task<bool> WalletExistsAsync(int id)
-    {
-        return await _context.Wallets.AnyAsync(w => w.Id == id);
     }
 }

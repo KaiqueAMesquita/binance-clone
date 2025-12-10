@@ -135,18 +135,35 @@ public class WalletService : IWalletService
     //     return await _currencyRepository.GetChartDataAsync(currencyId, quantity);
     // }
 
-    public async Task<Wallet> CreateWalletAsync(Wallet wallet)
+    public async Task<WalletDTO> RegisterWalletAsync(WalletDTO walletDto)
     {
-        var existingWallet = await _walletRepository.GetWalletByUserAndCurrencyAsync(wallet.UserId, wallet.Currency);
+        var wallet = new Wallet
+        {
+            Currency = walletDto.Currency,
+            Balance = 0,
+            UserId = walletDto.UserId
+        };
+
+        var existingWallet = await _walletRepository.GetByUserAndCurrencyAsync(wallet.UserId, wallet.Currency);
         if (existingWallet != null)
+        {
             throw new InvalidOperationException("Wallet already exists for this user and currency");
+        }
+        
+        await _walletRepository.AddAsync(wallet);
+
             
-        return await _walletRepository.CreateWalletAsync(wallet);
+        return new WalletDTO
+        {
+            Currency = wallet.Currency,
+            Balance = wallet.Balance,
+            UserId = wallet.UserId
+        };
     }
 
     public async Task<bool> UpdateWalletBalanceAsync(int walletId, decimal amount)
     {
-        var wallet = await _walletRepository.GetWalletByIdAsync(walletId);
+        var wallet = await _walletRepository.GetByIdAsync(walletId);
         if (wallet == null)
             return false;
             
@@ -154,22 +171,22 @@ public class WalletService : IWalletService
         if (wallet.Balance < 0)
             throw new InvalidOperationException("Insufficient funds");
             
-        await _walletRepository.UpdateWalletAsync(wallet);
+        await _walletRepository.UpdateAsync(wallet);
         return true;
     }
 
-    public async Task<IEnumerable<Wallet>> GetAllWalletsAsync()
+    public async Task<IEnumerable<Wallet?>> GetAllAsync()
     {
-        return await _walletRepository.GetAllWalletsAsync();
+        return await _walletRepository.ListAllAsync();
     }
     
-    public async Task<Wallet> GetWalletByIdAsync(int id)
+    public async Task<Wallet?> GetWalletDetailsAsync(int id)
     {
-        return await _walletRepository.GetWalletByIdAsync(id);
+        return await _walletRepository.GetByIdAsync(id);
     }
     
-    public async Task<IEnumerable<Wallet>> GetWalletsByUserIdAsync(int userId)
+    public async Task<IEnumerable<Wallet?>> ListAllByUserIdAsync(int userId)
     {
-        return await _walletRepository.GetWalletsByUserIdAsync(userId);
+        return await _walletRepository.ListAllByUserIdAsync(userId);
     }
 }

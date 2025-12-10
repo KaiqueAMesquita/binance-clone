@@ -115,33 +115,50 @@ public class WalletController : ControllerBase
     // }
 
     [HttpPost]
-    public async Task<ActionResult<Wallet>> CreateWallet([FromBody] Wallet wallet)
+    public async Task<ActionResult> CreateWallet(WalletDTO walletDto)
     {
-        try
-        {
-            var createdWallet = await _walletService.CreateWalletAsync(wallet);
-            return CreatedAtAction(nameof(GetWallet), new { id = createdWallet.Id }, createdWallet);
-        }
-        catch (InvalidOperationException ex)
-        {
-            return Conflict(ex.Message);
-        }
+        // try
+        // {
+        //     var createdWallet = await _walletService.RegisterWalletAsync(walletDto);
+        //     // return CreatedAtAction(nameof(GetWallet), new { id = createdWallet.Id }, createdWallet);
+        //     return Ok(createdWallet);
+        // }
+        // catch (InvalidOperationException ex)
+        // {
+        //     return Conflict(ex.Message);
+        // }
+
+        var result = await _walletService.RegisterWalletAsync(walletDto);
+        return Ok(result);
     }
 
     // Update
     // ------
+    [HttpPut("{id}")]
+    public async Task<ActionResult> Update(int id)
+    {
+        return Ok();  
+    }
+
+    // Delete
+    // ------
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> Delete(int id)
+    {
+        return Ok();
+    }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Wallet>>> GetAllWallets()
+    public async Task<ActionResult<IEnumerable<Wallet>>> ListAll()
     {
-        var wallets = await _walletService.GetAllWalletsAsync();
+        var wallets = await _walletService.GetAllAsync();
         return Ok(wallets);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Wallet>> GetWallet(int id)
+    public async Task<ActionResult<Wallet>> GetById(int id)
     {
-        var wallet = await _walletService.GetWalletByIdAsync(id);
+        var wallet = await _walletService.GetWalletDetailsAsync(id);
         
         if (wallet == null)
             return NotFound();
@@ -150,9 +167,9 @@ public class WalletController : ControllerBase
     }
     
     [HttpGet("user/{userId}")]
-    public async Task<ActionResult<IEnumerable<Wallet>>> GetWalletsByUser(int userId)
+    public async Task<ActionResult<IEnumerable<Wallet>>> ListAllByUser(int userId)
     {
-        var wallets = await _walletService.GetWalletsByUserIdAsync(userId);
+        var wallets = await _walletService.ListAllByUserIdAsync(userId);
         return Ok(wallets);
     }
 }

@@ -10,9 +10,9 @@ public interface IWalletService
     // Task<IEnumerable<CurrencySummaryDto>> GetCurrencySummariesAsync();
     // Task<IEnumerable<ChartPointDto>> GetChartDataAsync(int currencyId, int quantity);
 
-    Task<Wallet> CreateWalletAsync(Wallet wallet);
+    Task<WalletDTO> RegisterWalletAsync(WalletDTO walletDto);
     Task<bool> UpdateWalletBalanceAsync(int walletId, decimal amount);
-    Task<IEnumerable<Wallet>> GetAllWalletsAsync();
-    Task<Wallet> GetWalletByIdAsync(int id);
-    Task<IEnumerable<Wallet>> GetWalletsByUserIdAsync(int userId);
+    Task<IEnumerable<Wallet?>> GetAllAsync();
+    Task<Wallet?> GetWalletDetailsAsync(int id);
+    Task<IEnumerable<Wallet?>> ListAllByUserIdAsync(int userId);
 }

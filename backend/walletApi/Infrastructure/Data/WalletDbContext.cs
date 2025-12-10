@@ -25,7 +25,8 @@ public class WalletDbContext : DbContext
             entity.HasKey(transaction => transaction.Id);
             entity.Property(transaction => transaction.Type).IsRequired();
             entity.Property(transaction => transaction.Amount).IsRequired();
-            entity.Property(transaction => transaction.Currency).IsRequired();
+            entity.Property(transaction => transaction.FromCurrency).IsRequired();
+            entity.Property(transaction => transaction.ToCurrency).IsRequired();
         });
     }
 

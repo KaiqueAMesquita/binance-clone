@@ -78,7 +78,7 @@ public class TransactionService : ITransactionService
 
     public async Task<Transaction> AddTransactionAsync(int walletId, Transaction transaction)
     {
-        var wallet = await _walletRepository.GetWalletByIdAsync(walletId);
+        var wallet = await _walletRepository.GetByIdAsync(walletId);
         if (wallet == null)
             throw new KeyNotFoundException("Wallet not found");
             
@@ -103,7 +103,7 @@ public class TransactionService : ITransactionService
         }
         
         wallet.Balance += amountChange;
-        await _walletRepository.UpdateWalletAsync(wallet);
+        await _walletRepository.UpdateAsync(wallet);
         
         return await _transactionRepository.AddTransactionAsync(transaction);
     }

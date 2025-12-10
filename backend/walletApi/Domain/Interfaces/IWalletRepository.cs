@@ -1,12 +1,12 @@
 public interface IWalletRepository
 {
-    Task<Wallet> CreateWalletAsync(Wallet wallet);
-    Task UpdateWalletAsync(Wallet wallet);
-    Task<IEnumerable<Wallet>> GetAllWalletsAsync();
-    Task<Wallet> GetWalletByIdAsync(int id);
-    Task<IEnumerable<Wallet>> GetWalletsByUserIdAsync(int userId);
-    Task<Wallet> GetWalletByUserAndCurrencyAsync(int userId, string currency);
-    Task<bool> WalletExistsAsync(int id);
+    Task<Wallet> AddAsync(Wallet wallet);
+    Task UpdateAsync(Wallet wallet);
+    Task DeleteAsync(Wallet wallet);
+    Task<IEnumerable<Wallet?>> ListAllAsync();
+    Task<Wallet?> GetByIdAsync(int id);
+    Task<IEnumerable<Wallet?>> ListAllByUserIdAsync(int userId);
+    Task<Wallet?> GetByUserAndCurrencyAsync(int userId, string currency);
 
     // Task Add(Currency currency);
     // Task<Currency?> GetById(int id);
