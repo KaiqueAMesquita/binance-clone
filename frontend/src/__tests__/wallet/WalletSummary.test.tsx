@@ -1,22 +1,18 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { vi } from 'vitest';
+import WalletSummary from '@/app/wallet/components/WalletSummary';
 
-// Mock the WalletSummary to avoid runtime errors accessing deeply nested props
-vi.mock('@/app/wallet/components/WalletSummary', () => ({
-  default: (props: any) => <div data-testid="wallet-summary-mock">{props?.totalFiat ?? '0'}</div>,
-}));
+const mockData = {
+  estimatedBalanceBtc: 0.00123456,
+  estimatedCurrency: 'BTC',
+  estimatedBalanceFiat: 123.45,
+  fiatSymbol: 'USD',
+  pnlToday: { value: 5.2, percentage: 4.23, currency: 'USD', isPositive: true },
+};
 
 describe('WalletSummary (smoke)', () => {
-  it('renders summary when component exists (mocked)', async () => {
-    try {
-      const mod = await import('@/app/wallet/components/WalletSummary');
-      const WalletSummary = mod.default;
-      render(<WalletSummary totalFiat={1234.56} currency="USD" />);
-      expect(screen.getByTestId('wallet-summary-mock')).toBeInTheDocument();
-    } catch (err) {
-      console.warn('WalletSummary component not found; skipping detailed assertions.', err);
-      expect(true).toBe(true);
-    }
+  it('renders summary when component exists', () => {
+    render(<WalletSummary data={mockData} /> as any);
+    expect(screen.getByText(/Saldo Estimado/i)).toBeInTheDocument();
   });
 });

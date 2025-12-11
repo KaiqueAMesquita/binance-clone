@@ -1,87 +1,83 @@
-﻿'use client';
+﻿"use client";
 
+import React, { useEffect, useState } from 'react';
 import WalletSummary, { WalletSummaryData } from './components/WalletSummary';
 import AssetTable, { AssetRow } from './components/AssetTable';
 import PromotionalCards, { PromotionCard } from './components/PromotionalCards';
 import RecentTransactions, { WalletTransaction } from './components/RecentTransactions';
 import styles from './page.module.css';
-
-const walletSummary: WalletSummaryData = {
-  estimatedBalanceBtc: 0.00187386,
-  estimatedCurrency: 'BTC',
-  estimatedBalanceFiat: 225.59,
-  fiatSymbol: '$',
-  pnlToday: {
-    value: 8.42,
-    percentage: 3.88,
-    currency: '$',
-    isPositive: true,
-  },
-};
-
-const assets: AssetRow[] = [
-  {
-    symbol: 'SOL',
-    name: 'Solana',
-    quantity: 0.63794897,
-    fiatValue: 233.18,
-    fiatCurrency: '$',
-    costBasis: 167.07,
-    currentPrice: 149.08,
-    pnlToday: 7.37,
-    pnlIsPositive: true,
-    accent: '#9945FF',
-  },
-  {
-    symbol: 'BTC',
-    name: 'Bitcoin',
-    quantity: 0.00063336,
-    fiatValue: 120389.99,
-    fiatCurrency: '$',
-    costBasis: 89605.3,
-    currentPrice: 762.25,
-    pnlToday: 1.07,
-    pnlIsPositive: true,
-    accent: '#F7931A',
-  },
-  {
-    symbol: 'USDT',
-    name: 'TetherUS',
-    quantity: 0.001,
-    fiatValue: 1,
-    fiatCurrency: '$',
-    costBasis: 1,
-    currentPrice: 1,
-    pnlToday: 0,
-    pnlIsPositive: false,
-    accent: '#26A17B',
-  },
-];
-
-const promotions: PromotionCard[] = [
-  {
-    title: 'A forma mais fácil de realizar trades de criptomoedas com taxa 0',
-    cta: 'Converter',
-    variant: 'primary',
-  },
-  {
-    title: 'Faça trade de criptomoedas com ferramentas avançadas',
-    subtitle: 'BTC/USDT 120.389,99 $ • 2,16%',
-    cta: 'Trading Spot',
-    variant: 'secondary',
-  },
-];
-
-const recentTransactions: WalletTransaction[] = [];
+import { walletService, AssetRow as ApiAssetRow, WalletSummaryData as ApiWalletSummary } from '@/services/WalletService';
 
 export default function WalletPage() {
+  const [summary, setSummary] = useState<WalletSummaryData | null>(null);
+  const [assets, setAssets] = useState<AssetRow[]>([]);
+  const [transactions, setTransactions] = useState<WalletTransaction[]>([]);
+  const [history, setHistory] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    (async () => {
+      try {
+        setLoading(true);
+        const [s, a, t, h] = await Promise.all([
+          walletService.getSummary(),
+          walletService.getAssets(),
+          walletService.getTransactions(),
+          walletService.getHistory(7),
+        ]);
+        if (!active) return;
+        setSummary(s as unknown as ApiWalletSummary as WalletSummaryData);
+        const mappedAssets: AssetRow[] = (a || []).map((it: ApiAssetRow) => ({
+          symbol: it.symbol,
+          name: it.name,
+          quantity: it.quantity,
+          fiatValue: it.fiatValue,
+          fiatCurrency: it.fiatCurrency || '$',
+          costBasis: it.costBasis || 0,
+          currentPrice: it.currentPrice || 0,
+          pnlToday: it.pnlToday || 0,
+          pnlIsPositive: !!it.pnlIsPositive,
+          accent: it.accent || '#64748b',
+        }));
+        setAssets(mappedAssets);
+        setTransactions(t || []);
+        setHistory(h || []);
+      } catch (err: unknown) {
+        console.error('Falha ao carregar dados da carteira', err);
+        setError((err as Error)?.message || 'Erro desconhecido');
+      } finally {
+        setLoading(false);
+      }
+    })();
+    return () => { active = false; };
+  }, []);
+
+  const promotions: PromotionCard[] = [
+    {
+      title: 'A forma mais fácil de realizar trades de criptomoedas com taxa 0',
+      cta: 'Converter',
+      variant: 'primary',
+    },
+    {
+      title: 'Faça trade de criptomoedas com ferramentas avançadas',
+      subtitle: 'BTC/USDT • ferramenta',
+      cta: 'Trading Spot',
+      variant: 'secondary',
+    },
+  ];
+
+  if (loading) return <div className={styles.page}><div className={styles.content}>Carregando carteira...</div></div>;
+  if (error) return <div className={styles.page}><div className={styles.content}>Erro: {error}</div></div>;
+
   return (
     <div className={styles.page}>
       <div className={styles.content}>
-        <WalletSummary data={walletSummary} />
+        {summary && <WalletSummary data={summary} history={history} />}
         <AssetTable assets={assets} />
         <PromotionalCards cards={promotions} />
-        <RecentTransactions transactions={recentTransactions} />
+        <RecentTransactions transactions={transactions} />
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import InputMask from 'react-input-mask';
 import { toast } from 'react-toastify';
 import { userAPI } from '@/services/API';
@@ -17,13 +17,35 @@ export default function UserForm() {
     password: '',
   });
   const [photoFile, setPhotoFile] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.type === 'file' && e.target.files?.[0]) {
-      setPhotoFile(e.target.files[0]);
+      const file = e.target.files[0];
+      setPhotoFile(file);
+      // create object URL for preview
+      const url = URL.createObjectURL(file);
+      setPreview(url);
     } else {
       setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
     }
+  };
+
+  useEffect(() => {
+    // cleanup object URL when preview changes or component unmounts
+    return () => {
+      if (preview) {
+        URL.revokeObjectURL(preview);
+      }
+    };
+  }, [preview]);
+
+  const removePhoto = () => {
+    if (preview) URL.revokeObjectURL(preview);
+    setPreview(null);
+    setPhotoFile(null);
+    if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -126,12 +148,24 @@ export default function UserForm() {
       <div>
         <label className={styles.label}>Foto de Perfil</label>
         <input
+          ref={el => (fileInputRef.current = el)}
           type="file"
           name="photo"
           accept="image/*"
           onChange={handleChange}
           className={styles.input}
         />
+
+        {preview && (
+          <div className={styles.photoPreview}>
+            <img src={preview} alt="Pré-visualização" className={styles.photoPreviewImg} />
+            <div className={styles.photoControls}>
+              <button type="button" className={styles.removeButton} onClick={removePhoto}>
+                Remover
+              </button>
+            </div>
+          </div>
+        )}
       </div>
       <SubmitButton label="Cadastrar" />
     </form>

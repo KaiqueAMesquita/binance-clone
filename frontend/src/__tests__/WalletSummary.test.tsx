@@ -12,13 +12,11 @@ const mockData = {
 
 describe('WalletSummary', () => {
   it('renders balance, fiat and pnl info', () => {
-    render(<WalletSummary data={mockData} />);
+    render(<WalletSummary data={mockData} /> as any);
     expect(screen.getByText(/Saldo Estimado/i)).toBeInTheDocument();
-    // check formatted fiat and currency
     expect(screen.getByText(/123,45/)).toBeInTheDocument();
     expect(screen.getAllByText(/USD/)[0]).toBeInTheDocument();
     expect(screen.getByText(/PNL de Hoje/i)).toBeInTheDocument();
-    // Chart labels (week days)
     expect(screen.getByText(/SEG/)).toBeInTheDocument();
     expect(screen.getByText(/DOM/)).toBeInTheDocument();
   });

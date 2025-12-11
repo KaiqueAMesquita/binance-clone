@@ -13,7 +13,7 @@ public class Transaction
     
     public int WalletId { get; set; }
     [JsonIgnore]
-    public Wallet Wallet { get; set; }
+    public Wallet? Wallet { get; set; }
 
     // public int destinyWalletId { get; set; }
 }

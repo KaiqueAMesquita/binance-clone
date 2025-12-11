@@ -1,4 +1,6 @@
-const BASE_URL = "http://localhost:5237/api";
+import { currencyBase } from './API';
+
+const BASE_URL = currencyBase();
 
 export interface History {
   id: number;

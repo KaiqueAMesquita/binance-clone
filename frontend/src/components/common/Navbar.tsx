@@ -66,10 +66,10 @@ export default function Navbar() {
             <button className={styles.iconButton}>
               <IoSearch size={20} />
             </button>
-            <button className={styles.depositButton}>
+            <Link href="/deposit" className={styles.depositButton}>
               <MdOutlineFileDownload size={18} />
               Depositar
-            </button>
+            </Link>
             <div className={styles.separator}></div>
             <div className={styles.iconGroup}>
               <Link href="/users/profile" className={styles.iconButton}>
