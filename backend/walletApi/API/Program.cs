@@ -3,6 +3,8 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Hosting.Server.Features;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -104,6 +106,19 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Only enable HTTPS redirection when an HTTPS address is configured
+// var server = app.Services.GetService<IServer>();
+// var addressesFeature = server?.Features.Get<IServerAddressesFeature>();
+// if (addressesFeature != null && addressesFeature.Addresses.Any(a => a.StartsWith("https://", StringComparison.OrdinalIgnoreCase)))
+// {
+//     app.UseHttpsRedirection();
+// }
+// else
+// {
+//     var startupLogger = app.Services.GetRequiredService<ILoggerFactory>().CreateLogger("Startup");
+//     startupLogger.LogInformation("HTTPS not configured; skipping HTTPS redirection.");
+// }
 
 //Habilita o CORS
 app.UseCors("AllowFrontend");

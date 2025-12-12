@@ -33,9 +33,11 @@ public class WalletService : IWalletService
     {
         var wallet = await _walletRepository.GetByIdAsync(id);
         if (wallet == null) return null;
+
         wallet.Currency = walletDto.Currency;
         wallet.Balance = walletDto.Balance;
         wallet.UserId = walletDto.UserId;
+
         await _walletRepository.UpdateAsync(wallet);
         
         return new WalletDTO { Id = wallet.Id, Currency = wallet.Currency, Balance = wallet.Balance, UserId = wallet.UserId, CreatedAt = wallet.CreatedAt, UpdatedAt = wallet.UpdatedAt };
@@ -45,34 +47,44 @@ public class WalletService : IWalletService
     {
         var transactionDto = await _transactionService.Deposit(depositRequest);
         if (transactionDto.DestinyWalletId == null) throw new InvalidOperationException("Destiny wallet not specified");
+
         var receiver = await _walletRepository.GetByIdAsync(transactionDto.DestinyWalletId.Value);
         if (receiver == null) throw new KeyNotFoundException("Receiver wallet not found");
+        
         receiver.Balance += transactionDto.Amount;
+
         await _walletRepository.UpdateAsync(receiver);
+
         return transactionDto;
     }
 
-    public async Task<TransactionDTO> Transfer(TransactionDTO transactionDto)
+    public async Task<TransactionDTO> Transfer(TransferRequestDTO transferRequest)
     {
-        var created = await _transactionService.RegisterTransaction(transactionDto);
-        if (created.DestinyWalletId == null) throw new InvalidOperationException("Destiny wallet not specified");
-        var sender = await _walletRepository.GetByIdAsync(created.WalletId);
-        var receiver = await _walletRepository.GetByIdAsync(created.DestinyWalletId.Value);
+        var sender = await _walletRepository.GetByIdAsync(transferRequest.WalletId);
+        var receiver = await _walletRepository.GetByIdAsync(transferRequest.DestinyWalletId);
         if (sender == null || receiver == null) throw new KeyNotFoundException("Sender or receiver not found");
-        if (sender.Balance < created.Amount) throw new InvalidOperationException("Insufficient funds");
-        var conversionValue = created.Amount;
+        if (sender.Balance < transferRequest.Amount) throw new InvalidOperationException("Insufficient funds");
+
+        var conversionValue = transferRequest.Amount;
+
         if (!string.Equals(sender.Currency, receiver.Currency, StringComparison.OrdinalIgnoreCase))
         {
-            var conversion = await _currencyClient.ConvertAsync(sender.Currency, receiver.Currency, created.Amount);
+            var conversion = await _currencyClient.ConvertAsync(sender.Currency, receiver.Currency, transferRequest.Amount);
             if (conversion == null) throw new InvalidOperationException("Conversion failed");
+
             conversionValue = conversion.Value;
         }
-        sender.Balance -= created.Amount;
+
+        sender.Balance -= transferRequest.Amount;
         receiver.Balance += conversionValue;
+
         await _walletRepository.UpdateAsync(sender);
         await _walletRepository.UpdateAsync(receiver);
-        await _transactionService.ConfirmTransaction(transactionDto);
-        return transactionDto;
+
+        var created = await _transactionService.Transfer(transferRequest);
+        if (created.DestinyWalletId == null) throw new InvalidOperationException("Destiny wallet not specified");
+
+        return created;
     }
 
     public async Task DeleteWallet(int id)
@@ -92,7 +104,7 @@ public class WalletService : IWalletService
             UserId = w.UserId,
             Transactions = (w.Transactions ?? new List<Transaction>()).Select(t => new TransactionDTO
             {
-                // Id = t.Id, // Pode ser útil adicionar ID na transação também se precisar
+                Id = t.Id, // Pode ser útil adicionar ID na transação também se precisar
                 Type = t.Type,
                 FromCurrency = t.FromCurrency,
                 ToCurrency = t.ToCurrency,

@@ -8,7 +8,8 @@ public interface ITransactionService
 
     // Task<TransactionDTO> AddTransactionAsync(int walletId, TransactionDTO transactionDto);
     Task<TransactionDTO> Deposit(DepositRequestDTO depositRequest);
-    Task<TransactionDTO> RegisterTransaction(TransactionDTO transactionDto);
+    // Task<TransactionDTO> RegisterTransaction(TransactionDTO transactionDto);
+    Task<TransactionDTO> Transfer(TransferRequestDTO transferRequest);
     Task ConfirmTransaction(TransactionDTO transactionDto);
     Task<IEnumerable<TransactionDTO>> GetByWalletIdAsync(int walletId);
 }

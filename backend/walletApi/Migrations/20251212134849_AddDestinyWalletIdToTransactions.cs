@@ -10,15 +10,9 @@ namespace walletApi.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            // Add nullable column first to avoid foreign key violations when migrating existing data
-            migrationBuilder.AddColumn<int>(
-                name: "DestinyWalletId",
-                table: "Transactions",
-                type: "INTEGER",
-                nullable: true);
-
-            // Initialize the new column using existing WalletId where appropriate
-            migrationBuilder.Sql("UPDATE Transactions SET DestinyWalletId = WalletId WHERE DestinyWalletId IS NULL;");
+            // Column `DestinyWalletId` already exists in the database (created by a prior migration).
+            // Skip adding the column to avoid duplicate-column errors, but still create the
+            // index and foreign key that the original migration intended.
 
             // Create index and foreign key (column is nullable so existing rows won't violate FK)
             migrationBuilder.CreateIndex(

@@ -14,16 +14,17 @@ public class TransactionService : ITransactionService
 
     public async Task<TransactionDTO> Deposit(DepositRequestDTO depositRequest)
     {   
-            // Validate that the wallet exists before creating transaction
-            var wallet = await _walletRepository.GetByIdAsync(depositRequest.WalletId);
-            if (wallet == null)
-                throw new InvalidOperationException($"Wallet with ID {depositRequest.WalletId} not found");
+        // Validate that the wallet exists before creating transaction
+        var wallet = await _walletRepository.GetByIdAsync(depositRequest.WalletId);
+        if (wallet == null)
+            throw new InvalidOperationException($"Wallet with ID {depositRequest.WalletId} not found");
 
         var transaction = new Transaction{
             Type = TransactionType.Deposit,
             FromCurrency = "USDT",
             ToCurrency = depositRequest.Currency,
             Amount = depositRequest.Amount,
+            Status = TransactionStatus.Completed,
             WalletId = depositRequest.WalletId,
             DestinyWalletId = depositRequest.WalletId
         };
@@ -32,6 +33,7 @@ public class TransactionService : ITransactionService
 
         return new TransactionDTO
         {
+            Id = transaction.Id,
             Type = transaction.Type,
             FromCurrency = transaction.FromCurrency,
             ToCurrency = transaction.ToCurrency,
@@ -42,47 +44,85 @@ public class TransactionService : ITransactionService
         };
     }
 
-    public async Task<TransactionDTO> RegisterTransaction(TransactionDTO transactionDto)
+    public async Task<TransactionDTO> Transfer(TransferRequestDTO transferRequest)
     {
-        // Validate origin wallet exists
-        var originWallet = await _walletRepository.GetByIdAsync(transactionDto.WalletId);
-        if (originWallet == null)
-            throw new KeyNotFoundException("Carteira de origem não encontrada");
+        var wallet = await _walletRepository.GetByIdAsync(transferRequest.WalletId);
+        if (wallet == null)
+            throw new InvalidOperationException($"Wallet with ID {transferRequest.WalletId} not found");
+        
+        // if (transferRequest.DestinyWalletId == null || transferRequest.DestinyWalletId <= 0)
+        //     throw new InvalidOperationException("Destiny wallet ID must be specified");
+        
+        var destinyWallet = await _walletRepository.GetByIdAsync(transferRequest.DestinyWalletId);
+        if (destinyWallet == null)
+            throw new InvalidOperationException($"Wallet with ID {transferRequest.DestinyWalletId} not found");
 
-        // Normalize destiny id (0 -> null)
-        int? destinyId = transactionDto.DestinyWalletId == 0 ? null : transactionDto.DestinyWalletId;
-
-        // If destiny provided, validate it exists
-        if (destinyId.HasValue)
-        {
-            var destinyWallet = await _walletRepository.GetByIdAsync(destinyId.Value);
-            if (destinyWallet == null)
-                throw new KeyNotFoundException("Carteira de destino não encontrada");
-        }
-
-        var transaction = new Transaction
-        {
-            Type = transactionDto.Type,
-            FromCurrency = transactionDto.FromCurrency,
-            ToCurrency = transactionDto.ToCurrency,
-            Amount = transactionDto.Amount,
-            WalletId = transactionDto.WalletId,
-            DestinyWalletId = destinyId
+        var transaction = new Transaction{
+            Type = TransactionType.Transfer,
+            FromCurrency = transferRequest.FromCurrency,
+            ToCurrency = transferRequest.ToCurrency,
+            Amount = transferRequest.Amount,
+            WalletId = transferRequest.WalletId,
+            DestinyWalletId = transferRequest.DestinyWalletId
         };
-
+        
         await _transactionRepository.AddTransactionAsync(transaction);
 
         return new TransactionDTO
         {
+            Id = transaction.Id,
             Type = transaction.Type,
             FromCurrency = transaction.FromCurrency,
             ToCurrency = transaction.ToCurrency,
             Amount = transaction.Amount,
-            Status = TransactionStatus.Canceled,
+            Status = TransactionStatus.Completed,
             WalletId = transaction.WalletId,
             DestinyWalletId = transaction.DestinyWalletId
         };
+
     }
+
+    // public async Task<TransactionDTO> RegisterTransaction(TransactionDTO transactionDto)
+    // {
+    //     // Validate origin wallet exists
+    //     var originWallet = await _walletRepository.GetByIdAsync(transactionDto.WalletId);
+    //     if (originWallet == null)
+    //         throw new KeyNotFoundException("Carteira de origem não encontrada");
+
+    //     // Normalize destiny id (0 -> null)
+    //     int? destinyId = transactionDto.DestinyWalletId == 0 ? null : transactionDto.DestinyWalletId;
+
+    //     // If destiny provided, validate it exists
+    //     if (destinyId.HasValue)
+    //     {
+    //         var destinyWallet = await _walletRepository.GetByIdAsync(destinyId.Value);
+    //         if (destinyWallet == null)
+    //             throw new KeyNotFoundException("Carteira de destino não encontrada");
+    //     }
+
+    //     var transaction = new Transaction
+    //     {
+    //         Type = transactionDto.Type,
+    //         FromCurrency = transactionDto.FromCurrency,
+    //         ToCurrency = transactionDto.ToCurrency,
+    //         Amount = transactionDto.Amount,
+    //         WalletId = transactionDto.WalletId,
+    //         DestinyWalletId = destinyId
+    //     };
+
+    //     await _transactionRepository.AddTransactionAsync(transaction);
+
+    //     return new TransactionDTO
+    //     {
+    //         Type = transaction.Type,
+    //         FromCurrency = transaction.FromCurrency,
+    //         ToCurrency = transaction.ToCurrency,
+    //         Amount = transaction.Amount,
+    //         Status = TransactionStatus.Canceled,
+    //         WalletId = transaction.WalletId,
+    //         DestinyWalletId = transaction.DestinyWalletId
+    //     };
+    // }
 
     public async Task ConfirmTransaction(TransactionDTO transactionDto)
     {
@@ -109,6 +149,7 @@ public class TransactionService : ITransactionService
         {
             transactionDTOs.Add(new TransactionDTO
             {
+                Id = transaction.Id,
                 Type = transaction.Type,
                 FromCurrency = transaction.FromCurrency,
                 ToCurrency = transaction.ToCurrency,
@@ -121,4 +162,6 @@ public class TransactionService : ITransactionService
 
         return transactionDTOs.ToArray();
     }
+
+
 }
