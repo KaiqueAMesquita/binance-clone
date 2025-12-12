@@ -7,5 +7,6 @@ public interface ITransactionRepository
 //     Task Delete(Transaction transaction);
 
     Task<Transaction> AddTransactionAsync(Transaction transaction);
-    Task<IEnumerable<Transaction>> GetTransactionsByWalletIdAsync(int walletId);
+    Task UpdateAsync(Transaction transaction);
+    Task<IEnumerable<Transaction>> GetByWalletIdAsync(int walletId);
 }

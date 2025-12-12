@@ -11,8 +11,11 @@ public interface IWalletService
     // Task<IEnumerable<ChartPointDto>> GetChartDataAsync(int currencyId, int quantity);
 
     Task<WalletDTO> RegisterWalletAsync(WalletDTO walletDto);
-    Task<bool> UpdateWalletBalanceAsync(int walletId, decimal amount);
-    Task<IEnumerable<Wallet?>> GetAllAsync();
-    Task<Wallet?> GetWalletDetailsAsync(int id);
-    Task<IEnumerable<Wallet?>> ListAllByUserIdAsync(int userId);
+    Task<WalletDTO?> UpdateWalletAsync(int id, WalletDTO wallet);
+    // Task<bool> UpdateWalletBalanceAsync(int walletId, decimal amount);
+    Task<TransactionDTO> Deposit(DepositRequestDTO depositRequest);
+    Task DeleteWallet(int id);
+    Task<IEnumerable<WalletDTO?>> GetAllAsync();
+    Task<WalletDTO?> GetWalletDetailsAsync(int id);
+    Task<IEnumerable<WalletDTO?>> ListAllByUserIdAsync(int userId);
 }

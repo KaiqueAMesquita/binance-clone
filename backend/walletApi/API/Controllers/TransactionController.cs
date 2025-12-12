@@ -51,12 +51,12 @@ public class TransactionController : ControllerBase
     // }
 
     [HttpPost("{walletId}/transactions")]
-    public async Task<ActionResult<Transaction>> AddTransaction(int walletId, [FromBody] Transaction transaction)
+    public async Task<ActionResult<TransactionDTO>> AddTransaction(TransactionDTO transactionDto)
     {
         try
         {
-            var createdTransaction = await _transactionService.AddTransactionAsync(walletId, transaction);
-            return CreatedAtAction(nameof(GetTransactions), new { walletId = walletId }, createdTransaction);
+            var createdTransaction = await _transactionService.RegisterTransaction(transactionDto);
+            return createdTransaction;
         }
         catch (KeyNotFoundException ex)
         {
@@ -73,7 +73,7 @@ public class TransactionController : ControllerBase
     {
         try
         {
-            var transactions = await _transactionService.GetTransactionsByWalletIdAsync(walletId);
+            var transactions = await _transactionService.GetByWalletIdAsync(walletId);
             return Ok(transactions);
         }
         catch (KeyNotFoundException ex)

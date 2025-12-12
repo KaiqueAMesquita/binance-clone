@@ -1,3 +1,6 @@
+using System.Net;
+using System.Transactions;
+
 public class TransactionService : ITransactionService
 {
     private readonly ITransactionRepository _transactionRepository;
@@ -9,107 +12,97 @@ public class TransactionService : ITransactionService
         _walletRepository = walletRepository;
     }
 
-    // public async Task RegisterHistory(History history)
-    // {
-    //     await _historyRepository.Add(history);
-    // }
+    public async Task<TransactionDTO> Deposit(DepositRequestDTO depositRequest)
+    {   
+            // Validate that the wallet exists before creating transaction
+            var wallet = await _walletRepository.GetByIdAsync(depositRequest.WalletId);
+            if (wallet == null)
+                throw new InvalidOperationException($"Wallet with ID {depositRequest.WalletId} not found");
 
-    // public async Task<HistoryDTO?> GetHistoryDetails(int id)
-    // {
-    //     var history = await _historyRepository.GetById(id);
-    //     return history != null ? new HistoryDTO
-    //     {
-    //         Id = history.Id,
-    //         Datetime = history.Datetime,
-    //         Price = history.Price,
-    //         CurrencyId = history.CurrencyId
-    //     } : null;
-    // }
-
-    // public async Task<HistoryDTO[]> GetAllHistories()
-    // {
-    //     var histories = await _historyRepository.ListAll();
-    //     var historyDTOs = new List<HistoryDTO>();
-
-    //     foreach (var history in histories)
-    //     {
-    //         historyDTOs.Add(new HistoryDTO
-    //         {
-    //             Id = history.Id,
-    //             Datetime = history.Datetime,
-    //             Price = history.Price,
-    //             CurrencyId = history.CurrencyId
-    //         });
-    //     }
-
-    //     return historyDTOs.ToArray();
-    // }
-
-    // public async Task<HistoryDTO?> UpdateHistory(HistoryDTO historyDto, int id)
-    // {
-    //     var currency = await _currencyService.GetCurrencyById(historyDto.CurrencyId);
-
-    //     var history = await _historyRepository.GetById(id);
-    //     if (history == null)
-    //     {
-    //         return null;
-    //     }
-
-    //     history.Datetime = historyDto.Datetime;
-    //     history.Price = historyDto.Price;
-    //     history.CurrencyId = historyDto.CurrencyId;
-    //     history.Currency = currency;
-
-    //     await _historyRepository.Update(history);
-
-    //     return new HistoryDTO
-    //     {
-    //         Datetime = history.Datetime,
-    //         Price = history.Price,
-    //         CurrencyId = history.CurrencyId
-    //     };
-    // }
-
-    // public async Task DeleteHistory(int id)
-    // {
-    //     var history = await _historyRepository.GetById(id);
-    //     await _historyRepository.Delete(history);
-    // }
-
-    public async Task<Transaction> AddTransactionAsync(int walletId, Transaction transaction)
-    {
-        var wallet = await _walletRepository.GetByIdAsync(walletId);
-        if (wallet == null)
-            throw new KeyNotFoundException("Wallet not found");
-            
-        transaction.WalletId = walletId;
+        var transaction = new Transaction{
+            Type = TransactionType.Deposit,
+            FromCurrency = "USDT",
+            ToCurrency = depositRequest.Currency,
+            Amount = depositRequest.Amount,
+            WalletId = depositRequest.WalletId,
+            DestinyWalletId = depositRequest.WalletId
+        };
         
-        // Update wallet balance based on transaction type
-        decimal amountChange = 0;
-        
-        switch (transaction.Type)
+        await _transactionRepository.AddTransactionAsync(transaction);
+
+        return new TransactionDTO
         {
-            case TransactionType.Deposit:
-            case TransactionType.Purchase:
-                amountChange = transaction.Amount;
-                break;
-            case TransactionType.Withdrawal:
-            case TransactionType.Sale:
-            case TransactionType.Fee:
-                amountChange = -transaction.Amount;
-                if (wallet.Balance < Math.Abs(amountChange))
-                    throw new InvalidOperationException("Insufficient funds");
-                break;
-        }
-        
-        wallet.Balance += amountChange;
-        await _walletRepository.UpdateAsync(wallet);
-        
-        return await _transactionRepository.AddTransactionAsync(transaction);
+            Type = transaction.Type,
+            FromCurrency = transaction.FromCurrency,
+            ToCurrency = transaction.ToCurrency,
+            Amount = transaction.Amount,
+            Status = TransactionStatus.Completed,
+            WalletId = transaction.WalletId,
+            DestinyWalletId = transaction.DestinyWalletId
+        };
     }
 
-    public async Task<IEnumerable<Transaction>> GetTransactionsByWalletIdAsync(int walletId)
+    public async Task<TransactionDTO> RegisterTransaction(TransactionDTO transactionDto)
     {
-        return await _transactionRepository.GetTransactionsByWalletIdAsync(walletId);
+        var transaction = new Transaction
+        {
+            Type = transactionDto.Type,
+            FromCurrency = transactionDto.FromCurrency,
+            ToCurrency = transactionDto.ToCurrency,
+            Amount = transactionDto.Amount,
+            WalletId = transactionDto.WalletId,
+            DestinyWalletId = transactionDto.DestinyWalletId
+        };
+        
+        await _transactionRepository.AddTransactionAsync(transaction);
+
+        return new TransactionDTO
+        {
+            Type = transaction.Type,
+            FromCurrency = transaction.FromCurrency,
+            ToCurrency = transaction.ToCurrency,
+            Amount = transaction.Amount,
+            Status = TransactionStatus.Canceled,
+            WalletId = transaction.WalletId,
+            DestinyWalletId = transaction.DestinyWalletId
+        };
+    }
+
+    public async Task ConfirmTransaction(TransactionDTO transactionDto)
+    {
+        var transaction = new Transaction{
+            Type = transactionDto.Type,
+            FromCurrency = transactionDto.FromCurrency,
+            ToCurrency = transactionDto.ToCurrency,
+            Amount = transactionDto.Amount,
+            Status = TransactionStatus.Completed,
+            WalletId = transactionDto.WalletId,
+            DestinyWalletId = transactionDto.DestinyWalletId
+        };
+
+        await _transactionRepository.UpdateAsync(transaction);
+    }
+
+    public async Task<IEnumerable<TransactionDTO>> GetByWalletIdAsync(int walletId)
+    {
+        // return await _transactionRepository.GetByWalletIdAsync(walletId);
+        var transactions = await _transactionRepository.GetByWalletIdAsync(walletId);
+        var transactionDTOs = new List<TransactionDTO>();
+
+        foreach(var transaction in transactions)
+        {
+            transactionDTOs.Add(new TransactionDTO
+            {
+                Type = transaction.Type,
+                FromCurrency = transaction.FromCurrency,
+                ToCurrency = transaction.ToCurrency,
+                Amount = transaction.Amount,
+                Status = transaction.Status,
+                WalletId = transaction.WalletId,
+                DestinyWalletId = transaction.DestinyWalletId
+            });
+        }
+
+        return transactionDTOs.ToArray();
     }
 }

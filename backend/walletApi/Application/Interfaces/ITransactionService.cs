@@ -6,6 +6,9 @@ public interface ITransactionService
     // Task<HistoryDTO?> UpdateHistory(HistoryDTO historyDto, int id);
     // Task DeleteHistory(int id);
 
-    Task<IEnumerable<Transaction>> GetTransactionsByWalletIdAsync(int walletId);
-    Task<Transaction> AddTransactionAsync(int walletId, Transaction transaction);
+    // Task<TransactionDTO> AddTransactionAsync(int walletId, TransactionDTO transactionDto);
+    Task<TransactionDTO> Deposit(DepositRequestDTO depositRequest);
+    Task<TransactionDTO> RegisterTransaction(TransactionDTO transactionDto);
+    Task ConfirmTransaction(TransactionDTO transactionDto);
+    Task<IEnumerable<TransactionDTO>> GetByWalletIdAsync(int walletId);
 }

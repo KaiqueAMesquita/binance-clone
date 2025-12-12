@@ -12,13 +12,13 @@ public class TransactionDTO
     public string FromCurrency { get; set; }
     public string ToCurrency { get; set; }
     public decimal Amount { get; set; }
-    public string TransactionHash { get; set; }
-    public TransactionStatus Status { get; set; } = TransactionStatus.Completed;
+    // public string TransactionHash { get; set; }
+    public TransactionStatus Status { get; set; } = TransactionStatus.Pending;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     
     public int WalletId { get; set; }
 
-    // public int destinyWalletId { get; set; }
+    public int DestinyWalletId { get; set; }
 }
 
 public enum TransactionType
