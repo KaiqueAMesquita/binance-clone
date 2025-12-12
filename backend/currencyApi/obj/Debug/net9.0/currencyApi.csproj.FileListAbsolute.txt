@@ -1490,3 +1490,4 @@ C:\Users\davir\binance-clone\backend\currencyApi\obj\Debug\net9.0\refint\currenc
 C:\Users\davir\binance-clone\backend\currencyApi\obj\Debug\net9.0\currencyApi.pdb
 C:\Users\davir\binance-clone\backend\currencyApi\obj\Debug\net9.0\currencyApi.genruntimeconfig.cache
 C:\Users\davir\binance-clone\backend\currencyApi\obj\Debug\net9.0\ref\currencyApi.dll
+C:\Users\peixoto\binance-clone\backend\currencyApi\obj\Debug\net9.0\swae.build.ex.cache

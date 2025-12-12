@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../models/asset_model.dart'; // Importar Model
-import '../services/wallet_service.dart'; // Importar Service
+import '../models/asset_model.dart';
+import '../services/wallet_service.dart';
 import 'trade_screen.dart';
 
 class WalletScreen extends StatefulWidget {
@@ -11,8 +11,7 @@ class WalletScreen extends StatefulWidget {
 class _WalletScreenState extends State<WalletScreen> {
   final WalletService _walletService = WalletService();
   
-  // Variáveis para armazenar os dados que virão do serviço
-  double _balance = 0.0;
+  double _totalBalance = 0.0;
   List<AssetModel> _assets = [];
   bool _isLoading = true;
 
@@ -22,17 +21,27 @@ class _WalletScreenState extends State<WalletScreen> {
     _loadData();
   }
 
-  // Função que carrega os dados
   Future<void> _loadData() async {
-    final balance = await _walletService.getBalance();
-    final assets = await _walletService.getAssets();
+    try {
+      // Busca a lista real do backend
+      final assets = await _walletService.getPortfolio();
 
-    if (mounted) {
-      setState(() {
-        _balance = balance;
-        _assets = assets;
-        _isLoading = false;
-      });
+      // Calcula o saldo total somando todos os ativos
+      double total = 0.0;
+      for (var asset in assets) {
+        total += asset.valueBrl;
+      }
+
+      if (mounted) {
+        setState(() {
+          _assets = assets;
+          _totalBalance = total;
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      print("Erro na tela de carteira: $e");
+      if (mounted) setState(() => _isLoading = false);
     }
   }
 
@@ -47,61 +56,67 @@ class _WalletScreenState extends State<WalletScreen> {
       ),
       body: _isLoading 
         ? Center(child: CircularProgressIndicator(color: Colors.yellow))
-        : Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Card de Saldo
-                Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Colors.yellow[800]!, Colors.yellow[600]!],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Saldo Total Estimado", style: TextStyle(color: Colors.black87, fontSize: 14)),
-                      SizedBox(height: 8),
-                      Text(
-                        "R\$ ${_balance.toStringAsFixed(2)}", 
-                        style: TextStyle(color: Colors.black, fontSize: 28, fontWeight: FontWeight.bold)
+        : RefreshIndicator( // Permite puxar para atualizar
+            onRefresh: _loadData,
+            color: Colors.yellow,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Card de Saldo
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Colors.yellow[800]!, Colors.yellow[600]!],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
                       ),
-                      SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _buildActionButton(context, Icons.arrow_downward, "Depositar", null),
-                          _buildActionButton(context, Icons.arrow_upward, "Sacar", null),
-                          _buildActionButton(context, Icons.swap_horiz, "Converter", () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => TradeScreen()));
-                          }),
-                        ],
-                      )
-                    ],
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Patrimônio Total (BRL)", style: TextStyle(color: Colors.black87, fontSize: 14)),
+                        SizedBox(height: 8),
+                        Text(
+                          "R\$ ${_totalBalance.toStringAsFixed(2)}", 
+                          style: TextStyle(color: Colors.black, fontSize: 28, fontWeight: FontWeight.bold)
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _buildActionButton(context, Icons.arrow_downward, "Depositar", null),
+                            _buildActionButton(context, Icons.arrow_upward, "Sacar", null),
+                            _buildActionButton(context, Icons.swap_horiz, "Converter", () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => TradeScreen()));
+                            }),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(height: 30),
-                Text("Meus Ativos", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
-                SizedBox(height: 10),
-                
-                // Lista de Ativos vinda do Service
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: _assets.length,
-                    itemBuilder: (context, index) {
-                      final asset = _assets[index];
-                      return _buildAssetItem(asset);
-                    },
-                  ),
-                )
-              ],
+                  SizedBox(height: 30),
+                  Text("Meus Ativos", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 10),
+                  
+                  // Lista de Ativos
+                  Expanded(
+                    child: _assets.isEmpty
+                      ? Center(child: Text("Sua carteira está vazia.", style: TextStyle(color: Colors.grey)))
+                      : ListView.builder(
+                          itemCount: _assets.length,
+                          itemBuilder: (context, index) {
+                            final asset = _assets[index];
+                            return _buildAssetItem(asset);
+                          },
+                        ),
+                  )
+                ],
+              ),
             ),
           ),
     );
@@ -132,7 +147,23 @@ class _WalletScreenState extends State<WalletScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(asset.name, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+          Row(
+            children: [
+              // Ícone simples baseado na moeda
+              CircleAvatar(
+                backgroundColor: Colors.grey[800],
+                child: Text(asset.symbol[0], style: TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold)),
+              ),
+              SizedBox(width: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(asset.name, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                  Text(asset.symbol, style: TextStyle(color: Colors.grey, fontSize: 12)),
+                ],
+              ),
+            ],
+          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [

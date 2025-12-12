@@ -1,97 +1,179 @@
 import 'package:flutter/material.dart';
-import '../models/crypto_model.dart'; // <--- 1. Importamos o modelo aqui
+import '../models/crypto_model.dart';
+import 'trade_screen.dart';
 
 class CurrencyDetailScreen extends StatelessWidget {
-  final CryptoModel coin; // <--- 2. Mudamos de Map para CryptoModel
+  final CryptoModel crypto;
 
-  CurrencyDetailScreen({required this.coin});
+  const CurrencyDetailScreen({Key? key, required this.crypto}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    bool isPositive = crypto.change24h >= 0;
+
     return Scaffold(
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
-        // <--- 3. Agora acessamos com PONTO (.) em vez de colchetes ['']
-        title: Text(coin.name, style: TextStyle(color: Colors.white)), 
+        title: Text(crypto.name, style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.black,
         iconTheme: IconThemeData(color: Colors.white),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.star_border),
+            onPressed: () {},
+          )
+        ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.yellow[700],
-                    radius: 30,
-                    // <--- 4. Ponto aqui também
-                    child: Text(coin.symbol[0], style: TextStyle(fontSize: 24, color: Colors.black, fontWeight: FontWeight.bold)),
-                  ),
-                  SizedBox(height: 10),
-                  Text(coin.price, style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold)),
-                  Text(coin.change, style: TextStyle(color: Colors.greenAccent, fontSize: 18)),
-                ],
-              ),
-            ),
-            SizedBox(height: 30),
-            Text("Gráfico de Preço (24h)", style: TextStyle(color: Colors.grey)),
-            SizedBox(height: 10),
-            // Placeholder do Gráfico
-            Container(
-              height: 200,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.black26,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.grey[800]!),
-              ),
-              child: Center(child: Text("Gráfico aqui", style: TextStyle(color: Colors.grey))),
-            ),
-            SizedBox(height: 20),
-            Text("Estatísticas", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
-            Divider(color: Colors.grey),
-            _buildStatRow("Volume (24h)", "R\$ 1.2 B"),
-            _buildStatRow("Máxima (24h)", "R\$ 355.000,00"),
-            _buildStatRow("Mínima (24h)", "R\$ 342.000,00"),
-            Spacer(),
-            Row(
+      body: Column(
+        children: [
+          // 1. Cabeçalho de Preço
+          Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
               children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent, padding: EdgeInsets.symmetric(vertical: 15)),
-                    child: Text("Vender", style: TextStyle(color: Colors.white)),
-                  ),
+                CircleAvatar(
+                  radius: 30,
+                  backgroundColor: Colors.yellow[700],
+                  child: Text(crypto.symbol[0], style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black)),
                 ),
-                SizedBox(width: 10),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.greenAccent, padding: EdgeInsets.symmetric(vertical: 15)),
-                    child: Text("Comprar", style: TextStyle(color: Colors.black)),
+                SizedBox(height: 16),
+                Text(
+                  "R\$ ${crypto.price.toStringAsFixed(2)}",
+                  style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 8),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: isPositive ? Colors.green.withOpacity(0.2) : Colors.red.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    "${isPositive ? '+' : ''}${crypto.change24h.toStringAsFixed(2)}%",
+                    style: TextStyle(
+                      color: isPositive ? Colors.greenAccent : Colors.redAccent,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
+            ),
+          ),
 
-  Widget _buildStatRow(String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(label, style: TextStyle(color: Colors.grey)),
-          Text(value, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+          // 2. Gráfico Simulado (Visual apenas)
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: CustomPaint(
+                painter: ChartPainter(isPositive: isPositive),
+              ),
+            ),
+          ),
+
+          // 3. Informações Extras
+          Container(
+            padding: EdgeInsets.all(20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _buildStat("Máxima 24h", "R\$ ${(crypto.price * 1.05).toStringAsFixed(2)}"),
+                _buildStat("Mínima 24h", "R\$ ${(crypto.price * 0.95).toStringAsFixed(2)}"),
+                _buildStat("Vol (24h)", "1.2B"),
+              ],
+            ),
+          ),
+
+          // 4. Botões de Ação
+          Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => _goToTrade(context, "Vender"),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.redAccent,
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                    ),
+                    child: Text("Vender", style: TextStyle(color: Colors.white, fontSize: 18)),
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => _goToTrade(context, "Comprar"),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                    ),
+                    child: Text("Comprar", style: TextStyle(color: Colors.white, fontSize: 18)),
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
   }
+
+  Widget _buildStat(String label, String value) {
+    return Column(
+      children: [
+        Text(label, style: TextStyle(color: Colors.grey, fontSize: 12)),
+        SizedBox(height: 4),
+        Text(value, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+      ],
+    );
+  }
+
+  void _goToTrade(BuildContext context, String operation) {
+    // Passamos a operação para a tela de Trade (futuramente podemos passar o objeto crypto também)
+    Navigator.push(context, MaterialPageRoute(builder: (context) => TradeScreen()));
+  }
+}
+
+// Pintor simples para desenhar uma linha de gráfico mockada
+class ChartPainter extends CustomPainter {
+  final bool isPositive;
+  ChartPainter({required this.isPositive});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = isPositive ? Colors.greenAccent : Colors.redAccent
+      ..strokeWidth = 3
+      ..style = PaintingStyle.stroke;
+
+    final path = Path();
+    // Desenha uma onda aleatória simulando preço
+    path.moveTo(0, size.height * 0.8);
+    path.quadraticBezierTo(size.width * 0.25, size.height * 0.9, size.width * 0.5, size.height * 0.5);
+    path.quadraticBezierTo(size.width * 0.75, size.height * 0.1, size.width, size.height * 0.2);
+
+    canvas.drawPath(path, paint);
+    
+    // Adiciona um gradiente abaixo da linha
+    final fillPath = Path.from(path);
+    fillPath.lineTo(size.width, size.height);
+    fillPath.lineTo(0, size.height);
+    fillPath.close();
+
+    final gradientPaint = Paint()
+      ..shader = LinearGradient(
+        colors: [
+          (isPositive ? Colors.greenAccent : Colors.redAccent).withOpacity(0.3),
+          Colors.transparent
+        ],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+      ).createShader(Rect.fromLTWH(0, 0, size.width, size.height))
+      ..style = PaintingStyle.fill;
+
+    canvas.drawPath(fillPath, gradientPaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

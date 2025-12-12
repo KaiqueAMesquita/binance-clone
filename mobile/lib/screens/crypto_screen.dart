@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../models/crypto_model.dart'; // Import Model
-import '../services/crypto_service.dart'; // Import Service
-import 'currency_detail_screen.dart';
+import '../models/crypto_model.dart';
+import '../services/crypto_service.dart';
+import 'currency_detail_screen.dart'; // <--- 1. IMPORTANTE: Adicione este import
 
 class CryptoScreen extends StatefulWidget {
   @override
@@ -10,12 +10,23 @@ class CryptoScreen extends StatefulWidget {
 
 class _CryptoScreenState extends State<CryptoScreen> {
   final CryptoService _cryptoService = CryptoService();
-  late Future<List<CryptoModel>> _cryptoFuture;
+  List<CryptoModel> _cryptos = [];
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _cryptoFuture = _cryptoService.getCryptos(); // Inicia o carregamento
+    _loadCryptos();
+  }
+
+  Future<void> _loadCryptos() async {
+    final cryptos = await _cryptoService.getAllCryptos();
+    if (mounted) {
+      setState(() {
+        _cryptos = cryptos;
+        _isLoading = false;
+      });
+    }
   }
 
   @override
@@ -23,66 +34,108 @@ class _CryptoScreenState extends State<CryptoScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
-        title: Text("Mercado", style: TextStyle(color: Colors.white)),
+        title: Text("Mercado Cripto", style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.black,
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false, 
       ),
-      body: FutureBuilder<List<CryptoModel>>(
-        future: _cryptoFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator(color: Colors.yellow));
-          } else if (snapshot.hasError) {
-            return Center(child: Text("Erro ao carregar dados", style: TextStyle(color: Colors.white)));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text("Nenhuma moeda encontrada", style: TextStyle(color: Colors.white)));
-          }
+      body: _isLoading
+          ? Center(child: CircularProgressIndicator(color: Colors.yellow))
+          : RefreshIndicator(
+              onRefresh: _loadCryptos,
+              color: Colors.yellow,
+              child: _cryptos.isEmpty
+                  ? _buildEmptyState()
+                  : ListView.builder(
+                      itemCount: _cryptos.length,
+                      itemBuilder: (context, index) {
+                        final crypto = _cryptos[index];
+                        return _buildCryptoItem(crypto);
+                      },
+                    ),
+            ),
+    );
+  }
 
-          final cryptos = snapshot.data!;
+  Widget _buildEmptyState() {
+    return ListView(
+      children: [
+        SizedBox(height: 100),
+        Center(
+          child: Column(
+            children: [
+              Icon(Icons.cloud_off, size: 60, color: Colors.grey),
+              SizedBox(height: 20),
+              Text(
+                "Nenhuma moeda encontrada.\nVerifique se a CurrencyApi está rodando.",
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.grey),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
 
-          return ListView.builder(
-            itemCount: cryptos.length,
-            itemBuilder: (context, index) {
-              final crypto = cryptos[index];
-              
-              return Card(
-                color: Colors.grey[850],
-                margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                child: ListTile(
-                  onTap: () {
-                    // Passamos o objeto CryptoModel completo agora
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CurrencyDetailScreen(coin: crypto),
-                      ),
-                    );
-                  },
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.yellow[700],
-                    child: Text(crypto.symbol[0], style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
-                  ),
-                  title: Text(crypto.name, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                  subtitle: Text(crypto.symbol, style: TextStyle(color: Colors.grey)),
-                  trailing: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(crypto.price, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                      Text(
-                        crypto.change,
-                        style: TextStyle(
-                          color: crypto.isPositive ? Colors.greenAccent : Colors.redAccent,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ],
+  Widget _buildCryptoItem(CryptoModel crypto) {
+    // 2. Envolvemos o Container em um GestureDetector para detectar o clique
+    return GestureDetector(
+      onTap: () {
+        // Navega para a tela de detalhes enviando a moeda clicada
+        Navigator.push(
+          context, 
+          MaterialPageRoute(
+            builder: (context) => CurrencyDetailScreen(crypto: crypto)
+          )
+        );
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.grey[850],
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                CircleAvatar(
+                  backgroundColor: Colors.yellow[700],
+                  child: Text(
+                    crypto.symbol.isNotEmpty ? crypto.symbol[0] : '?',
+                    style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                   ),
                 ),
-              );
-            },
-          );
-        },
+                SizedBox(width: 12),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(crypto.name, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+                    Text(crypto.symbol, style: TextStyle(color: Colors.grey, fontSize: 12)),
+                  ],
+                ),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  "R\$ ${crypto.price.toStringAsFixed(2)}",
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+                Text(
+                  "${crypto.change24h >= 0 ? '+' : ''}${crypto.change24h.toStringAsFixed(2)}%", 
+                  style: TextStyle(
+                    color: crypto.change24h >= 0 ? Colors.greenAccent : Colors.redAccent, 
+                    fontSize: 12
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
