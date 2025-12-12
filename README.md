@@ -16,12 +16,12 @@ O sistema simula uma exchange de criptomoedas com arquitetura de microserviços,
 
 O sistema opera sobre uma arquitetura de *Microserviços* com banco de dados descentralizado (Database per Service).
 
-* [cite_start]*Frontend:* Next.js + Tailwind CSS.
-* [cite_start]*Mobile:* React Native + Expo.
-* [cite_start]*Gateway:* .NET 8 (YARP/Ocelot).
-* [cite_start]*Backend APIs:* .NET 8 (User, Wallet, Currency).
-* [cite_start]*Chatbot:* Python + Flask.
-* [cite_start]*Banco de Dados:* SQLite.
+* *Frontend:* Next.js + Tailwind CSS.
+* *Mobile:* React Native + Expo.
+* *Gateway:* .NET 8 (YARP/Ocelot).
+* *Backend APIs:* .NET 8 (User, Wallet, Currency).
+* *Chatbot:* Python + Flask.
+* *Banco de Dados:* SQLite.
 
 ### ⚠️ Nota de Mitigação de Riscos (Ausência de RabbitMQ)
 Conforme previsto na seção de *Riscos Conhecidos e Mitigação* do documento de requisitos, a implementação de mensageria assíncrona (RabbitMQ) foi substituída neste MVP para priorizar a entrega funcional dentro do prazo.
@@ -36,17 +36,6 @@ Conforme previsto na seção de *Riscos Conhecidos e Mitigação* do documento d
 * *.NET SDK 8.0* instalado.
 * *Node.js (LTS)* instalado.
 * *Python 3.9+* instalado.
-
-## ✅ Checklist do MVP
-
-Status de entrega das funcionalidades obrigatórias:
-
-* [ ] *Auth:* Login e Registro com JWT.
-* [ ] *Wallet:* Consulta de Saldo.
-* [ ] *Wallet:* Depósito Simulado.
-* [ ] *Trade:* Compra e Venda de Cripto.
-* [ ] *Chatbot:* Comandos de saldo e depósito via texto.
-* [ ] *Logs:* Eventos de negócio registrados no console.
 
 ---
 
