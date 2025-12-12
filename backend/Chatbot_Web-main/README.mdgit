@@ -1,0 +1,1 @@
+"# Chatbot_Web"  initgit add README.mdgit commit -m "first commit"git branch -M maingit remote add origin https://github.com/LucasFARocha/Chatbot_Web.gitgit push -u origin main

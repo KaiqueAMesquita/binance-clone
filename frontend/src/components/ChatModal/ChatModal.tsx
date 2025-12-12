@@ -16,9 +16,9 @@ export default function ChatModal() {
   const { isChatOpen, toggleChat } = useChat();
   const [messages, setMessages] = useState<Message[]>([
     { id: 1, text: 'Olá! Sou o assistente virtual. Como posso ajudar?', sender: 'bot' },
-    { id: 2, text: 'Você pode perguntar sobre seu saldo ou transações.', sender: 'bot' },
   ]);
   const [input, setInput] = useState('');
+  const [sending, setSending] = useState(false);
   const endRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -37,16 +37,63 @@ export default function ChatModal() {
     if (!input.trim()) return;
     const userMsg: Message = { id: Date.now(), text: input.trim(), sender: 'user' };
     setMessages((m) => [...m, userMsg]);
+    const textToSend = input.trim();
     setInput('');
+    sendToApi(textToSend);
+  };
 
-    setTimeout(() => {
-      const botMsg: Message = {
-        id: Date.now() + 1,
-        text: 'Recebi sua mensagem — em breve um agente real entrará em contato.',
-        sender: 'bot',
-      };
+  const formatAnalysis = (res: any) => {
+    try {
+      const parts: string[] = [];
+      if (res.sentiment) {
+        const s = res.sentiment;
+        if (typeof s === 'object') {
+          parts.push(`Sentimento: ${s.label ?? s[0] ?? ''} ${s.score ? `(${s.score})` : ''}`);
+        } else {
+          parts.push(`Sentimento: ${String(s)}`);
+        }
+      }
+      if (res.syntax_analysis?.entities?.length) {
+        const ents = res.syntax_analysis.entities.map((e: any) => Array.isArray(e) ? `${e[0]}:${e[1]}` : String(e)).join(', ');
+        parts.push(`Entidades: ${ents}`);
+      }
+      if (res.tfidf_features) {
+        const len = Array.isArray(res.tfidf_features[0]) ? res.tfidf_features[0].length : (res.tfidf_features.length || 0);
+        parts.push(`TF-IDF features: ${len} dims`);
+      }
+      if (!parts.length) return JSON.stringify(res, null, 2);
+      return parts.join('\n');
+    } catch (err) {
+      return JSON.stringify(res, null, 2);
+    }
+  };
+
+  const sendToApi = async (text: string) => {
+    const CHAT_API = process.env.NEXT_PUBLIC_CHATBOT_API ?? 'http://127.0.0.1:5000';
+    setSending(true);
+    try {
+      const resp = await fetch(`${CHAT_API.replace(/\/$/, '')}/analyze`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text }),
+      });
+      if (!resp.ok) {
+        const txt = await resp.text();
+        const errMsg = `Erro na API: ${resp.status} ${txt}`;
+        const botErr: Message = { id: Date.now() + 2, text: errMsg, sender: 'bot' };
+        setMessages((m) => [...m, botErr]);
+        return;
+      }
+      const data = await resp.json();
+      const botText = data.reply ? String(data.reply) : formatAnalysis(data);
+      const botMsg: Message = { id: Date.now() + 2, text: botText, sender: 'bot' };
       setMessages((m) => [...m, botMsg]);
-    }, 1500);
+    } catch (err: any) {
+      const botErr: Message = { id: Date.now() + 2, text: `Erro de conexão: ${err?.message ?? String(err)}`, sender: 'bot' };
+      setMessages((m) => [...m, botErr]);
+    } finally {
+      setSending(false);
+    }
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -80,8 +127,9 @@ export default function ChatModal() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={onKeyDown}
+          disabled={sending}
         />
-        <button className={styles.sendButton} onClick={handleSend} aria-label="Enviar">
+        <button className={styles.sendButton} onClick={handleSend} aria-label="Enviar" disabled={sending}>
           <IoSend size={18} />
         </button>
       </div>
