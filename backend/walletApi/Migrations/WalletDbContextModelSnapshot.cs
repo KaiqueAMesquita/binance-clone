@@ -50,6 +50,8 @@ namespace walletApi.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DestinyWalletId");
+
                     b.HasIndex("WalletId");
 
                     b.ToTable("Transactions");
@@ -85,6 +87,12 @@ namespace walletApi.Migrations
 
             modelBuilder.Entity("Transaction", b =>
                 {
+                    b.HasOne("Wallet", null)
+                        .WithMany()
+                        .HasForeignKey("DestinyWalletId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Wallet", "Wallet")
                         .WithMany("Transactions")
                         .HasForeignKey("WalletId")

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lucas\\Documents\\A_Estudos\\A_EtecFatec\\5º ADS Fatec\\ProgMultiPlat\\binance-clone\\backend\\gatewayApi\\gatewayApi.csproj": {}
+    "C:\\projects\\binance-clone\\backend\\gatewayApi\\gatewayApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lucas\\Documents\\A_Estudos\\A_EtecFatec\\5º ADS Fatec\\ProgMultiPlat\\binance-clone\\backend\\gatewayApi\\gatewayApi.csproj": {
+    "C:\\projects\\binance-clone\\backend\\gatewayApi\\gatewayApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lucas\\Documents\\A_Estudos\\A_EtecFatec\\5º ADS Fatec\\ProgMultiPlat\\binance-clone\\backend\\gatewayApi\\gatewayApi.csproj",
+        "projectUniqueName": "C:\\projects\\binance-clone\\backend\\gatewayApi\\gatewayApi.csproj",
         "projectName": "gatewayApi",
-        "projectPath": "C:\\Users\\lucas\\Documents\\A_Estudos\\A_EtecFatec\\5º ADS Fatec\\ProgMultiPlat\\binance-clone\\backend\\gatewayApi\\gatewayApi.csproj",
-        "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lucas\\Documents\\A_Estudos\\A_EtecFatec\\5º ADS Fatec\\ProgMultiPlat\\binance-clone\\backend\\gatewayApi\\obj\\",
+        "projectPath": "C:\\projects\\binance-clone\\backend\\gatewayApi\\gatewayApi.csproj",
+        "packagesPath": "C:\\Users\\kaiqu\\.nuget\\packages\\",
+        "outputPath": "C:\\projects\\binance-clone\\backend\\gatewayApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\lucas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kaiqu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -100,7 +100,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

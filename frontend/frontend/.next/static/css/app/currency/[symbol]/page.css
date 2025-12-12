@@ -1,0 +1,204 @@
+/*!*************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[12].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[12].oneOf[7].use[3]!./src/app/currency/[symbol]/page.module.css ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************/
+.page_container__TN0Ho {
+    min-height: 100vh;
+    --tw-bg-opacity: 1;
+    background-color: rgb(17 24 39 / var(--tw-bg-opacity, 1));
+    padding: 2rem;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity, 1))
+}
+.page_backLink__rkjED {
+    margin-bottom: 1rem;
+    display: inline-block;
+    --tw-text-opacity: 1;
+    color: rgb(250 204 21 / var(--tw-text-opacity, 1))
+}
+.page_gridLayout__Dl2l6 {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 2rem
+}
+@media (min-width: 1024px) {
+    .page_gridLayout__Dl2l6 {
+        grid-template-columns: repeat(3, minmax(0, 1fr))
+    }
+    .page_main__MzVuW {
+        grid-column: span 2 / span 2
+    }
+}
+.page_heading__b7XMA {
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center
+}
+.page_heading__b7XMA > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+    margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)))
+}
+.page_icon__6iRVX {
+    font-size: 2.25rem;
+    line-height: 2.5rem
+}
+.page_title__T36gs {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    font-weight: 600
+}
+.page_subtitle__5SYkZ {
+    margin-bottom: 1rem;
+    --tw-text-opacity: 1;
+    color: rgb(209 213 219 / var(--tw-text-opacity, 1))
+}
+.page_tabs__d6H5k {
+    margin-bottom: 1rem;
+    display: flex
+}
+.page_tabs__d6H5k > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(1rem * var(--tw-space-x-reverse));
+    margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)))
+}
+.page_tabs__d6H5k {
+    border-bottom-width: 1px;
+    --tw-border-opacity: 1;
+    border-color: rgb(55 65 81 / var(--tw-border-opacity, 1))
+}
+.page_tab__KKqEe {
+    cursor: pointer;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    --tw-text-opacity: 1;
+    color: rgb(156 163 175 / var(--tw-text-opacity, 1))
+}
+.page_tab__KKqEe:hover {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity, 1))
+}
+.page_tabActive__6shDi {
+    border-bottom-width: 2px;
+    --tw-border-opacity: 1;
+    border-color: rgb(250 204 21 / var(--tw-border-opacity, 1));
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity, 1))
+}
+.page_chartContainer__oN85L {
+    margin-bottom: 1rem;
+    display: flex;
+    height: 16rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    --tw-bg-opacity: 1;
+    background-color: rgb(31 41 55 / var(--tw-bg-opacity, 1))
+}
+.page_updateTime__9IRMo {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    --tw-text-opacity: 1;
+    color: rgb(107 114 128 / var(--tw-text-opacity, 1))
+}
+.page_sidebar__5lHpJ > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-y-reverse: 0;
+    margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(1.5rem * var(--tw-space-y-reverse))
+}
+.page_card__c9Ylj {
+    border-radius: 0.5rem;
+    --tw-bg-opacity: 1;
+    background-color: rgb(31 41 55 / var(--tw-bg-opacity, 1));
+    padding: 1.5rem
+}
+.page_cardHeader__StoM0 {
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 600
+}
+.page_formGroup__pjXZs {
+    margin-bottom: 1rem
+}
+.page_formLabel__6WNY9 {
+    margin-bottom: 0.25rem;
+    display: block;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    --tw-text-opacity: 1;
+    color: rgb(209 213 219 / var(--tw-text-opacity, 1))
+}
+.page_formInput__ptezH {
+    width: 100%;
+    border-radius: 0.25rem;
+    --tw-bg-opacity: 1;
+    background-color: rgb(55 65 81 / var(--tw-bg-opacity, 1));
+    padding: 0.5rem;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity, 1))
+}
+.page_ctaButton__QE_HM {
+    width: 100%;
+    border-radius: 0.5rem;
+    --tw-bg-opacity: 1;
+    background-color: rgb(234 179 8 / var(--tw-bg-opacity, 1));
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    font-weight: 600;
+    --tw-text-opacity: 1;
+    color: rgb(17 24 39 / var(--tw-text-opacity, 1))
+}
+.page_ctaButton__QE_HM:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(202 138 4 / var(--tw-bg-opacity, 1))
+}
+.page_note__EO8c9 {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    --tw-text-opacity: 1;
+    color: rgb(156 163 175 / var(--tw-text-opacity, 1))
+}
+.page_fees__usqfQ {
+    margin-top: 1rem
+}
+.page_fees__usqfQ > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-y-reverse: 0;
+    margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(0.5rem * var(--tw-space-y-reverse))
+}
+.page_feeItem__xnoQh {
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+.page_feeLabel__OaDUR {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    --tw-text-opacity: 1;
+    color: rgb(209 213 219 / var(--tw-text-opacity, 1))
+}
+.page_feeBarBg__QK6ZJ {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    height: 0.5rem;
+    flex: 1 1 0%;
+    border-radius: 9999px;
+    --tw-bg-opacity: 1;
+    background-color: rgb(55 65 81 / var(--tw-bg-opacity, 1))
+}
+.page_feeBar__dmX5E {
+    height: 0.5rem;
+    border-radius: 9999px;
+    --tw-bg-opacity: 1;
+    background-color: rgb(250 204 21 / var(--tw-bg-opacity, 1))
+}
+.page_feeValue__NdZyS {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity, 1))
+}

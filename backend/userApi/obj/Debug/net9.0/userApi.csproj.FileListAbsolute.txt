@@ -334,7 +334,6 @@ C:\projects\binance-clone\backend\userApi\bin\Debug\net9.0\System.Composition.Ho
 C:\projects\binance-clone\backend\userApi\bin\Debug\net9.0\System.Composition.Runtime.dll
 C:\projects\binance-clone\backend\userApi\bin\Debug\net9.0\System.Composition.TypedParts.dll
 C:\projects\binance-clone\backend\userApi\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
-C:\projects\binance-clone\backend\userApi\bin\Debug\net9.0\System.Text.Json.dll
 C:\projects\binance-clone\backend\userApi\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.resources.dll
 C:\projects\binance-clone\backend\userApi\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.resources.dll
 C:\projects\binance-clone\backend\userApi\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.resources.dll
@@ -433,12 +432,6 @@ C:\projects\binance-clone\backend\userApi\obj\Debug\net9.0\scopedcss\bundle\user
 C:\projects\binance-clone\backend\userApi\obj\Debug\net9.0\staticwebassets.build.json
 C:\projects\binance-clone\backend\userApi\obj\Debug\net9.0\staticwebassets.development.json
 C:\projects\binance-clone\backend\userApi\obj\Debug\net9.0\staticwebassets.build.endpoints.json
-C:\projects\binance-clone\backend\userApi\obj\Debug\net9.0\staticwebassets\msbuild.userApi.Microsoft.AspNetCore.StaticWebAssets.props
-C:\projects\binance-clone\backend\userApi\obj\Debug\net9.0\staticwebassets\msbuild.userApi.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
-C:\projects\binance-clone\backend\userApi\obj\Debug\net9.0\staticwebassets\msbuild.build.userApi.props
-C:\projects\binance-clone\backend\userApi\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.userApi.props
-C:\projects\binance-clone\backend\userApi\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.userApi.props
-C:\projects\binance-clone\backend\userApi\obj\Debug\net9.0\staticwebassets.pack.json
 C:\projects\binance-clone\backend\userApi\obj\Debug\net9.0\userApi.csproj.Up2Date
 C:\projects\binance-clone\backend\userApi\obj\Debug\net9.0\userApi.dll
 C:\projects\binance-clone\backend\userApi\obj\Debug\net9.0\refint\userApi.dll
@@ -1445,3 +1438,8 @@ C:\Users\peixoto\binance-clone\backend\userApi\obj\Debug\net9.0\refint\userApi.d
 C:\Users\peixoto\binance-clone\backend\userApi\obj\Debug\net9.0\userApi.pdb
 C:\Users\peixoto\binance-clone\backend\userApi\obj\Debug\net9.0\userApi.genruntimeconfig.cache
 C:\Users\peixoto\binance-clone\backend\userApi\obj\Debug\net9.0\ref\userApi.dll
+C:\projects\binance-clone\backend\userApi\obj\Debug\net9.0\rpswa.dswa.cache.json
+C:\projects\binance-clone\backend\userApi\obj\Debug\net9.0\rjimswa.dswa.cache.json
+C:\projects\binance-clone\backend\userApi\obj\Debug\net9.0\rjsmrazor.dswa.cache.json
+C:\projects\binance-clone\backend\userApi\obj\Debug\net9.0\rjsmcshtml.dswa.cache.json
+C:\projects\binance-clone\backend\userApi\obj\Debug\net9.0\staticwebassets.build.json.cache
