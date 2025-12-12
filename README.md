@@ -23,13 +23,6 @@ O sistema opera sobre uma arquitetura de *Microserviços* com banco de dados des
 * *Chatbot:* Python + Flask.
 * *Banco de Dados:* SQLite.
 
-### ⚠️ Nota de Mitigação de Riscos (Ausência de RabbitMQ)
-Conforme previsto na seção de *Riscos Conhecidos e Mitigação* do documento de requisitos, a implementação de mensageria assíncrona (RabbitMQ) foi substituída neste MVP para priorizar a entrega funcional dentro do prazo.
-
-*Estratégia Adotada:*
-1.  *Simulação de Eventos:* Os eventos que seriam publicados na fila (ex: wallet.trade.success) são gerados e registrados via *Logs Estruturados* no console, permitindo a auditoria do fluxo.
-2.  *Comunicação Síncrona:* A integração entre Chatbot e Wallet opera via chamadas HTTP diretas para garantir a atualização imediata do saldo durante a demonstração.
-
 ---
 
 ### Pré-requisitos
