@@ -181,7 +181,7 @@ Integrantes do grupo e responsabilidades
 - Lucas Feitosa Almeida Rocha — Backend
 - Matheus Henrique Schopp Peixoto — Mobile
 - Luiz Filipe de Camargo — Documentação
-- Kaique Alves Mesquita — Frontend / Backend
+- Kaique Alves Mesquita —  Backend
 
 
 Ambiente de testes e notas finais
