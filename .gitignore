@@ -16,3 +16,8 @@ node_modules/
 *.db
 *.sqlite
 .vscode/
+*.pdb
+*.cache
+*.suo
+*.user
+*.vs/
