@@ -43,7 +43,19 @@ public class TransactionRepository : ITransactionRepository
         return transaction;
     }
 
-    public async Task<IEnumerable<Transaction>> GetTransactionsByWalletIdAsync(int walletId)
+    public async Task UpdateAsync(Transaction transaction)
+    {
+        _context.Transactions.Update(transaction);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task DeleteAsync(Transaction transaction)
+    {
+        _context.Transactions.Remove(transaction);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<Transaction>> GetByWalletIdAsync(int walletId)
     {
         return await _context.Transactions
             .Where(t => t.WalletId == walletId)

@@ -132,12 +132,20 @@ public class WalletController : ControllerBase
         return Ok(result);
     }
 
+    [HttpPost("deposit")]
+    public async Task<ActionResult<DepositRequestDTO>> Deposit(DepositRequestDTO depositRequest)
+    {
+        var deposit = await _walletService.Deposit(depositRequest);
+        return Ok(deposit);
+    }
+
     // Update
     // ------
     [HttpPut("{id}")]
-    public async Task<ActionResult> Update(int id)
+    public async Task<ActionResult> Update(int id, WalletDTO walletDto)
     {
-        return Ok();  
+        var wallet = _walletService.UpdateWalletAsync(id, walletDto);
+        return Ok(wallet);  
     }
 
     // Delete
@@ -145,18 +153,26 @@ public class WalletController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {
-        return Ok();
+        try
+        {
+            await _walletService.DeleteWallet(id);
+            return Ok();
+        }
+        catch(Exception)
+        {
+            return BadRequest();
+        }
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Wallet>>> ListAll()
+    public async Task<ActionResult<IEnumerable<WalletDTO>>> ListAll()
     {
         var wallets = await _walletService.GetAllAsync();
         return Ok(wallets);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Wallet>> GetById(int id)
+    public async Task<ActionResult<WalletDTO>> GetById(int id)
     {
         var wallet = await _walletService.GetWalletDetailsAsync(id);
         
@@ -167,7 +183,7 @@ public class WalletController : ControllerBase
     }
     
     [HttpGet("user/{userId}")]
-    public async Task<ActionResult<IEnumerable<Wallet>>> ListAllByUser(int userId)
+    public async Task<ActionResult<IEnumerable<WalletDTO>>> ListAllByUser(int userId)
     {
         var wallets = await _walletService.ListAllByUserIdAsync(userId);
         return Ok(wallets);

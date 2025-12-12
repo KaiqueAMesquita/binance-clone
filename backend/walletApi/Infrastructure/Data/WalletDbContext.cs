@@ -27,6 +27,12 @@ public class WalletDbContext : DbContext
             entity.Property(transaction => transaction.Amount).IsRequired();
             entity.Property(transaction => transaction.FromCurrency).IsRequired();
             entity.Property(transaction => transaction.ToCurrency).IsRequired();
+            
+                // Configure DestinyWalletId foreign key
+                entity.HasOne<Wallet>()
+                    .WithMany()
+                    .HasForeignKey(transaction => transaction.DestinyWalletId)
+                    .OnDelete(DeleteBehavior.Restrict);
         });
     }
 
