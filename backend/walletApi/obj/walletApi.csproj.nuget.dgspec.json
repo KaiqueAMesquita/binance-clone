@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\davir\\binance-clone\\backend\\walletApi\\walletApi.csproj": {}
+    "C:\\Users\\davir\\binance-clone\\backend\\walletapi\\walletApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\davir\\binance-clone\\backend\\walletApi\\walletApi.csproj": {
+    "C:\\Users\\davir\\binance-clone\\backend\\walletapi\\walletApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\davir\\binance-clone\\backend\\walletApi\\walletApi.csproj",
+        "projectUniqueName": "C:\\Users\\davir\\binance-clone\\backend\\walletapi\\walletApi.csproj",
         "projectName": "walletApi",
-        "projectPath": "C:\\Users\\davir\\binance-clone\\backend\\walletApi\\walletApi.csproj",
+        "projectPath": "C:\\Users\\davir\\binance-clone\\backend\\walletapi\\walletApi.csproj",
         "packagesPath": "C:\\Users\\davir\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\davir\\binance-clone\\backend\\walletApi\\obj\\",
+        "outputPath": "C:\\Users\\davir\\binance-clone\\backend\\walletapi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

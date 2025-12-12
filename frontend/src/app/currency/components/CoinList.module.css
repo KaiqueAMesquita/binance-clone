@@ -1,18 +1,51 @@
 .table {
   @apply w-full text-white divide-y divide-gray-700;
 }
+
 .row {
-  @apply flex justify-between items-center py-4 px-6 hover:bg-gray-800 transition;
+  @apply flex justify-between items-center py-4 px-4 sm:px-6 hover:bg-gray-800 transition;
 }
+
 .cellSymbol {
-  @apply font-semibold text-lg;
+  @apply font-semibold text-base sm:text-lg;
 }
+
 .cellName {
-  @apply text-gray-400;
+  @apply text-gray-400 hidden sm:block; /* Esconde em mobile */
 }
-.cellPrice {
-  @apply text-yellow-400 font-medium;
-}
+
 .actionBtn {
-  @apply text-gray-400 hover:text-white transition ml-4;
+  @apply text-yellow-500 hover:text-yellow-400 transition ml-4 font-medium;
+  white-space: nowrap;
+}
+
+/* Estilos para mobile */
+@media (max-width: 640px) {
+  .row {
+    padding: 0.75rem 1rem;
+  }
+  
+  .cellSymbol {
+    font-size: 0.9375rem; /* 15px */
+  }
+  
+  .actionBtn {
+    padding: 0.25rem 0.75rem;
+    border: 1px solid #f0b90b;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Estilos para desktop */
+@media (min-width: 641px) {
+  .actionBtn {
+    padding: 0.25rem 0.75rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+  }
+  
+  .actionBtn:hover {
+    background-color: rgba(240, 185, 11, 0.1);
+  }
 }

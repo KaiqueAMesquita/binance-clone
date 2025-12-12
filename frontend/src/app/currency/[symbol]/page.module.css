@@ -1,90 +1,112 @@
+/* Add these styles to page.module.css */
+
+/* Base container adjustments */
 .container {
-  @apply bg-gray-900 min-h-screen p-8 text-white;
+  @apply bg-gray-900 min-h-screen p-4 sm:p-6 md:p-8 text-white;
 }
+
+/* Make the back link more touch-friendly on mobile */
 .backLink {
-  @apply text-yellow-400 mb-4 inline-block;
+  @apply text-yellow-400 mb-4 inline-block text-sm sm:text-base;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
 }
-.gridLayout {
-  @apply grid grid-cols-1 lg:grid-cols-3 gap-8;
-}
-.main {
-  @apply lg:col-span-2;
-}
+
+/* Adjust the heading for mobile */
 .heading {
-  @apply flex items-center space-x-2 mb-2;
+  @apply flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-2 mb-4;
 }
-.icon {
-  @apply text-4xl;
-}
+
+/* Make the title more compact on mobile */
 .title {
-  font-size: 2rem;
+  font-size: 1.5rem;
   margin: 0;
   color: #fff;
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
 }
+
+/* Stack action buttons vertically on mobile */
 .actionButtons {
   display: flex;
+  flex-direction: column;
   gap: 0.5rem;
+  margin: 0.5rem 0 0 0;
+  width: 100%;
 }
-.subtitle {
-  @apply text-gray-300 mb-4;
+
+/* Make action buttons full width on mobile */
+.actionButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  width: 100%;
 }
+
+/* Adjust tabs for better mobile scrolling */
 .tabs {
-  @apply flex space-x-4 border-b border-gray-700 mb-4;
+  @apply flex space-x-2 sm:space-x-4 border-b border-gray-700 mb-4 overflow-x-auto pb-2 -mx-2 px-2;
+  -webkit-overflow-scrolling: touch;
 }
+
 .tab {
-  @apply text-gray-400 px-2 py-1 cursor-pointer hover:text-white;
+  @apply text-gray-400 px-2 py-1 cursor-pointer hover:text-white whitespace-nowrap;
+  font-size: 0.875rem;
 }
-.tabActive {
-  @apply text-white border-b-2 border-yellow-400;
-}
+
+/* Make chart container responsive */
 .chartContainer {
-  @apply bg-gray-800 h-64 rounded-lg mb-4 flex items-center justify-center;
+  @apply bg-gray-800 h-64 sm:h-80 md:h-96 rounded-lg mb-4 overflow-hidden;
 }
-.updateTime {
-  @apply text-gray-500 text-sm;
-}
-.sidebar {
-  @apply space-y-6;
-}
+
+/* Adjust card padding for mobile */
 .card {
-  @apply bg-gray-800 p-6 rounded-lg;
+  @apply bg-gray-800 p-4 sm:p-6 rounded-lg;
 }
-.cardHeader {
-  @apply text-lg font-semibold mb-4;
-}
-.formGroup {
-  @apply mb-4;
-}
-.formLabel {
-  @apply block text-sm text-gray-300 mb-1;
-}
+
+/* Make form inputs more touch-friendly */
 .formInput {
-  @apply w-full bg-gray-700 text-white p-2 rounded;
+  @apply w-full bg-gray-700 text-white p-2 sm:p-3 rounded text-sm sm:text-base;
 }
+
+/* Adjust CTA button */
 .ctaButton {
-  @apply w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold py-3 rounded-lg;
+  @apply w-full bg-yellow-500 text-gray-900 font-medium py-3 rounded-md hover:bg-yellow-400 transition-colors;
 }
-.note {
-  @apply text-gray-400 text-sm mt-4;
-}
+
+/* Make fee items stack on mobile */
 .fees {
-  @apply space-y-2 mt-4;
+  @apply space-y-3;
 }
+
 .feeItem {
-  @apply flex justify-between items-center;
+  @apply flex justify-between items-center p-2 bg-gray-700 rounded;
 }
-.feeLabel {
-  @apply text-gray-300 text-sm;
+
+/* Hide some elements on mobile */
+@media (max-width: 640px) {
+  .desktop-only {
+    display: none;
+  }
 }
-.feeBarBg {
-  @apply bg-gray-700 h-2 rounded-full flex-1 mx-2;
+
+/* Show elements only on mobile */
+.mobile-only {
+  display: none;
 }
-.feeBar {
-  @apply bg-yellow-400 h-2 rounded-full;
-}
-.feeValue {
-  @apply text-white text-sm font-semibold;
+
+@media (max-width: 640px) {
+  .mobile-only {
+    display: block;
+  }
 }

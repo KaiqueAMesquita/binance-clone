@@ -1,179 +1,235 @@
-/* Limpando o arquivo e adicionando novos estilos */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 24px;
-    height: 64px;
-    background-color:rgb(17 24 39 / var(--tw-bg-opacity, 1)) ;
-    color: #EAECEF;
-    border-bottom: 1px solid #2B3139;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  
-  /* --- Seção Esquerda --- */
-  .navLeft {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-  }
-  
-  .logo {
-    display: flex;
-    align-items: center;
-  }
-  
-  .navLinks {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-  }
-  
-  .navLink {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    color: #EAECEF;
-    position: relative;
-    transition: color 0.2s ease;
-  }
-  
-  .navLink:hover {
-    color: #F0B90B;
-  }
-  
-  .hasNotification::after {
-    content: '';
-    position: absolute;
-    top: -6px;
-    right: -6px;
-    width: 6px;
-    height: 6px;
-    background-color: #F0B90B;
-    border-radius: 50%;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  height: 64px;
+  background-color: rgb(17 24 39 / var(--tw-bg-opacity, 1));
+  color: #EAECEF;
+  border-bottom: 1px solid #2B3139;
+  position: relative;
+  z-index: 50;
+}
 
-  .logo	{
-    @apply text-yellow-500 font-bold text-2xl;
-  }
-  
-  /* --- Seção Direita --- */
-  .navRight {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  
-  .iconButton {
-    background: none;
-    border: none;
-    color: #EAECEF;
-    cursor: pointer;
-    padding: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    transition: color 0.2s ease;
-  }
-  
-  .iconButton:hover {
-    color: #F0B90B;
-  }
-  
-  .depositButton {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background-color: #F0B90B;
-    color: #121212;
-    border: none;
-    border-radius: 4px;
-    padding: 8px 16px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-  
-  .depositButton:hover {
-    background-color: #FCD535;
-  }
-  
-  .separator {
-    width: 1px;
-    height: 16px;
-    background-color: #38404A;
-  }
-  
-  .iconGroup {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  .notificationDotSmall {
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    width: 8px;
-    height: 8px;
-    background-color: #F0B90B;
-    border-radius: 50%;
-    border: 1px solid #121212;
-  }
+.navLeft {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.logo {
+  color: #f0b90b;
+  font-weight: bold;
+  font-size: 1.25rem;
+  text-decoration: none;
+  margin-right: 2rem;
+}
+
+/* Menu Hambúrguer */
+.mobileMenuButton {
+  display: block;
+  background: none;
+  border: none;
+  color: #EAECEF;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 0.5rem;
+  z-index: 60;
+}
+
+/* Links de Navegação */
+.navLinks {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #111827;
+  z-index: 40;
+  padding: 0;
+  margin: 0;
+}
+
+.navLinks.menuOpen {
+  display: flex;
+}
+
+.navLink {
+  padding: 1rem;
+  color: #EAECEF;
+  text-decoration: none;
+  border-bottom: 1px solid #2B3139;
+  display: block;
+}
+
+/* Lado Direito da Navbar */
+.navRight {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #111827;
+  z-index: 30;
+  padding: 1rem;
+  gap: 1rem;
+  border-top: 1px solid #2B3139;
+}
+
+.navRight.menuOpen {
+  display: flex;
+}
+
+/* Estilos para os botões de login/cadastro */
+.loginButton,
+.registerButton {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
 
 .loginButton {
+  background: none;
+  color: #EAECEF;
+  border: 1px solid #2B3139;
+}
+
+.loginButton:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.registerButton {
+  background-color: #f0b90b;
+  color: #1e2025;
+  border: none;
+}
+
+.registerButton:hover {
+  background-color: #f8d33a;
+}
+
+.mobileMenu .navLink {
+  text-align: center;
+}
+
+
+/* Estilos para desktop */
+@media (min-width: 1024px) {
+  .mobileMenu{
+    display: none !important;
+  }
+  .mobileMenuButton {
+    display: none !important;
+  }
+
+  .navLinks {
+    display: flex;
+    flex-direction: row;
+    position: static;
     background: none;
+    align-items: center;
+  }
+
+  .navLink {
     border: none;
-    color: #EAECEF;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 8px 16px;
-    text-decoration: none;
-    transition: color 0.2s ease;
+    padding: 0.5rem 1rem;
+    display: inline-flex;
   }
-  
-  .loginButton:hover {
-    color: #F0B90B;
+
+  .navRight {
+    display: flex;
+    position: static;
+    flex-direction: row;
+    background: none;
+    padding: 0;
+    align-items: center;
+    gap: 1rem;
+    border: none;
   }
-  
+
+  .loginButton,
   .registerButton {
-    /* Reutilizando o estilo do botão de depósito para destaque */
-    display: inline-block;
-    background-color: #F0B90B;
-    color: #121212;
-    border: none;
-    border-radius: 4px;
-    padding: 8px 16px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.2s ease;
+    width: auto;
+    padding: 0.5rem 1rem;
   }
-  
-  .registerButton:hover {
-    background-color: #FCD535;
-  }
-  
-  .logoutButton {
-    background: none;
-    border: 1px solid #38404A;
-    color: #EAECEF;
-    border-radius: 4px;
-    padding: 7px 15px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  
-  .logoutButton:hover {
-    border-color: #F0B90B;
-    color: #F0B90B;
-  }
+}
+
+/* Estilos dos botões */
+.iconButton {
+  background: none;
+  border: none;
+  color: #EAECEF;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.depositButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #f0b90b;
+  color: #1e2025;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.separator {
+  width: 1px;
+  height: 20px;
+  background-color: #2B3139;
+}
+
+.iconGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logoutButton {
+  background: none;
+  border: 1px solid #2B3139;
+  color: #EAECEF;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logoutButton:hover {
+  border-color: #f0b90b;
+  color: #f0b90b;
+}
+.mobileMenu {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #111827;
+  z-index: 50;
+  border-top: 1px solid #2B3139;
+}
+
+.mobileMenu.menuOpen {
+  display: flex;
+}
+
+.mobileMenu > * {
+  border-bottom: 1px solid #2B3139;
+}

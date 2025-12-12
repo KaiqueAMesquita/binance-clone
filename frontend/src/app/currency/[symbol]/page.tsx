@@ -7,33 +7,36 @@ import { useEffect, useState } from 'react';
 import { currencyAPI, Currency } from '@/services/CurrencyService';
 import styles from './page.module.css';
 import PriceChart from '../components/PriceChart';
+import { FaArrowLeft, FaEdit, FaTrash } from 'react-icons/fa';
+
 
 export default function CoinDetailPage() {
-  const { symbol: id } = useParams();
+  const params = useParams();
+  const symbol = Array.isArray(params?.symbol) ? params.symbol[0] : params?.symbol;
   const router = useRouter();
   const [coin, setCoin] = useState<Currency | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!id) return;
+    if (!symbol) return;
 
     const fetchCoinDetails = async () => {
       try {
         setLoading(true);
-        const coinId = Array.isArray(id) ? id[0] : id;
-        const data = await currencyAPI.getById(coinId);
+        const data = await currencyAPI.getById(symbol);
         setCoin(data);
+        setError(null);
       } catch (err) {
         setError('Não foi possível carregar os detalhes da moeda.');
-        console.error(err);
+        console.error('Erro ao carregar moeda:', err);
       } finally {
         setLoading(false);
       }
     };
 
     fetchCoinDetails();
-  }, [id]);
+  }, [symbol]);
 
   const getLatestPrice = () => {
     if (!coin?.histories || coin.histories.length === 0) {
@@ -91,34 +94,42 @@ export default function CoinDetailPage() {
   return (
     <div className={styles.container}>
       <Link href="/currency" className={styles.backLink}>
-        &larr; Voltar para Mercados
+        <FaArrowLeft size={14} /> Voltar
       </Link>
+
       <div className={styles.gridLayout}>
         <main className={styles.main}>
           <div className={styles.heading}>
-            <div className={styles.icon}>📈</div>
-            <h1 className={styles.title}>
-              Preço do {coin.name} ({coin.name})
-              <div className="actionButtons">
+            <div className={styles.title}>
+              <div className="flex items-center gap-2">
+                <div className={styles.icon}>📈</div>
+                <div>
+                  <h1 className="text-xl sm:text-2xl font-bold">{coin.name}</h1>
+                  <p className="text-gray-400 text-sm">{coin.symbol}</p>
+                </div>
+              </div>
+              <div className={styles.actionButtons}>
                 <button
-                  className="editButton"
-                  onClick={() => router.push(`/currency/edit/${coin?.id}`)}
+                  onClick={() => router.push(`/currency/edit/${coin.id}`)}
+                  className={`${styles.actionButton} ${styles.editButton}`}
                 >
-                  Editar
+                  <FaEdit className="mr-2" /> Editar
                 </button>
                 <button
-                  className="deleteButton"
                   onClick={handleDelete}
+                  className={`${styles.actionButton} ${styles.deleteButton}`}
                 >
-                  Deletar
+                  <FaTrash className="mr-2" /> Deletar
                 </button>
               </div>
-            </h1>
+            </div>
           </div>
+
           <p className={styles.subtitle}>
-            {coin.name} para USD: 1 {coin.name} é igual a {getLatestPrice()}{' '}
-            <span className="text-green-400">+0.02%</span>
+            Preço atual: <span className="text-white font-medium">{getLatestPrice()}</span>
+            <span className="text-green-400 ml-2">+0.02%</span>
           </p>
+
           <div className={styles.tabs}>
             {['1D', '7D', '1M', '3M', '1A', 'YTD'].map((tab) => (
               <div
@@ -133,11 +144,16 @@ export default function CoinDetailPage() {
               </div>
             ))}
           </div>
+
           <div className={styles.chartContainer}>
             <PriceChart historyData={coin.histories} />
           </div>
-          <div className={styles.updateTime}>
-            Última atualização da página: {new Date().toLocaleString()}
+
+          <div className="mt-6">
+            <h2 className="text-lg font-semibold mb-3">Sobre {coin.name}</h2>
+            <p className="text-gray-300 text-sm">
+              {coin.description || 'Nenhuma descrição disponível.'}
+            </p>
           </div>
         </main>
 
@@ -145,45 +161,27 @@ export default function CoinDetailPage() {
           <div className={styles.card}>
             <div className={styles.cardHeader}>Comprar {coin.name}</div>
             <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Você compra</label>
+              <label className={styles.formLabel}>Quantidade ({coin.symbol})</label>
               <input
                 type="number"
-                placeholder="0"
+                placeholder="0.00"
                 className={styles.formInput}
               />
             </div>
             <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Você paga</label>
+              <label className={styles.formLabel}>Valor (BRL)</label>
               <input
                 type="number"
-                placeholder="10 - 50,000"
+                placeholder="0.00"
                 className={styles.formInput}
               />
             </div>
-            <button className={styles.ctaButton}>Comprar {coin.name}</button>
-            <p className={styles.note}>
-              A Binance tem as menores taxas de transação entre as principais
-              plataformas de trading.
+            <button className={styles.ctaButton}>
+              Comprar {coin.symbol}
+            </button>
+            <p className="text-xs text-gray-400 mt-2 text-center">
+              Taxa: 0.1% por transação
             </p>
-            <div className={styles.fees}>
-              {[
-                { label: 'Binance', value: 0.1 },
-                { label: 'Kraken', value: 0.26 },
-                { label: 'Coinbase', value: 1.0 },
-              ].map((f) => (
-                <div key={f.label} className={styles.feeItem}>
-                  <span className={styles.feeLabel}>{f.label}</span>
-                  <div className="flex items-center space-x-2">
-                    <Link
-                      href={`/currency/${coin.id}`}
-                      className={styles.actionBtn}
-                    >
-                      Ver
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         </aside>
       </div>

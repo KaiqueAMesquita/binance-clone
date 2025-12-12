@@ -159,7 +159,6 @@ C:\Users\davir\binance-clone\backend\walletApi\obj\Debug\net9.0\staticwebassets.
 C:\Users\davir\binance-clone\backend\walletApi\obj\Debug\net9.0\staticwebassets.build.json.cache
 C:\Users\davir\binance-clone\backend\walletApi\obj\Debug\net9.0\staticwebassets.development.json
 C:\Users\davir\binance-clone\backend\walletApi\obj\Debug\net9.0\staticwebassets.build.endpoints.json
-C:\Users\davir\binance-clone\backend\walletApi\obj\Debug\net9.0\swae.build.ex.cache
 C:\Users\davir\binance-clone\backend\walletApi\obj\Debug\net9.0\walletApi.csproj.Up2Date
 C:\Users\davir\binance-clone\backend\walletApi\obj\Debug\net9.0\walletApi.dll
 C:\Users\davir\binance-clone\backend\walletApi\obj\Debug\net9.0\refint\walletApi.dll

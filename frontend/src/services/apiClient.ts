@@ -20,8 +20,13 @@ class ApiClient {
       headers.set('Authorization', `Bearer ${token}`);
     }
 
+    // Verificar se a URL já é absoluta (começa com http)
+    const isAbsoluteUrl = url.startsWith('http');
+    const requestUrl = isAbsoluteUrl ? url : `${process.env.NEXT_PUBLIC_USER_API || 'http://localhost:5294/api'}${url}`;
+
     try {
-      const response = await fetch(url, {
+      console.log('Fazendo requisição para:', requestUrl); // Para debug
+      const response = await fetch(requestUrl, {
         ...options,
         headers,
       });
