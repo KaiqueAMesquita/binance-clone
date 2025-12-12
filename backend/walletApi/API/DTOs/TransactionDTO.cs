@@ -18,7 +18,7 @@ public class TransactionDTO
     
     public int WalletId { get; set; }
 
-    public int DestinyWalletId { get; set; }
+    public int? DestinyWalletId { get; set; }
 }
 
 public enum TransactionType

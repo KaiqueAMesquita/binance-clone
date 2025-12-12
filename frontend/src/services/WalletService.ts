@@ -33,7 +33,10 @@ export type WalletSummaryData = {
   };
 };
 
-// Types returned by backend
+
+
+// ... (Tipos BalanceHistoryPoint, AssetRow, etc. mantidos iguais) ...
+
 export type BackendWallet = {
   id: number;
   currency: string;
@@ -45,19 +48,20 @@ export type BackendWallet = {
 
 export type BackendTransaction = {
   id: number;
-  type: string;
+  type: number; 
   fromCurrency: string;
   toCurrency: string;
   amount: number;
   transactionHash?: string;
-  status?: string;
+  status?: number;
   createdAt: string;
   walletId: number;
+  destinyWalletId?: number | null; 
 };
 
 const walletService = {
-  // Backend-aligned methods
   async listWallets(): Promise<BackendWallet[]> {
+    // Veja como aqui já estava correto usando walletAPI.getAll()
     const { data, error } = await apiClient.get<BackendWallet[]>(walletAPI.getAll());
     if (error) throw new Error(error);
     return data || [];
@@ -81,20 +85,38 @@ const walletService = {
     return data || [];
   },
 
+   async createWallet(currency: string, userId: number): Promise<BackendWallet> {
+    const payload = {
+        currency: currency,
+        userId: userId,
+        balance: 0,
+        transactions: [] // <--- ADICIONE ESTA LINHA (Lista vazia para satisfazer o Backend)
+    };
+    
+    // Usando walletAPI.create() para garantir a URL completa correta
+    const { data, error } = await apiClient.post<BackendWallet>(walletAPI.create(), payload); 
+    
+    if (error) throw new Error(error);
+    return data as BackendWallet;
+  },
+
   async addTransaction(walletId: number | string, tx: Partial<BackendTransaction>) {
     const { data, error } = await apiClient.post<any>(walletAPI.addTransaction(walletId), tx);
     if (error) throw new Error(error);
     return data;
   },
 
-  // Compatibility wrappers (keep the previously used method names).
+  async updateWallet(id: number | string, payload: Partial<BackendWallet>) {
+    const { data, error } = await apiClient.put<BackendWallet>(walletAPI.update(id), payload);
+    if (error) throw new Error(error);
+    return data;
+  },
+
+  // ... (Métodos getSummary, getAssets, etc. mantidos iguais) ...
   async getSummary(): Promise<WalletSummaryData> {
-    // Best-effort summary based on available wallet balances.
     const wallets = await this.listWallets();
     const total = wallets.reduce((s, w) => s + Number(w.balance || 0), 0);
     const exampleCurrency = wallets[0]?.currency || 'USD';
-    // Show the summed balance as the primary value so WalletSummary and AssetTable match.
-    // `estimatedBalanceBtc` is used by the UI as the large primary number; use the summed balance there.
     return {
       estimatedBalanceBtc: total,
       estimatedCurrency: exampleCurrency,
@@ -121,7 +143,6 @@ const walletService = {
   },
 
   async getTransactions(): Promise<BackendTransaction[]> {
-    // Fetch transactions for all wallets and flatten
     const wallets = await this.listWallets();
     if (!wallets.length) return [];
     const results = await Promise.all(wallets.map(w => this.getTransactionsForWallet(w.id)));
@@ -129,7 +150,6 @@ const walletService = {
   },
 
   async getHistory(_days = 7): Promise<BalanceHistoryPoint[]> {
-    // Backend does not provide a dedicated history endpoint yet — return empty array for now.
     return [];
   },
 };

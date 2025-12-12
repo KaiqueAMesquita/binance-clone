@@ -44,6 +44,22 @@ public class TransactionService : ITransactionService
 
     public async Task<TransactionDTO> RegisterTransaction(TransactionDTO transactionDto)
     {
+        // Validate origin wallet exists
+        var originWallet = await _walletRepository.GetByIdAsync(transactionDto.WalletId);
+        if (originWallet == null)
+            throw new KeyNotFoundException("Carteira de origem não encontrada");
+
+        // Normalize destiny id (0 -> null)
+        int? destinyId = transactionDto.DestinyWalletId == 0 ? null : transactionDto.DestinyWalletId;
+
+        // If destiny provided, validate it exists
+        if (destinyId.HasValue)
+        {
+            var destinyWallet = await _walletRepository.GetByIdAsync(destinyId.Value);
+            if (destinyWallet == null)
+                throw new KeyNotFoundException("Carteira de destino não encontrada");
+        }
+
         var transaction = new Transaction
         {
             Type = transactionDto.Type,
@@ -51,9 +67,9 @@ public class TransactionService : ITransactionService
             ToCurrency = transactionDto.ToCurrency,
             Amount = transactionDto.Amount,
             WalletId = transactionDto.WalletId,
-            DestinyWalletId = transactionDto.DestinyWalletId
+            DestinyWalletId = destinyId
         };
-        
+
         await _transactionRepository.AddTransactionAsync(transaction);
 
         return new TransactionDTO

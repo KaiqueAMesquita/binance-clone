@@ -1,6 +1,5 @@
 {
   "Routes": [
-
     {
       "DownstreamPathTemplate": "/api/user",
       "DownstreamScheme": "http",
@@ -21,8 +20,6 @@
       "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ],
       "AuthenticationOptions": { "AuthenticationProviderKey": "Bearer", "AllowedScopes": [] }
     },
-
-
     {
       "DownstreamPathTemplate": "/api/auth/login",
       "DownstreamScheme": "http",
@@ -47,7 +44,10 @@
       "DownstreamPathTemplate": "/api/Currency",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5237 }
+        {
+          "Host": "localhost",
+          "Port": 5237
+        }
       ],
       "UpstreamPathTemplate": "/currency",
       "UpstreamHttpMethod": [ "GET", "POST" ]
@@ -56,7 +56,10 @@
       "DownstreamPathTemplate": "/api/Currency/{id}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5237 }
+        {
+          "Host": "localhost",
+          "Port": 5237
+        }
       ],
       "UpstreamPathTemplate": "/currency/{id}",
       "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
@@ -65,7 +68,10 @@
       "DownstreamPathTemplate": "/api/Currency/convert",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5237 }
+        {
+          "Host": "localhost",
+          "Port": 5237
+        }
       ],
       "UpstreamPathTemplate": "/currency/convert",
       "UpstreamHttpMethod": [ "GET" ]
@@ -74,7 +80,10 @@
       "DownstreamPathTemplate": "/api/Currency/summary",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5237 }
+        {
+          "Host": "localhost",
+          "Port": 5237
+        }
       ],
       "UpstreamPathTemplate": "/currency/summary",
       "UpstreamHttpMethod": [ "GET" ]
@@ -83,18 +92,22 @@
       "DownstreamPathTemplate": "/api/Currency/{id}/chart",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5237 }
+        {
+          "Host": "localhost",
+          "Port": 5237
+        }
       ],
       "UpstreamPathTemplate": "/currency/{id}/chart",
       "UpstreamHttpMethod": [ "GET" ]
     },
-
-  
     {
       "DownstreamPathTemplate": "/api/History",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5237 }
+        {
+          "Host": "localhost",
+          "Port": 5237
+        }
       ],
       "UpstreamPathTemplate": "/history",
       "UpstreamHttpMethod": [ "GET", "POST" ]
@@ -103,138 +116,15 @@
       "DownstreamPathTemplate": "/api/History/{id}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5237 }
+        {
+          "Host": "localhost",
+          "Port": 5237
+        }
       ],
       "UpstreamPathTemplate": "/history/{id}",
       "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
-    },
-
-   
-    {
-      "DownstreamPathTemplate": "/api/wallet",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5026 }
-      ],
-      "UpstreamPathTemplate": "/wallet",
-      "UpstreamHttpMethod": ["POST"]
-    },
-    {
-      "DownstreamPathTemplate": "/api/wallet/{id}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5026 }
-      ],
-      "UpstreamPathTemplate": "/wallet/{id}",
-      "UpstreamHttpMethod": ["GET"]
-    },
-    {
-      "DownstreamPathTemplate": "/api/wallet",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5026 }
-      ],
-      "UpstreamPathTemplate": "/wallet",
-      "UpstreamHttpMethod": ["GET"]
-    },
-    {
-      "DownstreamPathTemplate": "/api/wallet/{id}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5026 }
-      ],
-      "UpstreamPathTemplate": "/wallet/{id}",
-      "UpstreamHttpMethod": ["PUT"]
-    },
-    {
-      "DownstreamPathTemplate": "/api/wallet/{id}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5026 }
-      ],
-      "UpstreamPathTemplate": "/wallet/{id}",
-      "UpstreamHttpMethod": ["DELETE"]
-    },
-
-  
-    {
-      "DownstreamPathTemplate": "/api/wallet/convert",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5026 }
-      ],
-      "UpstreamPathTemplate": "/wallet/convert",
-      "UpstreamHttpMethod": ["GET"]
-    },
-    {
-      "DownstreamPathTemplate": "/api/wallet/summary",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5026 }
-      ],
-      "UpstreamPathTemplate": "/wallet/summary",
-      "UpstreamHttpMethod": ["GET"]
-    },
-    {
-      "DownstreamPathTemplate": "/api/wallet/{id}/chart",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5026 }
-      ],
-      "UpstreamPathTemplate": "/wallet/{id}/chart",
-      "UpstreamHttpMethod": ["GET"]
-    },
-
-    {
-      "DownstreamPathTemplate": "/api/wallet/deposit",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5026 }
-      ],
-      "UpstreamPathTemplate": "/wallet/deposit",
-      "UpstreamHttpMethod": ["POST"]
-    },
-    {
-      "DownstreamPathTemplate": "/api/wallet/user/{userId}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5026 }
-      ],
-      "UpstreamPathTemplate": "/wallet/user/{userId}",
-      "UpstreamHttpMethod": ["GET"]
-    },
-
-
-    {
-      "DownstreamPathTemplate": "/api/transaction",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5026 }
-      ],
-      "UpstreamPathTemplate": "/transaction",
-      "UpstreamHttpMethod": ["POST", "GET"]
-    },
-    {
-      "DownstreamPathTemplate": "/api/transaction/{id}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5026 }
-      ],
-      "UpstreamPathTemplate": "/transaction/{id}",
-      "UpstreamHttpMethod": ["GET", "PUT", "DELETE"]
-    },
-
-    {
-      "DownstreamPathTemplate": "/api/transaction/{walletId}/transactions",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5026 }
-      ],
-      "UpstreamPathTemplate": "/wallet/{walletId}/transactions",
-      "UpstreamHttpMethod": ["GET", "POST"]
     }
   ],
-
   "GlobalConfiguration": {
     "BaseUrl": "http://gateway-api:8080"
   }

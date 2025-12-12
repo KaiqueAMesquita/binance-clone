@@ -144,8 +144,9 @@ public class WalletController : ControllerBase
     [HttpPut("{id}")]
     public async Task<ActionResult> Update(int id, WalletDTO walletDto)
     {
-        var wallet = _walletService.UpdateWalletAsync(id, walletDto);
-        return Ok(wallet);  
+        var wallet = await _walletService.UpdateWalletAsync(id, walletDto);
+        if (wallet == null) return NotFound();
+        return Ok(wallet);
     }
 
     // Delete

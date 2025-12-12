@@ -15,7 +15,7 @@ public class Transaction
     [JsonIgnore]
     public Wallet? Wallet { get; set; }
 
-    public int DestinyWalletId { get; set; }
+    public int? DestinyWalletId { get; set; }
 }
 
 // public enum TransactionType

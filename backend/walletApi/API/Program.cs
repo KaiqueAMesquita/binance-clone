@@ -110,4 +110,114 @@ app.UseCors("AllowFrontend");
 
 app.UseAuthorization();
 app.MapControllers();
-app.Run();
+    // Ensure DestinyWalletId column in Transactions allows NULL (fix for existing DB schema)
+    using (var scope = app.Services.CreateScope())
+    {
+        try
+        {
+            var db = scope.ServiceProvider.GetRequiredService<WalletDbContext>();
+            var logger = scope.ServiceProvider.GetRequiredService<ILoggerFactory>().CreateLogger("SchemaFix");
+            var conn = db.Database.GetDbConnection();
+            conn.Open();
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = "PRAGMA table_info('Transactions');";
+                using (var reader = cmd.ExecuteReader())
+                {
+                    var destinyNotNull = false;
+                    while (reader.Read())
+                    {
+                        var colName = reader.GetString(1);
+                        var notnull = reader.GetInt32(3);
+                        if (string.Equals(colName, "DestinyWalletId", StringComparison.OrdinalIgnoreCase) && notnull == 1)
+                        {
+                            destinyNotNull = true;
+                            break;
+                        }
+                    }
+
+                    if (destinyNotNull)
+                    {
+                        logger.LogInformation("Detected NOT NULL DestinyWalletId. Rebuilding Transactions table to allow NULL.");
+                        reader.Close();
+                        // Disable foreign keys during schema change
+                        using (var tcmd = conn.CreateCommand())
+                        {
+                            tcmd.CommandText = "PRAGMA foreign_keys = OFF;";
+                            tcmd.ExecuteNonQuery();
+                        }
+
+                        using (var tcmd = conn.CreateCommand())
+                        {
+                            tcmd.CommandText = @"
+CREATE TABLE IF NOT EXISTS Transactions_new (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Amount TEXT,
+    CreatedAt TEXT,
+    DestinyWalletId INTEGER,
+    FromCurrency TEXT NOT NULL,
+    Status INTEGER,
+    ToCurrency TEXT NOT NULL,
+    Type INTEGER,
+    WalletId INTEGER NOT NULL,
+    FOREIGN KEY (DestinyWalletId) REFERENCES Wallets (Id) ON DELETE RESTRICT,
+    FOREIGN KEY (WalletId) REFERENCES Wallets (Id) ON DELETE CASCADE
+);";
+                            tcmd.ExecuteNonQuery();
+                        }
+
+                        using (var tcmd = conn.CreateCommand())
+                        {
+                            tcmd.CommandText = @"INSERT INTO Transactions_new (Id, Amount, CreatedAt, DestinyWalletId, FromCurrency, Status, ToCurrency, Type, WalletId)
+SELECT Id, Amount, CreatedAt, DestinyWalletId, FromCurrency, Status, ToCurrency, Type, WalletId FROM Transactions;";
+                            tcmd.ExecuteNonQuery();
+                        }
+
+                        using (var tcmd = conn.CreateCommand())
+                        {
+                            tcmd.CommandText = "DROP TABLE Transactions;";
+                            tcmd.ExecuteNonQuery();
+                        }
+
+                        using (var tcmd = conn.CreateCommand())
+                        {
+                            tcmd.CommandText = "ALTER TABLE Transactions_new RENAME TO Transactions;";
+                            tcmd.ExecuteNonQuery();
+                        }
+
+                        using (var tcmd = conn.CreateCommand())
+                        {
+                            tcmd.CommandText = "CREATE INDEX IF NOT EXISTS IX_Transactions_DestinyWalletId ON Transactions (DestinyWalletId);";
+                            tcmd.ExecuteNonQuery();
+                        }
+
+                        using (var tcmd = conn.CreateCommand())
+                        {
+                            tcmd.CommandText = "CREATE INDEX IF NOT EXISTS IX_Transactions_WalletId ON Transactions (WalletId);";
+                            tcmd.ExecuteNonQuery();
+                        }
+
+                        using (var tcmd = conn.CreateCommand())
+                        {
+                            tcmd.CommandText = "PRAGMA foreign_keys = ON;";
+                            tcmd.ExecuteNonQuery();
+                        }
+
+                        logger.LogInformation("Transactions table rebuilt; DestinyWalletId is now nullable.");
+                    }
+                    else
+                    {
+                        logger.LogInformation("DestinyWalletId already nullable or column not present; no action needed.");
+                    }
+                }
+            }
+            conn.Close();
+        }
+        catch (Exception ex)
+        {
+            var logger = scope.ServiceProvider.GetRequiredService<ILoggerFactory>().CreateLogger("SchemaFix");
+            logger.LogError(ex, "Error while ensuring DestinyWalletId nullability");
+        }
+    }
+
+    app.Run();

@@ -5,58 +5,38 @@ using Microsoft.AspNetCore.Mvc;
 public class TransactionController : ControllerBase
 {
     private readonly ITransactionService _transactionService;
+    // 1. Precisamos injetar o WalletService para poder mover o dinheiro
+    private readonly IWalletService _walletService;
 
-    public TransactionController(ITransactionService transactionService)
+    public TransactionController(ITransactionService transactionService, IWalletService walletService)
     {
         _transactionService = transactionService;
+        _walletService = walletService;
     }
 
-    // [HttpPost]
-    // public async Task<IActionResult> RegisterTransaction(TransactionDTO transactionDto)
-    // {
-    //     await _transactionService.RegisterTransaction(transactionDto.ToEntity());
-    //     return Created("", transactionDto);
-    // }
-
-    // [HttpGet("{id}")]
-    // public async Task<IActionResult> GetTransactionDetails(int id)
-    // {
-    //     var transaction = await _transactionService.GetTransactionDetails(id);
-    //     return transaction != null ? Ok(transaction) : NotFound();
-    // }
-
-    // [HttpGet]
-    // public async Task<IActionResult> GetAllHistories()
-    // {
-    //     var histories = await _transactionService.GetAllHistories();
-    //     return Ok(histories);
-    // }
-
-    // [HttpPut("{id}")]
-    // public async Task<IActionResult> UpdateTransaction(TransactionDTO transactionDto, int id)
-    // {
-    //     var transaction = await _transactionService.UpdateTransaction(transactionDto, id);
-    //     return Ok(transaction);
-    // }
-    
-    // [HttpDelete("{id}")]
-    // public async Task<IActionResult> DeleteTransaction(int id)
-    // {
-    //     try{
-    //         await _transactionService.DeleteTransaction(id);
-    //         return Ok();
-    //     }catch(Exception){
-    //         return BadRequest();
-    //     }
-    // }
-
     [HttpPost("{walletId}/transactions")]
-    public async Task<ActionResult<TransactionDTO>> AddTransaction(TransactionDTO transactionDto)
+    public async Task<ActionResult<TransactionDTO>> AddTransaction(int walletId, TransactionDTO transactionDto)
     {
         try
         {
+            if (transactionDto == null) transactionDto = new TransactionDTO();
+            
+            // Garante que o ID da rota seja usado
+            transactionDto.WalletId = walletId;
+
+            // --- A CORREÇÃO ESTÁ AQUI ---
+            // Verifica se é uma transferência/conversão (tem carteira de destino?)
+            if (transactionDto.DestinyWalletId != null && transactionDto.DestinyWalletId > 0)
+            {
+                // Chama o WalletService.Transfer, que contém a lógica de:
+                // Subtrair saldo da origem, converter valor e somar no destino.
+                var transferResult = await _walletService.Transfer(transactionDto);
+                return Ok(transferResult);
+            }
+
+            // Se não tiver destino, é apenas um registro simples (ex: histórico manual)
             var createdTransaction = await _transactionService.RegisterTransaction(transactionDto);
-            return createdTransaction;
+            return Ok(createdTransaction);
         }
         catch (KeyNotFoundException ex)
         {
@@ -65,6 +45,10 @@ public class TransactionController : ControllerBase
         catch (InvalidOperationException ex)
         {
             return BadRequest(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "Erro interno", details = ex.Message });
         }
     }
 

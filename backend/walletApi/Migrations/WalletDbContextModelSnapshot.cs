@@ -28,7 +28,7 @@ namespace walletApi.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("DestinyWalletId")
+                    b.Property<int?>("DestinyWalletId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("FromCurrency")
@@ -90,8 +90,7 @@ namespace walletApi.Migrations
                     b.HasOne("Wallet", null)
                         .WithMany()
                         .HasForeignKey("DestinyWalletId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Wallet", "Wallet")
                         .WithMany("Transactions")

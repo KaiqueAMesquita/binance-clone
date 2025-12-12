@@ -1,280 +1,351 @@
-/* src/components/TradeConverter.module.css */
-
-/* --- Container e Layout Geral --- */
+/* Container Geral */
 .container {
   min-height: 100vh;
-  background-color: #0B0E11;
-  color: #F3F4F6;
-  padding-bottom: 7rem;
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #181A20; /* Fundo Binance Dark */
+  color: #EAECEF;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  padding-bottom: 2rem;
 }
 
 .contentWrapper {
-  max-width: 36rem; /* Equivalente a max-w-xl */
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
-/* --- Cabeçalho --- */
+/* Header */
 .header {
-  padding-top: 0.75rem;
-  padding-bottom: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: #D1D5DB;
+  height: 64px;
 }
-
 .header button {
-  padding: 0.5rem;
-  border-radius: 0.375rem;
   background: none;
   border: none;
-  color: inherit;
+  color: #848E9C;
+  font-size: 1.25rem;
   cursor: pointer;
-  transition: background-color 0.2s;
-}
-.header button:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+  padding: 8px;
 }
 .header h1 {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 600;
-  color: #E5E7EB;
+  margin: 0;
 }
 
-/* --- Abas de Navegação --- */
+/* Tabs */
 .tabsContainer {
-  display: inline-grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.5rem;
-  background-color: #151A1F;
-  border-radius: 0.5rem;
-  padding: 0.25rem;
-  border: 1px solid #1f242c;
+  display: flex;
+  background-color: #0B0E11;
+  padding: 4px;
+  border-radius: 8px;
+  margin-bottom: 24px;
 }
 .tabButton {
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
-  border-radius: 0.375rem;
-  transition: color 0.2s;
-  color: #9CA3AF;
-  background-color: transparent;
+  flex: 1;
+  padding: 8px;
+  background: none;
   border: none;
+  color: #848E9C;
+  font-size: 0.875rem;
+  font-weight: 500;
   cursor: pointer;
-}
-.tabButton:hover {
-  color: #E5E7EB;
 }
 .activeTab {
   composes: tabButton;
-  background-color: #1E2329;
-  color: white;
+  background-color: #2B3139;
+  color: #EAECEF;
+  border-radius: 6px;
 }
 
-/* --- Cartão Principal --- */
+/* Card Principal */
 .card {
-  margin-top: 1rem;
-  background-color: #151A1F;
-  border: 1px solid #1f242c;
-  border-radius: 1rem;
-  padding: 1.25rem;
+  background-color: #1E2329; /* Card lighter */
+  border-radius: 16px;
+  padding: 16px;
+  position: relative;
 }
 
 .labelsRow {
   display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.75rem;
+  color: #848E9C;
+}
+.maxButton {
+  color: #F0B90B;
+  background: none;
+  border: none;
+  margin-left: 4px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.inputRow {
+  display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.75rem;
-  color: #9CA3AF;
+  height: 48px;
 }
 
-.maxButton {
-  color: #FBBF24;
-  margin-left: 0.25rem;
+/* Currency Selector Button */
+.currencySelector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   background: none;
   border: none;
+  color: #EAECEF;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
   padding: 0;
-}
-.maxButton:hover {
-  color: #FCD34D;
+  position: relative; /* Para o menu dropdown */
 }
 
-/* --- Linha de Entrada (From/To) --- */
-.inputRow {
-  margin-top: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.currencySelector {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: #1E2329;
-  border: 1px solid #2b3139;
-  border-radius: 0.75rem;
-  padding: 0.5rem 0.75rem;
-  cursor: pointer;
-}
-.currencySelector span {
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-.currencySelector svg {
-  color: #9CA3AF;
-}
-
-.inputField {
-  flex-grow: 1;
-  min-width: 0;
-  background-color: transparent;
-  border: none;
-  text-align: right;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: white;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.inputField:focus {
-  outline: none;
-}
-.inputField::placeholder {
-  color: #4B5563;
-}
-.outputValue {
-  composes: inputField;
-  color: #6B7280;
-}
-
-/* --- Menu Dropdown de Moedas --- */
-.currencyMenu {
-  position: absolute;
-  left: 0;
-  top: 100%;
-  margin-top: 0.5rem;
-  z-index: 50;
-  width: 14rem;
-  max-height: 20rem;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  border-radius: 0.75rem;
-  border: 1px solid #2b3139;
-  background-color: #0F1318;
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-}
-.currencyMenuItem {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  font-size: 0.875rem;
-  color: #E5E7EB;
+.inputField, .outputValue {
   background: none;
   border: none;
-  cursor: pointer;
-  text-align: left;
+  color: #EAECEF;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: right;
+  width: 50%;
+  outline: none;
 }
-.currencyMenuItem:hover {
-  background-color: rgba(255, 255, 255, 0.05);
-}
-.currencyMenuItem .symbol {
-  font-weight: 500;
-}
-.currencyMenuItem .name {
-  margin-left: auto;
-  font-size: 0.75rem;
-  color: #6B7280;
+.outputValue {
+  color: #848E9C; /* Cinza para o valor destino */
 }
 
-/* --- Separador e Botão de Inversão --- */
+/* Separator com botão invert */
 .separator {
   position: relative;
-  margin: 1.25rem 0;
-}
-.separator hr {
   height: 1px;
-  width: 100%;
-  background-color: #1f242c;
-  border: none;
+  background-color: #2B3139;
+  margin: 24px 0;
 }
 .invertButton {
   position: absolute;
-  left: 50%;
   top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #1E2329;
-  border: 1px solid #2b3139;
-  border-radius: 0.75rem;
-  padding: 0.5rem;
-  color: #D1D5DB;
-  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #2B3139;
+  border: 2px solid #1E2329;
+  color: #F0B90B;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.invertButton:hover {
-  color: #FBBF24;
+  cursor: pointer;
+  font-size: 1.2rem;
 }
 
-/* --- Taxa de Câmbio --- */
 .exchangeRate {
+  margin-top: 16px;
+  text-align: right;
   font-size: 0.75rem;
-  color: #6B7280;
-  margin-top: 0.75rem;
-  min-height: 1rem; /* Para evitar que o layout pule */
+  color: #848E9C;
 }
 
-/* --- Botão Principal --- */
+/* Botão Principal */
 .previewButtonContainer {
-  margin-top: 1.25rem;
+  margin-top: 24px;
 }
 .previewButton {
   width: 100%;
-  padding: 0.875rem 0;
-  border-radius: 1rem;
-  font-weight: 500;
-  transition: all 0.2s;
-  border: none;
-  cursor: pointer;
+  height: 48px;
+  border-radius: 8px;
   background-color: #F0B90B;
-  color: #0B0E11;
-}
-.previewButton:hover {
-  background-color: #FCD535;
-}
-.previewButton:active {
-  transform: scale(0.99);
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #181A20;
+  cursor: pointer;
 }
 .previewButton:disabled {
-  background-color: rgba(240, 185, 11, 0.2);
-  color: rgba(240, 185, 11, 0.4);
+  background-color: #2B3139;
+  color: #5E6673;
   cursor: not-allowed;
 }
 
-/* --- Bottom Sheet de Confirmação --- */
-.bottomSheetOverlay {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-.bottomSheet {
+/* Dropdown Menu */
+.currencyMenu {
   position: absolute;
+  top: 100%;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #1A1F25;
-  border-top: 1px solid #1f242c;
-  border-top-left-radius: 26px;
-  border-top-right-radius: 26px;
-  padding: 1.5rem;
+  background-color: #2B3139;
+  border-radius: 8px;
+  padding: 8px 0;
+  z-index: 100;
+  min-width: 180px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  max-height: 250px;
+  overflow-y: auto;
+}
+.currencyMenuItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  color: #EAECEF;
+  text-align: left;
+  cursor: pointer;
+}
+.currencyMenuItem:hover {
+  background-color: #383F49;
+}
+.emptyMenu {
+    padding: 16px;
+    font-size: 0.8rem;
+    color: #848E9C;
+}
+
+/* --- MODAL (SHEET) ESTILIZADO --- */
+.bottomSheetBackdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0,0,0,0.6);
+  z-index: 999;
+  display: flex;
+  align-items: flex-end; /* Alinha no fundo */
+}
+
+.bottomSheet {
+  width: 100%;
+  background-color: #1E2329;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  padding-bottom: 24px;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.sheetHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid #2B3139;
+}
+.sheetHeader h2 {
+  font-size: 1.125rem;
+  margin: 0;
+  color: #EAECEF;
+}
+.sheetHeader button {
+  background: none;
+  border: none;
+  color: #848E9C;
+  cursor: pointer;
+}
+
+.sheetContent {
+  padding: 24px;
+}
+
+.sheetRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.sheetAssetGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.sheetAssetInfo {
+  display: flex;
+  flex-direction: column;
+}
+.sheetAssetSymbol {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #EAECEF;
+}
+.sheetAssetLabel {
+  font-size: 0.75rem;
+  color: #848E9C;
+}
+
+.sheetValue {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #EAECEF;
+}
+
+.sheetIconRow {
+  display: flex;
+  padding-left: 6px; /* Ajuste fino para alinhar com o ícone da moeda */
+  margin: 8px 0;
+}
+
+.sheetValueColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.sheetValueMain {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #22c55e; /* Verde de sucesso/ganho */
+}
+.sheetValueSub {
+  font-size: 0.75rem;
+  color: #848E9C;
+}
+
+/* Card de Detalhes Cinza */
+.sheetCardDetails {
+  background-color: #2B3139;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 24px 0;
+}
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.875rem;
+  color: #848E9C;
+}
+.detailRow:last-child {
+  margin-bottom: 0;
+}
+.detailRow span:last-child {
+  color: #EAECEF;
+  font-weight: 500;
+}
+
+.confirmButton {
+  width: 100%;
+  height: 48px;
+  border-radius: 24px; /* Botão pílula */
+  background-color: #F0B90B;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #181A20;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.confirmButton:hover {
+  opacity: 0.9;
+}
+.confirmButton:disabled {
+  background-color: #5E6673;
+  cursor: not-allowed;
+  opacity: 1;
 }

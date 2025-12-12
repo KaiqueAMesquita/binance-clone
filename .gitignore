@@ -2,7 +2,11 @@
 venv/
 __pycache__/
 *.dll
-node_modules/
-**/node_modules/
-frontend/frontend/node_modules/
-frontend/frontend/.next/
+**/bin/
+**/obj/
+**/*.dll
+**/*.exe
+**/*.pdb
+**/*.sqlite
+**/*.db
+.vscode/

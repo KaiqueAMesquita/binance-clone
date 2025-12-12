@@ -18,4 +18,5 @@ public interface IWalletService
     Task<IEnumerable<WalletDTO?>> GetAllAsync();
     Task<WalletDTO?> GetWalletDetailsAsync(int id);
     Task<IEnumerable<WalletDTO?>> ListAllByUserIdAsync(int userId);
+    Task<TransactionDTO> Transfer(TransactionDTO transactionDto);
 }

@@ -70,6 +70,12 @@ C:\projects\binance-clone\backend\currencyApi\obj\Debug\net9.0\scopedcss\bundle\
 C:\projects\binance-clone\backend\currencyApi\obj\Debug\net9.0\staticwebassets.build.json
 C:\projects\binance-clone\backend\currencyApi\obj\Debug\net9.0\staticwebassets.development.json
 C:\projects\binance-clone\backend\currencyApi\obj\Debug\net9.0\staticwebassets.build.endpoints.json
+C:\projects\binance-clone\backend\currencyApi\obj\Debug\net9.0\staticwebassets\msbuild.currencyApi.Microsoft.AspNetCore.StaticWebAssets.props
+C:\projects\binance-clone\backend\currencyApi\obj\Debug\net9.0\staticwebassets\msbuild.currencyApi.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\projects\binance-clone\backend\currencyApi\obj\Debug\net9.0\staticwebassets\msbuild.build.currencyApi.props
+C:\projects\binance-clone\backend\currencyApi\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.currencyApi.props
+C:\projects\binance-clone\backend\currencyApi\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.currencyApi.props
+C:\projects\binance-clone\backend\currencyApi\obj\Debug\net9.0\staticwebassets.pack.json
 C:\projects\binance-clone\backend\currencyApi\obj\Debug\net9.0\currency.D56DEC23.Up2Date
 C:\projects\binance-clone\backend\currencyApi\obj\Debug\net9.0\currencyApi.dll
 C:\projects\binance-clone\backend\currencyApi\obj\Debug\net9.0\refint\currencyApi.dll
@@ -1485,8 +1491,3 @@ C:\Users\davir\binance-clone\backend\currencyApi\obj\Debug\net9.0\currencyApi.pd
 C:\Users\davir\binance-clone\backend\currencyApi\obj\Debug\net9.0\currencyApi.genruntimeconfig.cache
 C:\Users\davir\binance-clone\backend\currencyApi\obj\Debug\net9.0\ref\currencyApi.dll
 C:\Users\peixoto\binance-clone\backend\currencyApi\obj\Debug\net9.0\swae.build.ex.cache
-C:\projects\binance-clone\backend\currencyApi\obj\Debug\net9.0\rpswa.dswa.cache.json
-C:\projects\binance-clone\backend\currencyApi\obj\Debug\net9.0\rjimswa.dswa.cache.json
-C:\projects\binance-clone\backend\currencyApi\obj\Debug\net9.0\rjsmrazor.dswa.cache.json
-C:\projects\binance-clone\backend\currencyApi\obj\Debug\net9.0\rjsmcshtml.dswa.cache.json
-C:\projects\binance-clone\backend\currencyApi\obj\Debug\net9.0\staticwebassets.build.json.cache

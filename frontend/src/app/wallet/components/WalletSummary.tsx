@@ -139,7 +139,7 @@ export default function WalletSummary({ data, history }: Props) {
       <div className={styles.actionSection}>
         <div className={styles.actions}>
           <button className={`${styles.actionButton} ${styles.deposit}`} type="button" onClick={() => router.push('/deposit')}>Deposito</button>
-          <button className={styles.actionButton} type="button">Saque</button>
+          <button className={styles.actionButton} type="button" onClick={() => router.push('/withdraw')}>Saque</button>
           <button className={styles.actionButton} type="button">Transferir</button>
           <button className={styles.actionButton} type="button">Historico</button>
         </div>
