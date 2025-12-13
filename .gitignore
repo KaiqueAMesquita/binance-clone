@@ -1,18 +1,30 @@
+# Python
 .venv/
 venv/
 __pycache__/
+
+# .NET Build
+bin/
+obj/
+**/bin/
+**/obj/
+
+# Executáveis e build outputs
 *.dll
-**/bin/
-**/obj/
-**/*.dll
-**/*.exe
-**/*.pdb
-**/*.sqlite
-**/*.db
-.vscode/
-node_modules/
-**/bin/
-**/obj/
-*.db
+*.exe
+*.pdb
+*.cache
+*.a
+
+# Banco de dados local
 *.sqlite
+*.db
+
+# Node
+node_modules/
+
+# IDE
 .vscode/
+*.suo
+*.user
+.vs/

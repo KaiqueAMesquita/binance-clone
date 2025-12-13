@@ -26,8 +26,8 @@ export default function CoinList() {
     fetchCurrencies();
   }, []);
 
-  if (loading) return <div>Carregando...</div>;
-  if (error) return <div className={styles.error}>{error}</div>;
+  if (loading) return <div className="p-4 text-white">Carregando...</div>;
+  if (error) return <div className="p-4 text-red-500">{error}</div>;
 
   return (
     <div className="overflow-hidden rounded-lg shadow-lg bg-gray-900">
@@ -35,12 +35,10 @@ export default function CoinList() {
         {currencies.map((currency) => (
           <div key={currency.id} className={styles.row}>
             <div className="flex items-center space-x-3">
-              <span className={styles.cellSymbol}>{currency.name}</span>
-              <span className={styles.cellName}>{currency.description}</span>
+              <span className={styles.cellSymbol}>{currency.symbol || currency.name}</span>
+              <span className={styles.cellName}>{currency.name}</span>
             </div>
             <div className="flex items-center">
-              {/* O preço não está disponível diretamente na lista, 
-                  precisaria ser buscado do histórico. Deixado para futura implementação. */}
               <Link
                 href={`/currency/${currency.id}`}
                 className={styles.actionBtn}
