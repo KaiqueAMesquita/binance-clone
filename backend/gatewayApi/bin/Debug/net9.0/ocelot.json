@@ -126,6 +126,6 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://gateway-api:8080"
+    "BaseUrl": "http://localhost:5048"
   }
 }

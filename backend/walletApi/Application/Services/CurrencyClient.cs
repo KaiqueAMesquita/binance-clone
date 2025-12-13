@@ -14,38 +14,14 @@ public class CurrencyClient : ICurrencyClient
 
     public async Task<ConversionResult?> ConvertAsync(string from, string to, decimal amount)
     {
-        // O HttpClient já tem "http://localhost:5237" na base.
-        // Nós adicionamos o resto: "api/Currency/convert..."
-        var url = $"api/Currency/convert?from={WebUtility.UrlEncode(from)}&to={WebUtility.UrlEncode(to)}&amount={amount}";
+        // O HttpClient já tem a base URL da gateway na base.
+        // Tentando a rota correta através do gateway
+        var url = $"/currency/convert?from={WebUtility.UrlEncode(from)}&to={WebUtility.UrlEncode(to)}&amount={amount}";
         
         // Faz a chamada
         var response = await _http.GetAsync(url);
         if (!response.IsSuccessStatusCode) 
             throw new Exception($"Erro HTTP {response.StatusCode} ao buscar cotação.");
-        
-        // Se der erro aqui, é porque a URL montada ficou errada ou a CurrencyApi está desligada
-        // response.EnsureSuccessStatusCode();
-        
-        // var json = await response.Content.ReadAsStringAsync();
-        // var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-        // var currencies = JsonSerializer.Deserialize<List<CurrencyResponse>>(json, options);
-
-        // var currencyFrom = currencies?.FirstOrDefault(c => c.Symbol.Equals(from, StringComparison.OrdinalIgnoreCase));
-        // var currencyTo = currencies?.FirstOrDefault(c => c.Symbol.Equals(to, StringComparison.OrdinalIgnoreCase));
-
-        // try
-        // {
-        //     var json = await response.Content.ReadAsStringAsync();
-        //     Console.WriteLine($"[DEBUG] Currency API Response: {json}");
-            
-        //     var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-        //     return JsonSerializer.Deserialize<ConversionResult>(json, options);
-        // }
-        // catch (JsonException ex)
-        // {
-        //     Console.WriteLine($"[ERROR] JSON deserialization failed: {ex.Message}");
-        //     throw new InvalidOperationException($"Failed to deserialize Currency API response: {ex.Message}", ex);
-        // }
         
         return await response.Content.ReadFromJsonAsync<ConversionResult>();
     }

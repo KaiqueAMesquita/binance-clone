@@ -123,9 +123,69 @@
       ],
       "UpstreamPathTemplate": "/history/{id}",
       "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/wallet",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 5026 }
+      ],
+      "UpstreamPathTemplate": "/wallet",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "AuthenticationOptions": { "AuthenticationProviderKey": "Bearer", "AllowedScopes": [] }
+    },
+    {
+      "DownstreamPathTemplate": "/api/wallet/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 5026 }
+      ],
+      "UpstreamPathTemplate": "/wallet/{id}",
+      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ],
+      "AuthenticationOptions": { "AuthenticationProviderKey": "Bearer", "AllowedScopes": [] }
+    },
+    {
+      "DownstreamPathTemplate": "/api/wallet/deposit",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 5026 }
+      ],
+      "UpstreamPathTemplate": "/wallet/deposit",
+      "UpstreamHttpMethod": ["POST"],
+      "AuthenticationOptions": { "AuthenticationProviderKey": "Bearer", "AllowedScopes": [] }
+    },
+    {
+      "DownstreamPathTemplate": "/api/wallet/transfer",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 5026 }
+      ],
+      "UpstreamPathTemplate": "/wallet/transfer",
+      "UpstreamHttpMethod": ["POST"],
+      "AuthenticationOptions": { "AuthenticationProviderKey": "Bearer", "AllowedScopes": [] }
+    },
+    {
+      "DownstreamPathTemplate": "/api/wallet/user/{userId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 5026 }
+      ],
+      "UpstreamPathTemplate": "/wallet/user/{userId}",
+      "UpstreamHttpMethod": ["GET"],
+      "AuthenticationOptions": { "AuthenticationProviderKey": "Bearer", "AllowedScopes": [] }
+    },
+    {
+      "DownstreamPathTemplate": "/api/transaction/{walletId}/transactions",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 5026 }
+      ],
+      "UpstreamPathTemplate": "/wallet/{walletId}/transactions",
+      "UpstreamHttpMethod": ["GET"],
+      "AuthenticationOptions": { "AuthenticationProviderKey": "Bearer", "AllowedScopes": [] }
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://gateway-api:8080"
+    "BaseUrl": "http://localhost:5048"
   }
 }
