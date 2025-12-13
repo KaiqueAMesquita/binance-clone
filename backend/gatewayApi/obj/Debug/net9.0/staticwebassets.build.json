@@ -1,12 +1,1 @@
-{
-  "Version": 1,
-  "Hash": "W/FN/LUfPjChXdHSdIxcH90O1BLuoq4GNHIbUoqOFsU=",
-  "Source": "gatewayApi",
-  "BasePath": "_content/gatewayApi",
-  "Mode": "Default",
-  "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
-}
+{"Version":1,"Hash":"W/FN/LUfPjChXdHSdIxcH90O1BLuoq4GNHIbUoqOFsU=","Source":"gatewayApi","BasePath":"_content/gatewayApi","Mode":"Default","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[],"Assets":[],"Endpoints":[]}

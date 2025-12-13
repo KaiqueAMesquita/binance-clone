@@ -12,7 +12,7 @@ var configuration = builder.Configuration;
 var key = Encoding.ASCII.GetBytes(configuration["Jwt:Key"] ?? throw new ArgumentNullException("Jwt:Key is missing"));
 
 builder.Services.AddHttpClient<ICurrencyClient, CurrencyClient>(c =>
-    c.BaseAddress = new Uri(builder.Configuration["CurrencyApi:BaseUrl"])
+    c.BaseAddress = new Uri(builder.Configuration["CurrencyAPI:BaseUrl"])
 );
 
 // Configuração do CORS
