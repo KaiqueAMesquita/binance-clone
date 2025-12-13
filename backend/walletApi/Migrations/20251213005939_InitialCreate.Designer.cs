@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace walletApi.Migrations
 {
     [DbContext(typeof(WalletDbContext))]
-    [Migration("20251212134849_AddDestinyWalletIdToTransactions")]
-    partial class AddDestinyWalletIdToTransactions
+    [Migration("20251213005939_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

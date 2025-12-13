@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace walletApi.Migrations
 {
     [DbContext(typeof(WalletDbContext))]
-    [Migration("20251212014239_DestinyWalletId")]
-    partial class DestinyWalletId
+    [Migration("20251213010009_AddDestinyWalletId")]
+    partial class AddDestinyWalletId
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,6 +53,8 @@ namespace walletApi.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DestinyWalletId");
+
                     b.HasIndex("WalletId");
 
                     b.ToTable("Transactions");
@@ -88,6 +90,11 @@ namespace walletApi.Migrations
 
             modelBuilder.Entity("Transaction", b =>
                 {
+                    b.HasOne("Wallet", null)
+                        .WithMany()
+                        .HasForeignKey("DestinyWalletId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Wallet", "Wallet")
                         .WithMany("Transactions")
                         .HasForeignKey("WalletId")

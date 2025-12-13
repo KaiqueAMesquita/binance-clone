@@ -6,6 +6,9 @@ export interface User {
   id: number;
   name: string;
   email: string;
+  phone?: string;
+  address?: string;
+  photo?: string;
 }
 
 interface LoginResponse {
@@ -15,13 +18,15 @@ interface LoginResponse {
 
 export const authService = {
   async login(email: string, password: string): Promise<LoginResponse> {
-    const { data, error } = await apiClient.post<LoginResponse>(authAPI.login(), { email, password });
+    const { data, error } = await apiClient.post<LoginResponse>(
+      authAPI.login(), 
+      { email, password }
+    );
     
     if (error || !data) {
       throw new Error(error || 'Falha no login');
     }
 
-    // Store token and user data in localStorage
     if (typeof window !== 'undefined') {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
@@ -30,12 +35,31 @@ export const authService = {
     return data;
   },
 
-  logout(): void {
-    // Clear token and user data from localStorage
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
+  async logout(): Promise<void> {
+    try {
+      await apiClient.post(authAPI.logout());
+    } finally {
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+      }
     }
+  },
+
+  async refreshToken(): Promise<{ token: string }> {
+    const { data, error } = await apiClient.post<{ token: string }>(authAPI.refreshToken());
+    if (error || !data) {
+      throw new Error(error || 'Falha ao atualizar token');
+    }
+    return data;
+  },
+
+  async getProfile(): Promise<User> {
+    const { data, error } = await apiClient.get<User>(authAPI.profile());
+    if (error || !data) {
+      throw new Error(error || 'Falha ao carregar perfil');
+    }
+    return data;
   },
 
   getCurrentUser(): User | null {

@@ -46,7 +46,7 @@ var app = builder.Build();
 // Middleware de autenticação/autorização ANTES do Ocelot
 app.UseAuthentication();
 app.UseAuthentication();
-
+app.UseCors("AllowAll");
 app.UseOcelot().Wait();
 
 app.Run();

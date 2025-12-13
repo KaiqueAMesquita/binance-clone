@@ -1,7 +1,9 @@
-// Use per-service base URLs. Allow overriding via NEXT_PUBLIC_* env vars in Next.js.
-const WALLET_API_BASE = process.env.NEXT_PUBLIC_WALLET_API ?? 'http://localhost:5026/api';
-const USER_API_BASE = process.env.NEXT_PUBLIC_USER_API ?? 'http://localhost:5294/api';
-const CURRENCY_API_BASE = process.env.NEXT_PUBLIC_CURRENCY_API ?? 'http://localhost:5237/api';
+// Atualizando as constantes de base para apontar para o gateway
+const GATEWAY_BASE = process.env.NEXT_PUBLIC_GATEWAY_URL ?? 'http://localhost:5048';
+const CURRENCY_API_BASE = `${GATEWAY_BASE}/currency`;
+const WALLET_API_BASE = `${GATEWAY_BASE}/wallet`;
+const USER_API_BASE = `${GATEWAY_BASE}/user`;
+const AUTH_API_BASE = `${GATEWAY_BASE}/auth`;
 
 const crudAPI = (basePath: string) => ({
   create: () => `${basePath}`,
@@ -11,35 +13,43 @@ const crudAPI = (basePath: string) => ({
   getById: (id: string | number) => `${basePath}/${id}`,
 });
 
-// User endpoints (user API runs on its own port)
-const userAPI = crudAPI(`${USER_API_BASE}/User`);
+// User endpoints (atualizado para usar o gateway)
+const userAPI = {
+  ...crudAPI(`${USER_API_BASE}`),
+  // Adicionando endpoints específicos do usuário, se necessário
+};
 
-// Wallet and transaction endpoints (wallet API)
-const walletBase = `${WALLET_API_BASE}/Wallet`;
-const transactionBase = `${WALLET_API_BASE}/Transaction`;
-
+// Wallet endpoints (atualizado para usar o gateway)
 const walletAPI = {
-  base: () => walletBase,
-  create: () => `${walletBase}`,
-  getAll: () => `${walletBase}`,
-  getById: (id: string | number) => `${walletBase}/${id}`,
-  getByUser: (userId: string | number) => `${walletBase}/user/${userId}`,
-  update: (id: string | number) => `${walletBase}/${id}`,
-  delete: (id: string | number) => `${walletBase}/${id}`,
-  // Transactions endpoints (per wallet)
-  transactionsForWallet: (walletId: string | number) => `${transactionBase}/${walletId}/transactions`,
-  addTransaction: (walletId: string | number) => `${transactionBase}/${walletId}/transactions`,
+  base: () => WALLET_API_BASE,
+  create: () => `${WALLET_API_BASE}`,
+  getAll: () => `${WALLET_API_BASE}`,
+  getById: (id: string | number) => `${WALLET_API_BASE}/${id}`,
+  getByUser: (userId: string | number) => `${WALLET_API_BASE}/user/${userId}`,
+  update: (id: string | number) => `${WALLET_API_BASE}/${id}`,
+  delete: (id: string | number) => `${WALLET_API_BASE}/${id}`,
+  deposit: () => `${WALLET_API_BASE}/deposit`,
+  transfer: () => `${WALLET_API_BASE}/transfer`,
+  transactionsForWallet: (walletId: string | number) => 
+    `${WALLET_API_BASE}/${walletId}/transactions`,
+  addTransaction: (walletId: string | number) => 
+    `${WALLET_API_BASE}/${walletId}/transactions`,
 };
 
-// Authentication is handled by the User API
+// Authentication endpoints (atualizado para usar o gateway)
 const authAPI = {
-  login: () => `${USER_API_BASE}/Auth/Login`,
-  logout: () => `${USER_API_BASE}/Auth/Logout`,
-  refreshToken: () => `${USER_API_BASE}/Auth/RefreshToken`,
+  login: () => `${AUTH_API_BASE}/login`,
+  logout: () => `${AUTH_API_BASE}/logout`,
+  refreshToken: () => `${AUTH_API_BASE}/refreshtoken`,
+  profile: () => `${AUTH_API_BASE}/profile`,
 };
 
-// Currency base exported for services that need it (fallback via env)
-const currencyBase = () => `${CURRENCY_API_BASE}`;
+// Currency endpoints (atualizado para usar o gateway)
+const currencyAPI = {
+  ...crudAPI(CURRENCY_API_BASE),
+  convert: () => `${CURRENCY_API_BASE}/convert`,
+  summary: () => `${CURRENCY_API_BASE}/summary`,
+  chart: (id: string | number) => `${CURRENCY_API_BASE}/${id}/chart`,
+};
 
-export { userAPI, authAPI, currencyBase };
-export { walletAPI };
+export { userAPI, authAPI, walletAPI, currencyAPI };

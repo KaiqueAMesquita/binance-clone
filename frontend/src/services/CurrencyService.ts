@@ -1,6 +1,4 @@
-import { currencyBase } from './API';
-
-const BASE_URL = currencyBase();
+import { currencyAPI } from './API';
 
 export interface History {
   id: number;
@@ -20,7 +18,7 @@ export interface Currency {
 
 const currencyService = {
   getAll: async (): Promise<Currency[]> => {
-    const response = await fetch(`${BASE_URL}/Currency`);
+    const response = await fetch(currencyAPI.getAll());
     if (!response.ok) {
       throw new Error('Falha ao buscar moedas.');
     }
@@ -28,7 +26,7 @@ const currencyService = {
   },
 
   getById: async (id: string | number): Promise<Currency> => {
-    const response = await fetch(`${BASE_URL}/Currency/${id}`);
+    const response = await fetch(currencyAPI.getById(id));
     if (!response.ok) {
       throw new Error(`Falha ao buscar moeda com id ${id}.`);
     }
@@ -43,7 +41,7 @@ const currencyService = {
         .replace(/[^A-Z]/g, '')
         .substring(0, 3);
 
-      const response = await fetch(`${BASE_URL}/Currency`, {
+      const response = await fetch(currencyAPI.create(), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -73,7 +71,7 @@ const currencyService = {
 
   update: async (id: number, currency: Currency): Promise<void> => {
     try {
-      const response = await fetch(`${BASE_URL}/Currency/${id}`, {
+      const response = await fetch(currencyAPI.edit(id), {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -100,7 +98,7 @@ const currencyService = {
 
   delete: async (id: number): Promise<void> => {
     try {
-      const response = await fetch(`${BASE_URL}/Currency/${id}`, {
+      const response = await fetch(currencyAPI.delete(id), {
         method: 'DELETE'
       });
 

@@ -1,0 +1,33 @@
+/* frontend/src/app/wallet/components/CreateWalletButton.module.css */
+.container {
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.createButton {
+  background-color: #f0b90b;
+  color: #1e2025;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  width: 200px;
+}
+
+.createButton:hover {
+  background-color: #f8d12f;
+}
+
+.createButton:disabled {
+  background-color: #848e9c;
+  cursor: not-allowed;
+}
+
+.error {
+  color: #f6465d;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}

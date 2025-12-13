@@ -27,3 +27,44 @@
   }
 }
 
+/* Add to frontend/src/app/wallet/page.module.css */
+.noWallets {
+  text-align: center;
+  padding: 2rem;
+  background: #1e2329;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.noWallets h2 {
+  color: #f0b90b;
+  margin-bottom: 0.5rem;
+}
+
+.noWallets p {
+  color: #848e9c;
+  margin-bottom: 1.5rem;
+}
+
+/* Add to frontend/src/app/wallet/page.module.css */
+.createButton {
+  display: inline-block;
+  background-color: #f0b90b;
+  color: #1e2025;
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  width: 200px;
+  margin-top: 1rem;
+}
+
+.createButton:hover {
+  background-color: #f8d12f;
+}
+

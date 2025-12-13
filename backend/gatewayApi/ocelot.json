@@ -7,7 +7,7 @@
         { "Host": "localhost", "Port": 5294 }
       ],
       "UpstreamPathTemplate": "/user",
-      "UpstreamHttpMethod": [ "POST", "GET" ],
+      "UpstreamHttpMethod": [ "POST", "GET" , "OPTIONS" ],
       "AuthenticationOptions": { "AuthenticationProviderKey": "Bearer", "AllowedScopes": [] }
     },
     {
@@ -17,7 +17,7 @@
         { "Host": "localhost", "Port": 5294 }
       ],
       "UpstreamPathTemplate": "/user/{id}",
-      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ],
+      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE", "OPTIONS" ],
       "AuthenticationOptions": { "AuthenticationProviderKey": "Bearer", "AllowedScopes": [] }
     },
     {
@@ -27,7 +27,7 @@
         { "Host": "localhost", "Port": 5294 }
       ],
       "UpstreamPathTemplate": "/auth/login",
-      "UpstreamHttpMethod": [ "POST" ]
+      "UpstreamHttpMethod": [ "POST" , "OPTIONS" ]
     },
     {
       "DownstreamPathTemplate": "/api/auth/profile",
@@ -36,7 +36,7 @@
         { "Host": "localhost", "Port": 5294 }
       ],
       "UpstreamPathTemplate": "/auth/profile",
-      "UpstreamHttpMethod": [ "GET" ],
+      "UpstreamHttpMethod": [ "GET" , "OPTIONS" ],
       "AuthenticationOptions": { "AuthenticationProviderKey": "Bearer", "AllowedScopes": [] }
     },
 
@@ -50,7 +50,7 @@
         }
       ],
       "UpstreamPathTemplate": "/currency",
-      "UpstreamHttpMethod": [ "GET", "POST" ]
+      "UpstreamHttpMethod": [ "GET", "POST" , "OPTIONS"]
     },
     {
       "DownstreamPathTemplate": "/api/Currency/{id}",
@@ -62,7 +62,7 @@
         }
       ],
       "UpstreamPathTemplate": "/currency/{id}",
-      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" , "OPTIONS"]
     },
     {
       "DownstreamPathTemplate": "/api/Currency/convert",
@@ -74,7 +74,7 @@
         }
       ],
       "UpstreamPathTemplate": "/currency/convert",
-      "UpstreamHttpMethod": [ "GET" ]
+      "UpstreamHttpMethod": [ "GET" , "OPTIONS"]
     },
     {
       "DownstreamPathTemplate": "/api/Currency/summary",
@@ -86,7 +86,7 @@
         }
       ],
       "UpstreamPathTemplate": "/currency/summary",
-      "UpstreamHttpMethod": [ "GET" ]
+      "UpstreamHttpMethod": [ "GET" , "OPTIONS"]
     },
     {
       "DownstreamPathTemplate": "/api/Currency/{id}/chart",
@@ -98,7 +98,7 @@
         }
       ],
       "UpstreamPathTemplate": "/currency/{id}/chart",
-      "UpstreamHttpMethod": [ "GET" ]
+      "UpstreamHttpMethod": [ "GET" , "OPTIONS" ]
     },
     {
       "DownstreamPathTemplate": "/api/History",
@@ -110,7 +110,7 @@
         }
       ],
       "UpstreamPathTemplate": "/history",
-      "UpstreamHttpMethod": [ "GET", "POST" ]
+      "UpstreamHttpMethod": [ "GET", "POST" , "OPTIONS" ]
     },
     {
       "DownstreamPathTemplate": "/api/History/{id}",
@@ -122,7 +122,7 @@
         }
       ],
       "UpstreamPathTemplate": "/history/{id}",
-      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" , "OPTIONS"]
     },
     {
       "DownstreamPathTemplate": "/api/wallet",
@@ -131,7 +131,7 @@
         { "Host": "localhost", "Port": 5026 }
       ],
       "UpstreamPathTemplate": "/wallet",
-      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "UpstreamHttpMethod": [ "GET", "POST", "OPTIONS"],
       "AuthenticationOptions": { "AuthenticationProviderKey": "Bearer", "AllowedScopes": [] }
     },
     {
@@ -141,7 +141,7 @@
         { "Host": "localhost", "Port": 5026 }
       ],
       "UpstreamPathTemplate": "/wallet/{id}",
-      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ],
+      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" , "OPTIONS"],
       "AuthenticationOptions": { "AuthenticationProviderKey": "Bearer", "AllowedScopes": [] }
     },
     {
@@ -151,7 +151,7 @@
         { "Host": "localhost", "Port": 5026 }
       ],
       "UpstreamPathTemplate": "/wallet/deposit",
-      "UpstreamHttpMethod": ["POST"],
+      "UpstreamHttpMethod": ["POST" , "OPTIONS"],
       "AuthenticationOptions": { "AuthenticationProviderKey": "Bearer", "AllowedScopes": [] }
     },
     {
@@ -161,7 +161,7 @@
         { "Host": "localhost", "Port": 5026 }
       ],
       "UpstreamPathTemplate": "/wallet/transfer",
-      "UpstreamHttpMethod": ["POST"],
+      "UpstreamHttpMethod": ["POST", "OPTIONS"],
       "AuthenticationOptions": { "AuthenticationProviderKey": "Bearer", "AllowedScopes": [] }
     },
     {
@@ -171,7 +171,7 @@
         { "Host": "localhost", "Port": 5026 }
       ],
       "UpstreamPathTemplate": "/wallet/user/{userId}",
-      "UpstreamHttpMethod": ["GET"],
+      "UpstreamHttpMethod": ["GET", "OPTIONS"],
       "AuthenticationOptions": { "AuthenticationProviderKey": "Bearer", "AllowedScopes": [] }
     },
     {
@@ -181,7 +181,7 @@
         { "Host": "localhost", "Port": 5026 }
       ],
       "UpstreamPathTemplate": "/wallet/{walletId}/transactions",
-      "UpstreamHttpMethod": ["GET"],
+      "UpstreamHttpMethod": ["GET" , "OPTIONS"],
       "AuthenticationOptions": { "AuthenticationProviderKey": "Bearer", "AllowedScopes": [] }
     }
   ],

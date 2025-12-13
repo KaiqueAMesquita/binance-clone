@@ -8,25 +8,17 @@ export interface ApiResponse<T> {
 
 class ApiClient {
   private async request<T>(url: string, options: RequestInit = {}): Promise<ApiResponse<T>> {
-    // Obter o token do localStorage
     const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
     
-    // Configurar cabeçalhos
     const headers = new Headers(options.headers);
     headers.set('Content-Type', 'application/json');
     
-    // Adicionar token de autenticação, se disponível
     if (token) {
       headers.set('Authorization', `Bearer ${token}`);
     }
 
-    // Verificar se a URL já é absoluta (começa com http)
-    const isAbsoluteUrl = url.startsWith('http');
-    const requestUrl = isAbsoluteUrl ? url : `${process.env.NEXT_PUBLIC_USER_API || 'http://localhost:5294/api'}${url}`;
-
     try {
-      console.log('Fazendo requisição para:', requestUrl); // Para debug
-      const response = await fetch(requestUrl, {
+      const response = await fetch(url, {
         ...options,
         headers,
       });
@@ -36,7 +28,6 @@ class ApiClient {
         throw new Error(error || 'Erro na requisição');
       }
 
-      // Se a resposta for 204 (No Content), retornar vazio
       if (response.status === 204) {
         return {};
       }
@@ -51,7 +42,6 @@ class ApiClient {
     }
   }
 
-  // Métodos HTTP
   public async get<T>(url: string): Promise<ApiResponse<T>> {
     return this.request<T>(url, { method: 'GET' });
   }
